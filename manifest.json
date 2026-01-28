@@ -1,0 +1,13 @@
+{
+  "minVersion": 2,
+  "manifestVersion": 2,
+  "appVersion": "v1.0.0",
+  "waf": true,
+  "id": "com.mesquito.firstapptutorial",
+  "name": "My First App!",
+  "author": "tutorial",
+  "description": "Tutorial App",
+  "repo": "https://example.com",
+  "icon": "icon.png",
+  "entrypoint": "index.html"
+}
