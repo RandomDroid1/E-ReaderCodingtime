@@ -1,3 +1,20 @@
+html {
+  background-color: black
+}
+
+
+#ScreenSize {
+  position: absolute;
+  width: 600px;
+  height: 800px;
+  background-color: rgb(255, 251, 201);
+  left: 600px;
+}
 button {
-  border-radius: 500px;
+  border-radius: 50px;
+  margin-left: 200px;
+}
+
+#health {
+  height: 30px;
 }
