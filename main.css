@@ -1,15 +1,30 @@
+/*  */
+/* Core Stuff */
 html {
   background-color: black
 }
-
 
 #ScreenSize {
   position: absolute;
   width: 600px;
   height: 800px;
   background-color: rgb(255, 251, 201);
-  left: 600px;
+  left: 700px;
 }
+
+/* Progress Bars */
+/* Images */
+#DevilCat {
+  width: 200px;
+}
+
+#AngelCat {
+  width: 200px;
+  position: absolute;
+  left: 300px;
+}
+
+/* Menu */
 button {
   border-radius: 50px;
   margin-left: 200px;
@@ -25,10 +40,26 @@ button {
   background-color:Green;
 }
 
-#DevilCat {
-  width: 200px;
+#CoreMenu {
+  background-color: lightgray;
+  width: 600px;
+  height: 200px;
+  padding-top: 22px;
 }
 
-#AngelCat {
-  width: 200px;
+#AttackButton {
+  position: absolute;
+  left: 75px;
+  width: 300px;
+  height: 50px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#HealButton {
+  position: absolute;
+  left: 50px;
+  bottom: 80px;
+  width: 300px;
+  height: 50px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
