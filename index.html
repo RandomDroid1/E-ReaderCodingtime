@@ -13,13 +13,16 @@
 <body>
 
   <div id="ScreenSize">
-  <h1> Kindle Battles</h1>
-
-  <button id="myButton" onclick="SimpleAttack()">Attack</button>
-
-      <div id="Healthbar">
-        <progress id="health" value="100" max="100"></progress>
-      </div>
+    <h1> Kindle Battles</h1>
+    <button id="StartButton" onclick="StartAttack()"> Start</button>
+    <div id="ButtonList">
+      <button onclick="SimpleAttack()">Attack</button>
+    </div>
+    <div>
+      <button onclick="SimpleHeal()">Heal</button>
+    </div>
+      <progress id="EnemyHealth" value="100" max="100">Enemy</progress>
+      <progress id="PlayerHealth" value="100" max="100">Player</progress>
   </div>
 </body>
 </html>

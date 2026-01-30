@@ -15,6 +15,12 @@ button {
   margin-left: 200px;
 }
 
-#health {
+#EnemyHealth {
   height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
+}
+
+#StartButton {
+  background-color:Green;
 }
