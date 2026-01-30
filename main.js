@@ -13,7 +13,7 @@ function SimpleHeal() {
     PlayerHealth.value += Math.floor(Math.random())* 10;
 }
 
-function StartAttack() {
+function StartAttack() { // Starts the enemies attack when clicked
     var StartAttack = setInterval(EnemyAttack, 1000)
     console.log("Started")
 }
@@ -25,7 +25,7 @@ function EnemyAttack() {
         console.log("UserDead");
         clearInterval(StartAttack);
     } else {
-        PlayerHealth.value -= 25;
+        PlayerHealth.value -= 50;
         console.log("attacked");
     }
     
