@@ -1,5 +1,5 @@
 var flipped = false;
-
+let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
 function SimpleAttack() { // Praise stack overflow
     let Ehealth = document.getElementById("EnemyHealth")
     Ehealth.value -= Math.floor(Math.random() * 10); // Yoinking small chunks (what the hell does this mean I dont remember writing it)
@@ -13,24 +13,39 @@ function SimpleHeal() {
     PlayerHealth.value += Math.floor(Math.random())* 10;
 }
 
+// ####### ENEMY ATTACK ####### //
 function StartAttack() { // Starts the enemies attack when clicked
-    var StartAttack = setInterval(EnemyAttack, 1000)
-    console.log("Started")
+    console.log("Started");
+    setTimeout(EnemyAttack, 4000);
+    EnemyAttackMeterTiming();
+    let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
 }
 
 function EnemyAttack() {
-    let PlayerHealth = document.getElementById("PlayerHealth")
+    let PlayerHealth = document.getElementById("PlayerHealth");
     
     if (PlayerHealth.value <= 0) {
         console.log("UserDead");
-        clearInterval(StartAttack);
     } else {
-        PlayerHealth.value -= 50;
+        PlayerHealth.value -= 25;
+        setTimeout(EnemyAttack, 1000);
+        EnemyAttackMeterTiming()
         console.log("attacked");
     }
     
 }
 
-
-
-doWork();
+function EnemyAttackMeterTiming() {
+    setTimeout(EnemyAttackMeterUpdate, 1000);
+    setTimeout(EnemyAttackMeterUpdate, 2000);
+    setTimeout(EnemyAttackMeterUpdate, 3000);
+    setTimeout(EnemyAttackMeterReset, 4000);
+}
+function EnemyAttackMeterUpdate() {
+    let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+    EnemyAttackMeter.value -= 25
+}
+function EnemyAttackMeterReset() {
+    let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+    EnemyAttackMeter.value = 100
+}
