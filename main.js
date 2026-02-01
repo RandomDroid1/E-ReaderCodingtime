@@ -3,15 +3,25 @@ let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
 document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit of code from stack overflow and now it does what I want!
     console.log('DOM fully loaded and parsed');
 });
-// ####### START ####### //
+// ####### START & consistent Checks ####### //
 function StartButton() { // Starts the enemies attack when clicked
     console.log("Started");
     setTimeout(EnemyAttack, 4000);
+    setTimeout(CheckPlayerHealth, 1000);
     EnemyAttackMeterTiming();
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
 }
 
-
+function CheckPlayerHealth() { // repeatedly checks player health to ensure that our guy hasnt died!!
+    let PlayerHealth = document.getElementById("PlayerHealth");    
+    const CheckPlayerHealthVar = setTimeout(CheckPlayerHealth, 1000);
+    console.log("PlayerALive")
+    CheckPlayerHealthVar;
+    if (PlayerHealth.value <= 0) {
+        clearTimeout(CheckPlayerHealthVar)
+        console.log("Cleared")
+    }
+}
 
 // ####### PLAYER ATTACKS ####### //
 
