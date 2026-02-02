@@ -19,11 +19,30 @@ html {
   bottom: 475px;
   left: 350px;
 }
-
 #EnemyAttackMeterDiv {
   position: absolute;
   bottom: 475px;
   left: 25px;
+}
+#EnemyHealthDiv {
+  position: absolute;
+  bottom: 185px;
+  left: 25px;
+}
+#EnemyHealth {
+  height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
+}
+#PlayerHealthDiv {
+  position: absolute;
+  bottom: 185px;
+  left: 350px;
+}
+#PlayerHealth {
+  height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
 }
 /* Images */
 #DevilCat {
@@ -44,21 +63,7 @@ button {
   border-radius: 50px;
   margin-left: 200px;
 }
-#EnemyHealthDiv {
-  position: absolute;
-  bottom: 185px;
-  left: 25px;
-}
-#EnemyHealth {
-  height: 30px;
-  background-color: rgb(0, 255, 21);
-  color:red;
-}
-#PlayerHealthDiv {
-  position: absolute;
-  bottom: 185px;
-  left: 350px;
-}
+
 #StartButton {
   background-color:Green;
 }
@@ -87,4 +92,14 @@ button {
   width: 300px;
   height: 50px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+#EnemyAttackLog {
+  position: absolute;
+  bottom: 475px;
+  left: 25px;
+}
+#PlayerAttackLog {
+  position: absolute;
+  bottom: 475px;
+  left: 350px;
 }
