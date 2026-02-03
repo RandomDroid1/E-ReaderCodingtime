@@ -43,6 +43,7 @@ function SimpleAttack() { // Praise stack overflow
     if (SimpleHealSelected == false) {
         SimpleAttackSelected = true
         document.getElementById("AttackButton").style.borderWidth = "5px";
+        document.getElementById("AttackButton").style.borderColor = "red";
     }
 }
 
@@ -50,12 +51,14 @@ function SimpleHeal() {
     if (SimpleAttackSelected == false) {
         SimpleHealSelected = true
         document.getElementById("HealButton").style.borderWidth = "5px";
+        document.getElementById("HealButton").style.borderColor = "red";
     }
 }
 
 function PlayerAttackMeterTiming() {
     let EnemyHealth = document.getElementById("EnemyHealth")
-    if (EnemyHealth.value <= 0) {
+    let PlayerHealth = document.getElementById("PlayerHealth")
+    if (EnemyHealth.value <= 0 || PlayerHealth.value <= 0) {
 
     } else { 
     setTimeout(PlayerAttackMeterUpdate, 1000);
@@ -74,13 +77,17 @@ function PlayerAttackMeterAct() {
     let PlayerHealth = document.getElementById("PlayerHealth");
     if (SimpleAttackSelected == true) {
         EnemyHealth.value -= Math.floor(Math.random() * 75);
-        SimpleAttackSelected == false
+        SimpleAttackSelected = false
         document.getElementById("AttackButton").style.borderWidth = "1px";
+        document.getElementById("AttackButton").style.borderColor = "black";
+        console.log("PlayerAttacked")
         }
     if (SimpleHealSelected == true) {
-        PlayerHealth.value += 35;
-        SimpleHealSelected == false
+        PlayerHealth.value += 25;
+        SimpleHealSelected = false
         document.getElementById("HealButton").style.borderWidth = "1px";
+        document.getElementById("HealButton").style.borderColor = "black";
+        console.log("PlayerHeal")
         }
     PlayerAttackMeter.value = 100
     PlayerAttackMeterTiming()
@@ -94,8 +101,9 @@ function EnemyAttack() {
         GameStatus.innerHTML = "Game over!"
     } else {
         EnemyAttackNumber += 1;
+        EnemyAttackDamage = Math.floor(Math.random() * 50);
         const EnemyAttackNumberText = document.getElementById("EnemyAttackLog");
-        EnemyAttackNumberText.innerHTML = "Enemy attacked with Claw! <br> 25 Damage Dealt (" + EnemyAttackNumber + ")";
+        EnemyAttackNumberText.innerHTML = "Enemy attacked with Claw! <br>" + EnemyAttackDamage + " Damage Dealt (" + EnemyAttackNumber + ")";
         PlayerHealth.value -= 25;
         setTimeout(EnemyAttack, 4000);
         EnemyAttackMeterTiming();
