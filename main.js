@@ -4,7 +4,7 @@ var SimpleAttackSelected = false;
 var SimpleHealSelected = false;
 let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
 let EnemyHealth = document.getElementById("EnemyHealth")
-let Playerhealth = document.getElementById("PlayerHealth")
+let PlayerHealth = document.getElementById("PlayerHealth")
 
 
 document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit of code from stack overflow and now it does what I want!
@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit o
 function StartButton() { // Starts the enemies attack when clicked
     console.log("Started");
     setTimeout(EnemyAttack, 4000);
-    setTimeout(CheckPlayerHealth, 500);
-    setTimeout(CheckEnemyHealth, 500);
+    setTimeout(CheckHealth, 500);
     EnemyAttackMeterTiming();
     PlayerAttackMeterTiming();
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
@@ -24,30 +23,18 @@ function StartButton() { // Starts the enemies attack when clicked
 function CheckHealth() { // Checks health of player and enemy, does needed updates and shutdowns
     let PlayerHealth = document.getElementById("PlayerHealth");  
     let EnemyHealth = document.getElementById("EnemyHealth");     
-}
-function CheckPlayerHealth() { // repeatedly checks player health to ensure that our guy hasnt died!!
-    let PlayerHealth = document.getElementById("PlayerHealth");    
-    const CheckPlayerHealthVar = setTimeout(CheckPlayerHealth, 500);
-    CheckPlayerHealthVar;
-    if (PlayerHealth.value <= 0) {
-        clearTimeout(CheckPlayerHealthVar)
-        console.log("Cleared, player dead")
-    } else {
-        console.log ("PlayerAlive")
+    const HealthCheckTimer = setTimeout(CheckHealth, 500);
+    if (PlayerHealth.value > 0 && EnemyHealth.value > 0) {
+        console.log("Both Alive")
+    } else if (PlayerHealth.value <= 0) {
+        console.log("PlayerDead")
+        clearTimeout(HealthCheckTimer)
+    } else if (EnemyHealth.value <= 0) {
+        console.log("EnemyDead")
+        clearTimeout(HealthCheckTimer)
     }
 }
 
-function CheckEnemyHealth() { // repeatedly checks player health to ensure that our guy hasnt died!!
-    let EnemyHealth = document.getElementById("EnemyHealth");    
-    const CheckEnemyHealthVar = setTimeout(CheckEnemyHealth, 500);
-    CheckEnemyHealthVar;
-    if (EnemyHealth.value <= 0) {
-        clearTimeout(CheckEnemyHealthVar)
-        console.log("Cleared, Enemy dead")
-    } else {
-        console.log ("EnemyAlive")
-    }
-}
 
 
 // ####### PLAYER ATTACKS ####### // 
@@ -83,11 +70,17 @@ function PlayerAttackMeterUpdate() {
 }
 function PlayerAttackMeterAct() {
     let PlayerAttackMeter = document.getElementById("PlayerAttackMeter");
+    let EnemyHealth = document.getElementById("EnemyHealth");
+    let PlayerHealth = document.getElementById("PlayerHealth");
     if (SimpleAttackSelected == true) {
-        Enemyhealth.value -= Math.floor(Math.random() * 25);
+        EnemyHealth.value -= Math.floor(Math.random() * 75);
+        SimpleAttackSelected == false
+        document.getElementById("AttackButton").style.borderWidth = "1px";
         }
     if (SimpleHealSelected == true) {
-        Playerhealth.value += Math.floor(Math.random() * 25);
+        PlayerHealth.value += 35;
+        SimpleHealSelected == false
+        document.getElementById("HealButton").style.borderWidth = "1px";
         }
     PlayerAttackMeter.value = 100
     PlayerAttackMeterTiming()
