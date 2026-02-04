@@ -14,24 +14,34 @@ document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit o
 function StartButton() { // Starts the enemies attack when clicked
     console.log("Started");
     setTimeout(EnemyAttack, 4000);
-    setTimeout(CheckHealth, 500);
+    setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     EnemyAttackMeterTiming();
     PlayerAttackMeterTiming();
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
 }
-
+function GameOver(){
+    const GameStatus = document.getElementById("GameOver");
+    GameStatus.innerHTML = "Game over!";
+    document.getElementById("AttackButton").setAttribute('disabled','disabled');
+    document.getElementById("HealButton").setAttribute('disabled','disabled');
+    var GameIsOver = true
+}
 function CheckHealth() { // Checks health of player and enemy, does needed updates and shutdowns
     let PlayerHealth = document.getElementById("PlayerHealth");  
     let EnemyHealth = document.getElementById("EnemyHealth");     
-    const HealthCheckTimer = setTimeout(CheckHealth, 500);
+    const HealthCheckTimer = setTimeout(CheckHealth, 10);
     if (PlayerHealth.value > 0 && EnemyHealth.value > 0) {
         console.log("Both Alive")
     } else if (PlayerHealth.value <= 0) {
         console.log("PlayerDead")
         clearTimeout(HealthCheckTimer)
+        PlayerHealth = 0
+        GameOver()
     } else if (EnemyHealth.value <= 0) {
         console.log("EnemyDead")
         clearTimeout(HealthCheckTimer)
+        EnemyHealth = 0
+        GameOver()
     }
 }
 
@@ -76,13 +86,18 @@ function PlayerAttackMeterAct() {
     let EnemyHealth = document.getElementById("EnemyHealth");
     let PlayerHealth = document.getElementById("PlayerHealth");
     if (SimpleAttackSelected == true) {
-        EnemyHealth.value -= Math.floor(Math.random() * 75);
-        SimpleAttackSelected = false
+        PlayerAttackNumber =+ 1;
+        var PlayerAttackDamage = Math.floor(Math.random() * (75-10+1));
+        SimpleAttackSelected = false;
+        const PlayerAttackNumberText = document.getElementById("PlayerAttackLog");
+        PlayerAttackNumberText.innerHTML = "Player attacked! <br>" + PlayerAttackDamage + " Damage Dealt (" + PlayerAttackNumber + ")";
+        EnemyHealth.value -= EnemyAttackDamage;
         document.getElementById("AttackButton").style.borderWidth = "1px";
         document.getElementById("AttackButton").style.borderColor = "black";
-        console.log("PlayerAttacked")
+        console.log("PlayerAttacked");
+        
         }
-    if (SimpleHealSelected == true) {
+    if (SimpleHealSelected == true && PlayerHealth.value > 0) {
         PlayerHealth.value += 25;
         SimpleHealSelected = false
         document.getElementById("HealButton").style.borderWidth = "1px";
@@ -97,14 +112,13 @@ function EnemyAttack() {
     let PlayerHealth = document.getElementById("PlayerHealth"); // I tried to change this to write it out better and it broke so we are not changing it anymore
     
     if (PlayerHealth.value <= 0) {
-        const GameStatus = document.getElementById("GameOver");
-        GameStatus.innerHTML = "Game over!"
+        
     } else {
         EnemyAttackNumber += 1;
-        EnemyAttackDamage = Math.floor(Math.random() * 50);
+        EnemyAttackDamage = Math.floor(Math.random() * (75-10+1));
         const EnemyAttackNumberText = document.getElementById("EnemyAttackLog");
         EnemyAttackNumberText.innerHTML = "Enemy attacked with Claw! <br>" + EnemyAttackDamage + " Damage Dealt (" + EnemyAttackNumber + ")";
-        PlayerHealth.value -= 25;
+        PlayerHealth.value -= EnemyAttackDamage;
         setTimeout(EnemyAttack, 4000);
         EnemyAttackMeterTiming();
         console.log("attacked");
