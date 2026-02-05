@@ -10,7 +10,7 @@ html {
   width: 600px;
   height: 800px;
   background-color: rgb(255, 251, 201);
-  left: 700px;
+
 }
 
 /* Progress Bars */
@@ -59,13 +59,38 @@ html {
 }
 
 /* Menu */
+h1 {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 175px;
+}
 button {
   border-radius: 50px;
   margin-left: 200px;
 }
 
+#GameOver {
+  position: absolute;
+  top: 75px;
+  left: 120px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: xx-large;
+  font-weight: bolder;
+}
 #StartButton {
-  background-color:Green;
+  position: absolute;
+  background-color:rgb(255, 255, 255);
+  top: 65px;
+  left: 60px;
+  font-size: larger;
+}
+
+#TutorialButton {
+  position: absolute;
+  background-color: rgb(177, 177, 177);
+  top: 25px;
+  left: 250px;
+  font-size: larger;
 }
 
 #CoreMenu {
@@ -102,4 +127,16 @@ button {
   position: absolute;
   bottom: 475px;
   left: 350px;
+}
+
+.TutorialText {
+  margin-top: 60px;
+}
+
+#BackButton {
+  position: absolute;
+  background-color: rgb(177, 177, 177);
+  top: 25px;
+  left: 250px;
+  font-size: larger;
 }

@@ -19,9 +19,19 @@ function StartButton() { // Starts the enemies attack when clicked
     PlayerAttackMeterTiming();
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
 }
-function GameOver(){
+function GameOver() {
+    let EnemyHealth = document.getElementById("EnemyHealth")
+    let PlayerHealth = document.getElementById("PlayerHealth")
     const GameStatus = document.getElementById("GameOver");
-    GameStatus.innerHTML = "Game over!";
+    if (EnemyHealth.value <= 0) {
+        GameStatus.innerHTML = "Game over! You Won";
+    }
+    if (PlayerHealth.value <= 0) {
+        GameStatus.innerHTML = "Game over! You Lost ):<";
+    }
+    if (EnemyHealth.value <= 0 && PlayerHealth.value <= 0) {
+        GameStatus.innerHTML = "Game over! You ALL LOSE";
+    }
     document.getElementById("AttackButton").setAttribute('disabled','disabled');
     document.getElementById("HealButton").setAttribute('disabled','disabled');
     var GameIsOver = true
@@ -91,14 +101,19 @@ function PlayerAttackMeterAct() {
         SimpleAttackSelected = false;
         const PlayerAttackNumberText = document.getElementById("PlayerAttackLog");
         PlayerAttackNumberText.innerHTML = "Player attacked! <br>" + PlayerAttackDamage + " Damage Dealt (" + PlayerAttackNumber + ")";
-        EnemyHealth.value -= EnemyAttackDamage;
+        EnemyHealth.value -= PlayerAttackDamage;
         document.getElementById("AttackButton").style.borderWidth = "1px";
         document.getElementById("AttackButton").style.borderColor = "black";
         console.log("PlayerAttacked");
         
         }
     if (SimpleHealSelected == true && PlayerHealth.value > 0) {
-        PlayerHealth.value += 25;
+        PlayerHealNumber =+ 1;
+        var PlayerHealAmount = Math.floor(Math.random() * (50-10+1));
+        SimpleAttackSelected = false;
+        const PlayerHealNumberText = document.getElementById("PlayerAttackLog");
+        PlayerHealNumberText.innerHTML = "Player Healed! <br>" + PlayerHealAmount + " Health Healed (" + PlayerHealNumber + ")";
+        PlayerHealth.value += PlayerHealAmount;
         SimpleHealSelected = false
         document.getElementById("HealButton").style.borderWidth = "1px";
         document.getElementById("HealButton").style.borderColor = "black";
@@ -110,8 +125,8 @@ function PlayerAttackMeterAct() {
 // ####### ENEMY ATTACK ####### //
 function EnemyAttack() {
     let PlayerHealth = document.getElementById("PlayerHealth"); // I tried to change this to write it out better and it broke so we are not changing it anymore
-    
-    if (PlayerHealth.value <= 0) {
+    let EnemyHealth = document.getElementById("EnemyHealth")
+    if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
         
     } else {
         EnemyAttackNumber += 1;
@@ -126,8 +141,9 @@ function EnemyAttack() {
     
 }
 function EnemyAttackMeterTiming() {
+    let EnemyHealth = document.getElementById("EnemyHealth")
     let PlayerHealth = document.getElementById("PlayerHealth")
-    if (PlayerHealth.value <= 0) {
+    if (EnemyHealth.value <= 0 || PlayerHealth.value <= 0) {
 
     } else { // I cannot possibly be doing this right, will this introduce like 1ms of delay over time that will haunt me later? probably?? Not my problem. Just like the fnaf world migration glitch
     setTimeout(EnemyAttackMeterUpdate, 1000);
@@ -136,8 +152,14 @@ function EnemyAttackMeterTiming() {
     setTimeout(EnemyAttackMeterReset, 4000);}
 }
 function EnemyAttackMeterUpdate() {
+    let EnemyHealth = document.getElementById("EnemyHealth")
+    let PlayerHealth = document.getElementById("PlayerHealth")
+    if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
+       
+    } else {
     let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
-    EnemyAttackMeter.value -= 25
+    EnemyAttackMeter.value -= 25 
+    }
 }
 function EnemyAttackMeterReset() {
     let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
