@@ -10,3 +10,9 @@ html {
   background-color: rgb(255, 251, 201);
 
 }
+
+h1 {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 175px;
+}
