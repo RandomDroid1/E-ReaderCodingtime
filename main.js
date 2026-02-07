@@ -1,5 +1,7 @@
 var PlayerAttackNumber = 0;
-var EnemyAttackNumber = 0;
+var EnemyClawNumber = 0;
+var EnemyStrikeNumber = 0;
+var EnemyHealNumber = 0;
 var SimpleAttackSelected = false;
 var SimpleHealSelected = false;
 var GameIsOver = false;
@@ -8,10 +10,11 @@ function VariableUpdater() {
         var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
         var EnemyHealth = document.getElementById("EnemyHealth")
         var PlayerHealth = document.getElementById("PlayerHealth")
-        var GameStatus = document.getElementById("GameOver");
+        var GameOver = document.getElementById("GameOver");
         var PlayerAttackMeter = document.getElementById("PlayerAttackMeter");
-        EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
-}
+        var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+ 
+ }
 
     
 
@@ -22,7 +25,6 @@ document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit o
 // ####### START & consistent Checks ####### //
 function StartButton() { // Starts the enemies attack when clicked
     console.log("Started");
-    setTimeout(EnemyAttack, 4000);
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     EnemyAttackMeterTiming();
     PlayerAttackMeterTiming();
@@ -32,17 +34,18 @@ function StartButton() { // Starts the enemies attack when clicked
 function GameOver() {
     VariableUpdater()
     if (EnemyHealth.value <= 0) {
-        GameStatus.innerHTML = "Game over! You Won";
-    };
-    if (PlayerHealth.value <= 0) {
-        GameStatus.innerHTML = "Game over! You Lost ):<";
-    };
-    if (EnemyHealth.value <= 0 && PlayerHealth.value <= 0) {
-        GameStatus.innerHTML = "Game over! You ALL LOSE";
+        GameOver.innerHTML = "Game over! You Won";
+    } else if (PlayerHealth.value <= 0) {
+        GameOver.innerHTML = "Game over! You Lost ):<";
+        console.log("GameLostRan")
+    } else if (EnemyHealth.value <= 0 && PlayerHealth.value <= 0) {
+        GameOver.innerHTML = "Game over! You ALL LOSE";
     };
     document.getElementById("AttackButton").setAttribute('disabled','disabled');
     document.getElementById("HealButton").setAttribute('disabled','disabled');
     var GameIsOver = true
+    console.log("GameOver func ran")
+
 }
 function CheckHealth() { // Checks health of player and enemy, does needed updates and shutdowns
     if (PlayerHealth.value > 0 && EnemyHealth.value  > 0) {
@@ -50,11 +53,9 @@ function CheckHealth() { // Checks health of player and enemy, does needed updat
         setTimeout(CheckHealth,100)
     } else if (PlayerHealth.value <= 0) {
         console.log("PlayerDead")
-        PlayerHealth = 0
         GameOver()
     } else if (EnemyHealth.value <= 0) {
         console.log("EnemyDead")
-        EnemyHealth = 0
         GameOver()
     }
 }
@@ -123,21 +124,52 @@ function PlayerAttackMeterAct() {
     PlayerAttackMeter.value = 100
     PlayerAttackMeterTiming()
 }
-// ####### ENEMY ATTACK ####### //
-function EnemyAttack() {
+// ####### ENEMY "AI" HANDLER ####### //
+    function EnemyAttackSelector() {
+        
+    }
+// ####### ENEMY ATTACKS ####### //
+
+function EnemyClaw() {
     VariableUpdater()
     if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
-        
+        console.log("EnemyClawStopped")
     } else {
-        EnemyAttackNumber += 1;
+        EnemyClawNumber += 1;
         EnemyAttackDamage = Math.floor(Math.random() * (75-10+1));
         const EnemyAttackNumberText = document.getElementById("EnemyAttackLog");
-        EnemyAttackNumberText.innerHTML = "Enemy attacked with Claw! <br>" + EnemyAttackDamage + " Damage Dealt (" + EnemyAttackNumber + ")";
+        EnemyAttackNumberText.innerHTML = "Enemy attacked with Claw! <br>" + EnemyAttackDamage + " Damage Dealt (" + EnemyClawNumber + ")";
         PlayerHealth.value -= EnemyAttackDamage;
         EnemyAttackMeterTiming();
-        console.log("attacked");
     }
-    
+}
+
+function EnemyStrike() {
+    VariableUpdater()
+    if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
+        console.log("EnemyStrikeStopped")
+    } else {
+        EnemyStrikeNumber += 1;
+        EnemyAttackDamage = Math.floor(Math.random() * 50);
+        const EnemyAttackNumberText = document.getElementById("EnemyAttackLog");
+        EnemyAttackNumberText.innerHTML = "Enemy attacked with Strike! <br>" + EnemyAttackDamage + " Damage Dealt (" + EnemyStrikeNumber + ")";
+        PlayerHealth.value -= EnemyAttackDamage;
+        EnemyAttackMeterTiming();
+    }
+}
+
+function EnemyHeal() {
+    VariableUpdater()
+    if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
+        console.log("EnemyHealStopped")
+    } else {
+        EnemyHealNumber += 1;
+        EnemyHealAmount = Math.floor(Math.random() * 35);
+        const EnemyAttackNumberText = document.getElementById("EnemyAttackLog");
+        EnemyAttackNumberText.innerHTML = "Enemy healed! <br>" + EnemyHealAmount + " Damage Dealt (" + EnemyStrikeNumber + ")";
+        EnemyHealth.value += EnemyHealAmount;
+        EnemyAttackMeterTiming();
+    }
 }
 function EnemyAttackMeterTiming() {
     VariableUpdater()
@@ -147,25 +179,28 @@ function EnemyAttackMeterTiming() {
     setTimeout(EnemyAttackMeterUpdate, 1000);
     setTimeout(EnemyAttackMeterUpdate, 2000);
     setTimeout(EnemyAttackMeterUpdate, 3000);
-    setTimeout(EnemyAttackMeterReset, 4000);}
+    setTimeout(EnemyAttackMeterReset, 4000);
+    console.log(EnemyHealth.value);
+    console.log(PlayerHealth.value);
+}
 }
 function EnemyAttackMeterUpdate() {
     VariableUpdater()
     if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
-       
+       console.log(EnemyHealth.value);
+       console.log(PlayerHealth.value);
     } else {
-    
-    EnemyAttackMeter.value -= 25 
+    EnemyAttackMeter.value -= 25
     }
 }
 function EnemyAttackMeterReset() {
      if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
-       
+       console.log(EnemyHealth.value);
+       console.log(PlayerHealth.value);
     } else {
     VariableUpdater()
-    console.log("EnemyAttacked")
     EnemyAttackMeter.value = 100
-    EnemyAttack()
+    EnemyHeal()
     }
     
 }

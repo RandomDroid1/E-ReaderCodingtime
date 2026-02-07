@@ -1,0 +1,12 @@
+html {
+  background-color: black;
+  
+}
+
+#ScreenSize {
+  position: absolute;
+  width: 600px;
+  height: 800px;
+  background-color: rgb(255, 251, 201);
+
+}
