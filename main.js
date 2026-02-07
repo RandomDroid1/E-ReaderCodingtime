@@ -2,9 +2,18 @@ var PlayerAttackNumber = 0;
 var EnemyAttackNumber = 0;
 var SimpleAttackSelected = false;
 var SimpleHealSelected = false;
-let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
-let EnemyHealth = document.getElementById("EnemyHealth")
-let PlayerHealth = document.getElementById("PlayerHealth")
+var GameIsOver = false;
+
+function VariableUpdater() {
+        var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+        var EnemyHealth = document.getElementById("EnemyHealth")
+        var PlayerHealth = document.getElementById("PlayerHealth")
+        var GameStatus = document.getElementById("GameOver");
+        var PlayerAttackMeter = document.getElementById("PlayerAttackMeter");
+        EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+}
+
+    
 
 
 document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit of code from stack overflow and now it does what I want!
@@ -19,37 +28,32 @@ function StartButton() { // Starts the enemies attack when clicked
     PlayerAttackMeterTiming();
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
 }
+
 function GameOver() {
-    let EnemyHealth = document.getElementById("EnemyHealth")
-    let PlayerHealth = document.getElementById("PlayerHealth")
-    const GameStatus = document.getElementById("GameOver");
+    VariableUpdater()
     if (EnemyHealth.value <= 0) {
         GameStatus.innerHTML = "Game over! You Won";
-    }
+    };
     if (PlayerHealth.value <= 0) {
         GameStatus.innerHTML = "Game over! You Lost ):<";
-    }
+    };
     if (EnemyHealth.value <= 0 && PlayerHealth.value <= 0) {
         GameStatus.innerHTML = "Game over! You ALL LOSE";
-    }
+    };
     document.getElementById("AttackButton").setAttribute('disabled','disabled');
     document.getElementById("HealButton").setAttribute('disabled','disabled');
     var GameIsOver = true
 }
 function CheckHealth() { // Checks health of player and enemy, does needed updates and shutdowns
-    let PlayerHealth = document.getElementById("PlayerHealth");  
-    let EnemyHealth = document.getElementById("EnemyHealth");     
-    const HealthCheckTimer = setTimeout(CheckHealth, 10);
-    if (PlayerHealth.value > 0 && EnemyHealth.value > 0) {
+    if (PlayerHealth.value > 0 && EnemyHealth.value  > 0) {
         console.log("Both Alive")
+        setTimeout(CheckHealth,100)
     } else if (PlayerHealth.value <= 0) {
         console.log("PlayerDead")
-        clearTimeout(HealthCheckTimer)
         PlayerHealth = 0
         GameOver()
     } else if (EnemyHealth.value <= 0) {
         console.log("EnemyDead")
-        clearTimeout(HealthCheckTimer)
         EnemyHealth = 0
         GameOver()
     }
@@ -76,8 +80,7 @@ function SimpleHeal() {
 }
 
 function PlayerAttackMeterTiming() {
-    let EnemyHealth = document.getElementById("EnemyHealth")
-    let PlayerHealth = document.getElementById("PlayerHealth")
+    VariableUpdater()
     if (EnemyHealth.value <= 0 || PlayerHealth.value <= 0) {
 
     } else { 
@@ -88,13 +91,11 @@ function PlayerAttackMeterTiming() {
 }
 
 function PlayerAttackMeterUpdate() {
-    let PlayerAttackMeter = document.getElementById("PlayerAttackMeter");
+    VariableUpdater()
     PlayerAttackMeter.value -= 25
 }
 function PlayerAttackMeterAct() {
-    let PlayerAttackMeter = document.getElementById("PlayerAttackMeter");
-    let EnemyHealth = document.getElementById("EnemyHealth");
-    let PlayerHealth = document.getElementById("PlayerHealth");
+    VariableUpdater()
     if (SimpleAttackSelected == true) {
         PlayerAttackNumber =+ 1;
         var PlayerAttackDamage = Math.floor(Math.random() * (75-10+1));
@@ -124,8 +125,7 @@ function PlayerAttackMeterAct() {
 }
 // ####### ENEMY ATTACK ####### //
 function EnemyAttack() {
-    let PlayerHealth = document.getElementById("PlayerHealth"); // I tried to change this to write it out better and it broke so we are not changing it anymore
-    let EnemyHealth = document.getElementById("EnemyHealth")
+    VariableUpdater()
     if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
         
     } else {
@@ -134,15 +134,13 @@ function EnemyAttack() {
         const EnemyAttackNumberText = document.getElementById("EnemyAttackLog");
         EnemyAttackNumberText.innerHTML = "Enemy attacked with Claw! <br>" + EnemyAttackDamage + " Damage Dealt (" + EnemyAttackNumber + ")";
         PlayerHealth.value -= EnemyAttackDamage;
-        setTimeout(EnemyAttack, 4000);
         EnemyAttackMeterTiming();
         console.log("attacked");
     }
     
 }
 function EnemyAttackMeterTiming() {
-    let EnemyHealth = document.getElementById("EnemyHealth")
-    let PlayerHealth = document.getElementById("PlayerHealth")
+    VariableUpdater()
     if (EnemyHealth.value <= 0 || PlayerHealth.value <= 0) {
 
     } else { // I cannot possibly be doing this right, will this introduce like 1ms of delay over time that will haunt me later? probably?? Not my problem. Just like the fnaf world migration glitch
@@ -152,16 +150,22 @@ function EnemyAttackMeterTiming() {
     setTimeout(EnemyAttackMeterReset, 4000);}
 }
 function EnemyAttackMeterUpdate() {
-    let EnemyHealth = document.getElementById("EnemyHealth")
-    let PlayerHealth = document.getElementById("PlayerHealth")
+    VariableUpdater()
     if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
        
     } else {
-    let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+    
     EnemyAttackMeter.value -= 25 
     }
 }
 function EnemyAttackMeterReset() {
-    let EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+     if (PlayerHealth.value <= 0 || EnemyHealth.value <= 0) {
+       
+    } else {
+    VariableUpdater()
+    console.log("EnemyAttacked")
     EnemyAttackMeter.value = 100
+    EnemyAttack()
+    }
+    
 }
