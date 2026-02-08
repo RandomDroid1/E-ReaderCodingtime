@@ -16,3 +16,28 @@ h1 {
   font-family:Georgia, 'Times New Roman', Times, serif;
   left: 175px;
 }
+
+/* HEADSHOTS */
+
+.Headshot {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+#AngelCatHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 100px;
+}
+
+#BlobHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 200px;
+}
+.Button {
+    width: 0px;
+    height: 0px;
+}
+

@@ -15,8 +15,21 @@ function VariableUpdater() {
         var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
  
  }
-
-    
+// ####### SelectionMenu ####### //
+function UnselectAll() {
+    document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotUnselected.png";
+}
+function HeadshotReset() {
+    document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotUnselected.png";
+}
+function AngelCatHeadshot() {
+    document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotSelected.png";
+    console.log("Test")
+}    
+function BlobHeadshot() {
+    document.getElementById("BlobHeadshotImage").src = "BlobHeadshotSelected.png";
+    console.log("Test")
+}    
 
 
 document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit of code from stack overflow and now it does what I want!
@@ -128,6 +141,8 @@ function PlayerAttackMeterAct() {
     function EnemyAttackSelector() {
         
     }
+
+
 // ####### ENEMY ATTACKS ####### //
 
 function EnemyClaw() {
