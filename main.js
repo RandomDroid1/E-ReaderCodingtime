@@ -15,20 +15,91 @@ function VariableUpdater() {
         var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
  
  }
-// ####### SelectionMenu ####### //
+// ####### SelectionMenu ####### // I do not love this system but I do not know the alternative
 function UnselectAll() {
     document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotUnselected.png";
+    document.getElementById("BlobHeadshotImage").src = "BlobHeadshotUnselected.png";
+    document.getElementById("ClockHeadshotImage").src = "ClockHeadshotUnselected.png";
+    document.getElementById("SlugcatHeadshotImage").src = "SlugcatHeadshotUnselected.png";
+    document.getElementById("SquareHeadshotImage").src = "SquareHeadshotUnselected.png";
+    document.getElementById("BoatHeadshotImage").src = "BoatHeadshotUnselected.png";
+    document.getElementById("FlibbitHeadshotImage").src = "FlibbitHeadshotUnselected.png";
+    document.getElementById("DevilCatHeadshotImage").src = "DevilCatHeadshotUnselected.png";
+    document.getElementById("CarHeadshotImage").src = "CarHeadshotUnselected.png";
+    document.getElementById("OrigamiHeadshotImage").src = "OrigamiHeadshotUnselected.png";
+    document.getElementById("DNAHeadshotImage").src = "DNAHeadshotUnselected.png";
+    document.getElementById("HandManHeadshotImage").src = "HandManHeadshotUnselected.png";
 }
-function HeadshotReset() {
-    document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotUnselected.png";
-}
+
 function AngelCatHeadshot() {
+    UnselectAll()
     document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotSelected.png";
-    console.log("Test")
+
 }    
 function BlobHeadshot() {
+    UnselectAll()
     document.getElementById("BlobHeadshotImage").src = "BlobHeadshotSelected.png";
-    console.log("Test")
+
+}    
+
+function ClockHeadshot() {
+    UnselectAll()
+    document.getElementById("ClockHeadshotImage").src = "ClockHeadshotSelected.png";
+
+}    
+
+function SlugcatHeadshot() {
+    UnselectAll()
+    document.getElementById("SlugcatHeadshotImage").src = "SlugcatHeadshotSelected.png";
+
+}    
+
+function SquareHeadshot() {
+    UnselectAll()
+    document.getElementById("SquareHeadshotImage").src = "SquareHeadshotSelected.png";
+
+}    
+
+function BoatHeadshot() {
+    UnselectAll()
+    document.getElementById("BoatHeadshotImage").src = "BoatHeadshotSelected.png";
+
+}    
+
+function FlibbitHeadshot() {
+    UnselectAll()
+    document.getElementById("FlibbitHeadshotImage").src = "FlibbitHeadshotSelected.png";
+
+}    
+
+function DevilCatHeadshot() {
+    UnselectAll()
+    document.getElementById("DevilCatHeadshotImage").src = "DevilCatHeadshotSelected.png";
+
+}    
+
+function CarHeadshot() {
+    UnselectAll()
+    document.getElementById("CarHeadshotImage").src = "CarHeadshotSelected.png";
+
+}    
+
+function OrigamiHeadshot() {
+    UnselectAll()
+    document.getElementById("OrigamiHeadshotImage").src = "OrigamiHeadshotSelected.png";
+
+}    
+
+function DNAHeadshot() {
+    UnselectAll()
+    document.getElementById("DNAHeadshotImage").src = "DNAHeadshotSelected.png";
+
+}    
+
+function HandManHeadshot() {
+    UnselectAll()
+    document.getElementById("HandManHeadshotImage").src = "HandManHeadshotSelected.png";
+
 }    
 
 

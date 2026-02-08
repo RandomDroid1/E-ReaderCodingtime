@@ -21,8 +21,8 @@ h1 {
 
 .Headshot {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
 }
 
 #AngelCatHeadshotImage {
@@ -33,9 +33,71 @@ h1 {
 
 #BlobHeadshotImage {
     position: absolute;
-    left: 20px;
-    top: 200px;
+    right: 20px;
+    top: 350px;
 }
+
+#BoatHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 350px;
+}
+
+#ClockHeadshotImage {
+    position: absolute;
+    left: 145px;
+    top: 100px;
+}
+
+#DevilCatHeadshotImage {
+    position: absolute;
+    right: 145px;
+    top: 100px;
+}
+
+#CarHeadshotImage {
+    position: absolute;
+    right: 20px;
+    top: 100px
+}
+
+#OrigamiHeadshotImage {
+    position: absolute;
+    right: 145px;
+    top: 225px;
+}
+
+#DNAHeadshotImage {
+    position: absolute;
+    right: 20px;
+    top: 225px
+}
+
+#HandManHeadshotImage {
+    position: absolute;
+    right: 145px;
+    top: 350px;
+}
+
+#SlugcatHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 225px;
+    
+}
+
+#FlibbitHeadshotImage {
+    position: absolute;
+    left: 145px;
+    top: 350px;
+}
+
+#SquareHeadshotImage {
+    position: absolute;
+    left: 145px;
+    top: 225px;
+}
+
 .Button {
     width: 0px;
     height: 0px;
