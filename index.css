@@ -36,9 +36,79 @@ h1 {
 #AttackOne {
     position: absolute;
     width: 150px;
-    height: 50px;
+    height: 40px;
     left: 20px;
     top: 90px;
+}
+
+#AttackTwo {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    left: 20px;
+    top: 140px;
+}
+
+#AttackThree {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    left: 20px;
+    top: 190px;
+}
+
+#AttackOneText {
+    position: absolute;
+    left: 180px;
+    top: 75px;
+}
+
+#AttackTwoText {
+    position: absolute;
+    left: 180px;
+    top: 125px;
+}
+
+#AttackThreeText {
+    position: absolute;
+    left: 180px;
+    top: 175px;
+}
+#SelectionConfirm {
+    position: absolute;
+    left: 20px;
+    top: 240px;
+    Width: 200px;
+    height: 50px;
+}
+
+#PlayerSelectionPortraitOne {
+    position: absolute;
+    right: 120px;
+    bottom: 120px;
+    width: 100px;
+}
+
+#PlayerSelectionPortraitTwo {
+    position: absolute;
+    right: 20px;
+    bottom: 120px;
+    width: 100px;
+}
+
+#EnemySelectionPortraitOne {
+    position: absolute;
+    right: 120px;
+    bottom: 20px;
+    width: 100px;
+}
+
+
+#EnemySelectionPortraitTwo {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 100px;
 }
 /* HEADSHOTS */
 
