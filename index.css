@@ -103,3 +103,11 @@ h1 {
     height: 0px;
 }
 
+#SelectionMenu {
+    position: absolute;
+    background-color: rgb(172, 172, 172);
+    left: 0px;
+    bottom: 0px;
+    width: 600px;
+    height: 300px;
+}
