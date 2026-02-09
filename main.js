@@ -34,72 +34,83 @@ function UnselectAll() {
 function AngelCatHeadshot() {
     UnselectAll()
     document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "AngelCat"
+    document.getElementById("Tagline").innerText = "I will be your angle (90 degrees)"
 }    
 function BlobHeadshot() {
     UnselectAll()
     document.getElementById("BlobHeadshotImage").src = "BlobHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Amorphous Blob"
+    document.getElementById("Tagline").innerText = "Gleep Glorp Zeep Zip"
 }    
 
 function ClockHeadshot() {
     UnselectAll()
     document.getElementById("ClockHeadshotImage").src = "ClockHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Tovar"
+    document.getElementById("Tagline").innerText = "Is it really the right time for this?"
 }    
 
 function SlugcatHeadshot() {
     UnselectAll()
     document.getElementById("SlugcatHeadshotImage").src = "SlugcatHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "The Watcher"
+    document.getElementById("Tagline").innerText = "Blatant copyright infrigement"
 }    
 
 function SquareHeadshot() {
     UnselectAll()
     document.getElementById("SquareHeadshotImage").src = "SquareHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Waffle"
+    document.getElementById("Tagline").innerText = "They said be there or be square, he wasn't there"
 }    
-
 function BoatHeadshot() {
     UnselectAll()
     document.getElementById("BoatHeadshotImage").src = "BoatHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Boat"
+    document.getElementById("Tagline").innerText = "Boat"
 }    
 
 function FlibbitHeadshot() {
     UnselectAll()
     document.getElementById("FlibbitHeadshotImage").src = "FlibbitHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Flibbit"
+    document.getElementById("Tagline").innerText = "Get a load of this guy"
 }    
 
 function DevilCatHeadshot() {
     UnselectAll()
     document.getElementById("DevilCatHeadshotImage").src = "DevilCatHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "DevilCat"
+    document.getElementById("Tagline").innerText = "The devil to your angle (180 degrees)"
 }    
 
 function CarHeadshot() {
     UnselectAll()
     document.getElementById("CarHeadshotImage").src = "CarHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Dashboard"
+    document.getElementById("Tagline").innerText = "Don't get ran over!"
 }    
 
 function OrigamiHeadshot() {
     UnselectAll()
     document.getElementById("OrigamiHeadshotImage").src = "OrigamiHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Crane"
+    document.getElementById("Tagline").innerText = "Still can't fold one IRL"
 }    
 
 function DNAHeadshot() {
     UnselectAll()
     document.getElementById("DNAHeadshotImage").src = "DNAHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Helix" 
+    document.getElementById("Tagline").innerText = "Hopefully prion free"
 }    
 
 function HandManHeadshot() {
     UnselectAll()
     document.getElementById("HandManHeadshotImage").src = "HandManHeadshotSelected.png";
-
+    document.getElementById("CharacterName").innerText = "Evil"
+    document.getElementById("Tagline").innerText = "I don't even know man"
 }    
 
 

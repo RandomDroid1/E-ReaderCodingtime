@@ -17,6 +17,29 @@ h1 {
   left: 175px;
 }
 
+#CharacterName {
+    position: absolute;
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    left: 10px;
+    top: -10px;
+}
+
+#Tagline {
+    position: absolute;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    left: 10px;
+    top: 35px;
+}
+
+#AttackOne {
+    position: absolute;
+    width: 150px;
+    height: 50px;
+    left: 20px;
+    top: 90px;
+}
 /* HEADSHOTS */
 
 .Headshot {
