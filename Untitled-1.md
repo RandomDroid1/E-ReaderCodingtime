@@ -19,3 +19,7 @@ Strike (consistent middling damage)
 Speed up (Speeds up enemy attacks)
 Slow down (Slows down player attacks)
 Prion (Sustained damage)
+
+
+
+Add it so you can expend a turn to upgrade a move? Or you can pass to gain coins to spend on upgrading moves? Get it working but that next
