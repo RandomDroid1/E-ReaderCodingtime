@@ -146,6 +146,15 @@ h1 {
     font-weight: bolder;
     font-size: larger;
 }
+
+#StartButton {
+    position: absolute;
+    width: 125px;
+    height: 30px;
+    bottom: 10px;
+    left: 240px;
+    background-color: white;
+}
 /* HEADSHOTS */
 
 .Headshot {

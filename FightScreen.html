@@ -17,37 +17,28 @@
   <button id="StartButton" onclick="StartButton()">Start</button>
   <a href="tutorial.html"><button id="TutorialButton">Tutorial</button></a>
 
-  <div id="EnemyHealthDiv">
-    <progress id="EnemyHealth" value="100" max="100">Enemy</progress>
+  <div id="EnemyOneHealthDiv">
+    <progress id="EnemyOneHealth" value="100" max="100">Enemy</progress>
     <p>Enemy Health</p>
   </div>
 <br>
-  <div id="PlayerHealthDiv">
-    <progress id="PlayerHealth" value="150" max="150">Player</progress> 
+  <div id="AllyOneHealthDiv">
+    <progress id="AllyOneHealth" value="150" max="150">Player</progress> 
     <p>Player Health</p>
   </div>
 
-  <div id="PlayerAttackMeterDiv">
-    <progress id="PlayerAttackMeter" value="100" max="100"></progress>
+  <div id="AllyOneAttackMeterDiv">
+    <progress id="AllyAttackMeter" value="100" max="100"></progress>
   </div>
 
-  <div id="EnemyAttackMeterDiv">
-    <progress id="EnemyAttackMeter" value="100" max="100"></progress>
+  <div id="EnemyOneAttackMeterDiv">
+    <progress id="EnemyOneAttackMeter" value="100" max="100"></progress>
   </div>
   <p id="GameOver"></p>
-  <img id="DevilCat" src="Devilcat.png">
-  <img id="AngelCat" src="Angelcat.png">
   <div id="CoreMenu">
-    <div>
-      <button id="AttackButton" onclick="SimpleAttack()">Attack</button>
-    </div>
-
-    <div >
-      <button id="HealButton" onclick="SimpleHeal()">Heal</button>
-    </div>
   </div>
-  <p id="EnemyAttackLog"></p>
-  <p id="PlayerAttackLog"></p>
+  <p id="EnemyOneAttackLog"></p>
+  <p id="AllyOneAttackLog"></p>
 </div>
 </body>
 </html>
