@@ -82,14 +82,14 @@ h1 {
     height: 50px;
 }
 
-#PlayerSelectionPortraitOne {
+#AllySelectionPortraitOne {
     position: absolute;
     right: 120px;
     bottom: 140px;
     width: 100px;
 }
 
-#PlayerSelectionPortraitTwo {
+#AllySelectionPortraitTwo {
     position: absolute;
     right: 20px;
     bottom: 140px;

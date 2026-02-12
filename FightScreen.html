@@ -13,18 +13,16 @@
 <body>
 
 <div id="ScreenSize">
-  <h1> Kindle Battles</h1>
   <button id="StartButton" onclick="StartButton()">Start</button>
-  <a href="tutorial.html"><button id="TutorialButton">Tutorial</button></a>
 
   <div id="EnemyOneHealthDiv">
     <progress id="EnemyOneHealth" value="100" max="100">Enemy</progress>
-    <p>Enemy Health</p>
+    <p></p>
   </div>
 <br>
   <div id="AllyOneHealthDiv">
     <progress id="AllyOneHealth" value="150" max="150">Player</progress> 
-    <p>Player Health</p>
+    <p></p>
   </div>
 
   <div id="AllyOneAttackMeterDiv">
@@ -34,11 +32,36 @@
   <div id="EnemyOneAttackMeterDiv">
     <progress id="EnemyOneAttackMeter" value="100" max="100"></progress>
   </div>
+
+    <div id="EnemyTwoHealthDiv">
+    <progress id="EnemyOneHealth" value="100" max="100">Enemy</progress>
+    <p></p>
+  </div>
+<br>
+  <div id="AllyTwoHealthDiv">
+    <progress id="AllyOneHealth" value="150" max="150">Player</progress> 
+    <p></p>
+  </div>
+
+  <div id="AllyTwoAttackMeterDiv">
+    <progress id="AllyAttackMeter" value="100" max="100"></progress>
+  </div>
+
+  <div id="EnemyTwoAttackMeterDiv">
+    <progress id="EnemyOneAttackMeter" value="100" max="100"></progress>
+  </div>
+
   <p id="GameOver"></p>
   <div id="CoreMenu">
   </div>
-  <p id="EnemyOneAttackLog"></p>
-  <p id="AllyOneAttackLog"></p>
+  <img id="AllyOneImage" src="">
+  <img id="AllyTwoImage" src="">
+  <img id="EnemyOneImage" src="">
+  <img id="EnemyTwoImage" src="">
+  <p id="EnemyOneAttackLog">Handman used Test! <br> dealt 50 damage to DevilCat</p>
+  <p id="AllyOneAttackLog">Slugcat used Ip Infringment! <br> Killed Blob!</p>
+  <p id="EnemyTwoAttackLog">Handman used Test! <br> dealt 50 damage</p>
+  <p id="AllyTwoAttackLog">Slugcat used Ip Infringment! <br> Killed DevilCat!</p>
 </div>
 </body>
 </html>

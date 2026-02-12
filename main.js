@@ -13,12 +13,12 @@ var AllyTwo = "none";
 var EnemyOne = "none";
 var EnemyTwo = "none";
 function VariableUpdater() {
-        var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
-        var EnemyOneHealth = document.getElementById("EnemyHealth")
-        var AllyHealth = document.getElementById("AllyHealth")
+        var EnemyOneAttackMeter = document.getElementById("EnemyOneAttackMeter");
+        var EnemyOneHealth = document.getElementById("EnemyOneHealth")
+        var AllyOneHealth = document.getElementById("AllyOneHealth")
         var GameOver = document.getElementById("GameOver");
-        var AllyAttackMeter = document.getElementById("AllyAttackMeter");
-        var EnemyAttackMeter = document.getElementById("EnemyAttackMeter");
+        var AllyOneAttackMeter = document.getElementById("AllyOneAttackMeter");
+        var EnemyOneAttackMeter = document.getElementById("EnemyOneAttackMeter");
  
  }
 
@@ -36,16 +36,18 @@ function StartGame() {
 function StartButton() { // Starts the enemies attack when clicked
     console.log("Started");
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
-    EnemyAttackMeterTiming();
-    AllyAttackMeterTiming();
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
-    if (AllyOne = "none") {
+    if (AllyOne = "none") { // temporary
         AllyOne = "AngelCat"
         AllyTwo = "Boat"
         EnemyOne = "DevilCat"
         EnemyTwo = "Blob"
         console.log("Test")
-    }
+    } // temporary
+    document.getElementById("AllyOneImage").src = AllyOne+".png"
+    document.getElementById("AllyTwoImage").src = AllyTwo+".png"
+    document.getElementById("EnemyOneImage").src = EnemyOne+".png"
+    document.getElementById("EnemyTwoImage").src = EnemyTwo+".png"
 }
 
 function GameOver() {
@@ -65,13 +67,13 @@ function GameOver() {
 
 }
 function CheckHealth() { // Checks health of Ally and enemy, does needed updates and shutdowns
-    if (AllyHealth.value > 0 && EnemyHealth.value  > 0) {
+    if (AllyOneHealth.value > 0 && EnemyOneHealth.value  > 0) {
         console.log("Both Alive")
         setTimeout(CheckHealth,100)
-    } else if (AllyHealth.value <= 0) {
+    } else if (AllyOneHealth.value <= 0) {
         console.log("AllyDead")
         GameOver()
-    } else if (EnemyHealth.value <= 0) {
+    } else if (EnemyOneHealth.value <= 0) {
         console.log("EnemyDead")
         GameOver()
     }
@@ -97,18 +99,18 @@ function SimpleHeal() {
     }
 }
 
-function AllyAttackMeterTiming() {
+function AllyOneAttackMeterTiming() {
     VariableUpdater()
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
 
     } else { 
-    setTimeout(AllyAttackMeterUpdate, 1000);
-    setTimeout(AllyAttackMeterUpdate, 2000);
-    setTimeout(AllyAttackMeterUpdate, 3000);
-    setTimeout(AllyAttackMeterAct, 4000);}
+    setTimeout(AllyOneAttackMeterUpdate, 1000);
+    setTimeout(AllyOneAttackMeterUpdate, 2000);
+    setTimeout(AllyOneAttackMeterUpdate, 3000);
+    setTimeout(AllyOneAttackMeterAct, 4000);}
 }
 
-function AllyAttackMeterUpdate() {
+function AllyOneAttackMeterUpdate() {
     VariableUpdater()
     AllyAttackMeter.value -= 25
 }
