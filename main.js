@@ -8,10 +8,14 @@ var AllyOneSelected = false;
 var EnemyOneSelected = false;
 var AllyTwoSelected = false;
 var EnemyTwoSelected = false;
+if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
 var EnemyOne = "none";
 var EnemyTwo = "none";
+console.log("NoneRan")
+}
+
 function VariableUpdater() {
         var EnemyOneAttackMeter = document.getElementById("EnemyOneAttackMeter");
         var EnemyOneHealth = document.getElementById("EnemyOneHealth")
@@ -30,20 +34,21 @@ document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit o
 // ####### START & consistent Checks ####### //
 function StartGame() {
     if (AllyTwoSelected == true && EnemyTwoSelected == true){
+    localStorage.setItem("AllyOneStorage",AllyOne);
+    localStorage.setItem("AllyTwoStorage",AllyTwo);
+    localStorage.setItem("EnemyOneStorage",EnemyOne);
+    localStorage.setItem("EnemyTwoStorage",EnemyTwo);
     location.assign("FightScreen.html")}
 }
-
 function StartButton() { // Starts the enemies attack when clicked
+    console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     console.log("Started");
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
-    if (AllyOne = "none") { // temporary
-        AllyOne = "AngelCat"
-        AllyTwo = "Boat"
-        EnemyOne = "DevilCat"
-        EnemyTwo = "Blob"
-        console.log("Test")
-    } // temporary
+    AllyOne = localStorage.getItem("AllyOneStorage")
+    AllyTwo = localStorage.getItem("AllyTwoStorage")
+    EnemyOne = localStorage.getItem("EnemyOneStorage")
+    EnemyTwo = localStorage.getItem("EnemyTwoStorage")
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("AllyTwoImage").src = AllyTwo+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
@@ -150,8 +155,16 @@ function AllyAttackMeterAct() {
 
 
 // ####### ENEMY ONE ATTACKS ####### //
+function DemonicStrike() {
+    VariableUpdater()
+    if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
 
+    } else {
+        EnemyOneAttackValue = Math.random() * (75 - 50) + 50;
+    }
+}
 
+// ####### ENEMY ONE ATTACKMETER ####### //
 function EnemyOneAttackMeterTiming() {
     VariableUpdater()
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {

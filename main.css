@@ -174,19 +174,19 @@ button {
 /* Attack Logs */
 #EnemyOneAttackLog {
   position: absolute;
-  bottom: 375px;
-  left: 25px;
+  bottom: 220px;
+  left: 220px;
   text-align: right;
 }
 #AllyOneAttackLog {
   position: absolute;
   bottom: 375px;
-  left: 25px;
+  left: 200px;
   text-align: left;
 }
 #EnemyTwoAttackLog {
   position: absolute;
-  bottom: 475px;
+  bottom: 490px;
   left: 270px;
   text-align: right;
 }
@@ -195,4 +195,149 @@ button {
   bottom: 630px;
   left: 200px;
   text-align: left;
+}
+
+/* AttackMeu */
+#MenuDivider {
+  position: absolute;
+  background-color: black;
+  width: 10px;
+  height: 300px;
+  top: 0px;
+  left: 295px
+}
+#AllyOneLabel {
+  position: absolute;
+  top: -20px;
+  left: 5px;
+  font-size: x-large;
+  font-weight: 700;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#AllyTwoLabel {
+  position: absolute;
+  top: -15px;
+  right: 5px;
+  font-size: x-large;
+  font-weight: 700;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#AllyOneAttackOne {
+  position: absolute;
+  width: 175px;
+  height: 30px;
+  top: 40px;
+  left: -190px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#AllyOneAttackTwo {
+  position: absolute;
+  width: 175px;
+  height: 30px;
+  top: 80px;
+  left: -190px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#AllyOneAttackThree {
+  position: absolute;
+  width: 175px;
+  height: 30px;
+  top: 120px;
+  left: -190px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#LockInAllyOne {
+  position: absolute;
+  width: 150px;
+  height: 30px;
+  bottom: 10px;
+  left: -190px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#TargetEnemyOneAllyOne {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 100px;
+  left: 5px;
+  font-size: medium;
+  font-weight: 300;
+}
+
+#TargetEnemyTwoAllyOne {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 10px;
+  left: 5px;
+  font-size: medium;
+  font-weight: 300;
+}
+
+#AllyTwoAttackOne {
+  position: absolute;
+  width: 175px;
+  height: 30px;
+  top: 40px;
+  right: 10px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#AllyTwoAttackTwo {
+  position: absolute;
+  width: 175px;
+  height: 30px;
+  top: 80px;
+  right: 10px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#AllyTwoAttackThree {
+  position: absolute;
+  width: 175px;
+  height: 30px;
+  top: 120px;
+  right: 10px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#LockInAllyTwo {
+  position: absolute;
+  width: 150px;
+  height: 30px;
+  bottom: 10px;
+  right: 10px;
+  font-size: large;
+  font-weight: 300;
+}
+
+#TargetEnemyOneAllyTwo {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 100px;
+  left: 115px;
+  font-size: medium;
+  font-weight: 300;
+}
+
+#TargetEnemyTwoAllyTwo {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 10px;
+  left: 115px;
+  font-size: medium;
+  font-weight: 300;
 }
