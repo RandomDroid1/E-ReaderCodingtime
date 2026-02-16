@@ -1,4 +1,5 @@
-var AllyAttackNumber = 0;
+var AllyOneAttackNumber = 0;
+var EnemyOneAttackNumber = 0;
 var SimpleAttackSelected = false;
 var SimpleHealSelected = false;
 var GameIsOver = false;
@@ -8,6 +9,10 @@ var AllyOneSelected = false;
 var EnemyOneSelected = false;
 var AllyTwoSelected = false;
 var EnemyTwoSelected = false;
+var EnemyOneSelfDamage = 0;
+var EnemyTwoSelfDamage = 0;
+var FoldCounter = 0;
+var EnemyOneAttackNumberText = document.getElementById("EnemyAttackLog");
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -155,15 +160,134 @@ function AllyAttackMeterAct() {
 
 
 // ####### ENEMY ONE ATTACKS ####### //
-function DemonicStrike() {
+function DemonicStrikeOne() {
     VariableUpdater()
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
 
     } else {
-        EnemyOneAttackValue = Math.random() * (75 - 50) + 50;
+        EnemyOneAttackNumber += 1;
+        EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
+        EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        if (AllyOneHealth > AllyTwoHealth) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
+            if (EnemyOneAttackTarget  <= 4) { 
+                EnemyOneAttackTarget = "AllyOne"
+            } else {
+                EnemyOneAttackTarget = "AllyTwo"
+            }
+        }
+        if (AllyOneHealth < AllyTwoHealth) { // If ally two has more health than ally oneG, 2/3rds chance to attack ally two
+            if (EnemyOneAttackTarget  <= 4) { 
+                EnemyOneAttackTarget = "AllyTwo"
+            } else {
+                EnemyOneAttackTarget = "AllyOne"
+            }
+        } 
+        else {
+            if (EnemyOneAttackTarget  <= 3) { // neutral
+                EnemyOneAttackTarget = "AllyTwo"
+            } else {
+                EnemyOneAttackTarget = "AllyOne"
+            }
+        }
     }
 }
 
+function DamningOne() {
+    EnemyOneAttackNumber += 1;
+    EnemyOneAttackValue = Math.random() * (51 - 25) + 25;
+    EnemyOneAttackTarget = "Both"
+}
+
+function FireBlastOne() {
+    EnemyOneAttackNumber += 1;
+    EnemyOneAttackValue = Math.random() * (31 - 25) + 25;
+    EnemyOneFireAttackValue = Math.random() * (30-10) + 10;
+}
+
+function RamOne() {
+    EnemyOneAttackNumber += 1;
+    EnemyOneAttackValue = Math.random() * (101 - 65) + 65;
+    EnemyOneAttackTarget = Math.random()* (3-1)+1; // determine if attack hits, 1 = no, 2 = yes
+    if (EnemyOneAttackTarget == 1) {
+        EnemyOneAttackTarget = "Missed"
+    }
+    if (EnemyOneAttackTarget == 2) {
+        EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
+        if (EnemyOneAttackTarget == 1) {
+            EnemyOneAttackTarget = "AllyOne"
+        } else {EnemyOneAttackTarget = "AllyTwo"}
+    }
+}
+
+function OverdriveOne() {
+    EnemyOneAttackNumber += 1;
+    EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
+    EnemyOneSelfDamage = Math.random() * (51-1) + 1
+}
+
+function PitStop() {
+    EnemyOneAttackNumber += 1;
+    EnemyOneHealValue = Math.random() * (40-30)
+}
+
+function Fold() {
+    EnemyOneAttackNumber +=1;
+    if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
+
+    } else {
+        EnemyOneAttackNumber += 1;
+        FoldCounter += 1;
+        EnemyOneAttackValue = FoldCounter*10
+        EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        if (AllyOneHealth > AllyTwoHealth) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
+            if (EnemyOneAttackTarget  <= 4) { 
+                EnemyOneAttackTarget = "AllyOne"
+            } else {
+                EnemyOneAttackTarget = "AllyTwo"
+            }
+        }
+        if (AllyOneHealth < AllyTwoHealth) { // If ally two has more health than ally oneG, 2/3rds chance to attack ally two
+            if (EnemyOneAttackTarget  <= 4) { 
+                EnemyOneAttackTarget = "AllyTwo"
+            } else {
+                EnemyOneAttackTarget = "AllyOne"
+            }
+        } 
+        else {
+            if (EnemyOneAttackTarget  <= 3) { // neutral
+                EnemyOneAttackTarget = "AllyTwo"
+            } else {
+                EnemyOneAttackTarget = "AllyOne"
+            }
+        }
+    }
+}
+
+function Peck() {
+    EnemyOneAttackNumber +=1;
+    EnemyOneAttackValue = Math.random() * (60-40)+40
+    EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
+        if (EnemyOneAttackTarget == 1) {
+            EnemyOneAttackTarget = "AllyOne"
+        } else {EnemyOneAttackTarget = "AllyTwo"}
+}
+
+function Virus() { // this could have issues if it stacks?
+    EnemyOneAttackNumber +=1;
+    EnemyOneVirusValue = Math.random() * (20-10)+10 // done multiple times
+    EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
+    if (EnemyOneAttackTarget == 1) {
+        EnemyOneVirusTarget = "AllyOne"
+    } else {EnemyOneVirusTarget = "AllyTwo"}
+}
+
+function AGCT() { // PLACEHOLDER
+
+}
+
+function Bind() {
+    
+}
 // ####### ENEMY ONE ATTACKMETER ####### //
 function EnemyOneAttackMeterTiming() {
     VariableUpdater()
@@ -362,7 +486,7 @@ function DevilCatHeadshot() {
     document.getElementById("CharacterName").innerText = "DevilCat"
     document.getElementById("Tagline").innerText = "The devil to your angle (180 degrees)"
     document.getElementById("Tagline").style.fontSize = "medium"
-    document.getElementById("AttackOne").innerText = "Demonic Strike (UPG)"
+    document.getElementById("AttackOne").innerText = "Demonic Strike"
     document.getElementById("AttackOneText").innerText = "Strike your target down with\nhigh damage to one Ally"
     document.getElementById("AttackTwo").innerText = "Damning"
     document.getElementById("AttackTwoText").innerText="Deal Medium damage to all \nAllys"
@@ -377,12 +501,12 @@ function CarHeadshot() {
     document.getElementById("CarHeadshotImage").src = "CarHeadshotSelected.png";
     document.getElementById("CharacterName").innerText = "Dashboard"
     document.getElementById("Tagline").innerText = "Don't get ran over!"
-    document.getElementById("AttackOne").innerText = ""
-    document.getElementById("AttackOneText").innerText = ""
-    document.getElementById("AttackTwo").innerText = ""
-    document.getElementById("AttackTwoText").innerText=""
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackOne").innerText = "Ram"
+    document.getElementById("AttackOneText").innerText = "Deal potentially very high \n damage, but you might miss!"
+    document.getElementById("AttackTwo").innerText = "Overdrive"
+    document.getElementById("AttackTwoText").innerText="Deal damage to self and \n allies"
+    document.getElementById("AttackThree").innerText="Pit stop"
+    document.getElementById("AttackThreeText").innerText="Heals both enemies"
 }    
 
 function OrigamiHeadshot() {
@@ -393,11 +517,11 @@ function OrigamiHeadshot() {
     document.getElementById("CharacterName").innerText = "Crane"
     document.getElementById("Tagline").innerText = "Still can't fold one IRL"
     document.getElementById("AttackOne").innerText = "Fold"
-    document.getElementById("AttackOneText").innerText = "Does 10 damage, \ninfinitely upgradeable"
+    document.getElementById("AttackOneText").innerText = "Does 10 damage,\n increases each use"
     document.getElementById("AttackTwo").innerText = "Peck"
     document.getElementById("AttackTwoText").innerText="Does medium damage to a \nrandom Ally"
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackThree").innerText="Paper Airplane"
+    document.getElementById("AttackThreeText").innerText="Adds 20 damage to Fold"
 }    
 
 function DNAHeadshot() {
@@ -407,12 +531,12 @@ function DNAHeadshot() {
     document.getElementById("DNAHeadshotImage").src = "DNAHeadshotSelected.png";
     document.getElementById("CharacterName").innerText = "Helix" 
     document.getElementById("Tagline").innerText = "Hopefully prion free"
-    document.getElementById("AttackOne").innerText = ""
-    document.getElementById("AttackOneText").innerText = ""
-    document.getElementById("AttackTwo").innerText = ""
+    document.getElementById("AttackOne").innerText = "Virus"
+    document.getElementById("AttackOneText").innerText = "Sustained low damage to one \nAlly, can stack"
+    document.getElementById("AttackTwo").innerText = "A-C-G-T"
     document.getElementById("AttackTwoText").innerText=""
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackThree").innerText="Bind"
+    document.getElementById("AttackThreeText").innerText="Coin flip, 50% chance to kill \n self, 50% chance to kill Ally"
 }    
 
 function HandManHeadshot() {
@@ -424,8 +548,8 @@ function HandManHeadshot() {
     document.getElementById("Tagline").innerText = "I don't even know man"
     document.getElementById("AttackOne").innerText = "Grab"
     document.getElementById("AttackOneText").innerText = "Reduces enemy speed and \n attack for 20 seconds"
-    document.getElementById("AttackTwo").innerText = ""
-    document.getElementById("AttackTwoText").innerText=""
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackTwo").innerText = "Domain"
+    document.getElementById("AttackTwoText").innerText="Take matters into your\n own hands"
+    document.getElementById("AttackThree").innerText="Reduce"
+    document.getElementById("AttackThreeText").innerText="Medium damage that bypasses \ndefense"
 }    

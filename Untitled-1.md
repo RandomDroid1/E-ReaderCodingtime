@@ -25,3 +25,7 @@ Prion (Sustained damage)
 Add it so you can expend a turn to upgrade a move? Or you can pass to gain coins to spend on upgrading moves? Get it working but that next
 
 TaskListFix CSs. Make the basic attack system work, with Ally one attack being on the left, and Ally 2 on the right. HAve the Timing subract by 20 instead of weird so slow can happen easier
+
+
+IMPORTANT NOTES:
+Fire damage inflicted to players needs to be worked, relevant variables : EnemyOneFireAttackValue
