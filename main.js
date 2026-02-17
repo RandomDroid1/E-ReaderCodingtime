@@ -154,8 +154,69 @@ function AllyAttackMeterAct() {
     AllyAttackMeterTiming()
 }
 // ####### ENEMY ONE MOVE HANDLER ####### //
-    function EnemyOneAttackSelector() {
-        
+function EnemyOneAttackSelector() { // I would like to mention that I think breaking up the move system into different code chunks (the attack area and the attack selector which will both be called later) is a sign I've progressed as a coder since I would've put it all in one section earlier man
+    if (EnemyOne == "DevilCat") { // 10 points, biased toward demonic strike, simple system. 1-5 = demonic strike, 6-8 = damning, 9-10 = Fire Blast
+            EnemyOneAttackSelection = Math.random() * (11-1) + 1
+            if (EnemyOneAttackSelection <= 5) {
+                EnemyOneAttack = "DemonicStrike"
+            }
+            if (EnemyOneAttackSelection >= 8 && EnemyOneAttackSelection <= 6) {
+                EnemyOneAttack = "Damning"
+            }
+            else {
+                EnemyOneAttack = "FireBlast"
+            }
+        }
+    if (EnemyOne == "Car") { // 10 points, if either enemy is below, biased to heal 1-5, otherwise is slightly biased to ram
+            EnemyOneAttackSelection = Math.random() * (11-1) + 1
+            if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad)
+                if (EnemyOneAttackSelection <= 5) {
+                    EnemyOneAttack = "PitStop"
+                }
+                if (EnemyOneAttackSelection <= 9 && EnemyOneAttackSelection >= 6) {
+                    EnemyOneAttack = "Ram"
+                }
+                else {
+                    EnemyOneAttack = "Overdrive"
+                }
+            }
+            else { // BASICALLY EQUAL CHANCE FOR ALL, still biased to ram
+                if (EnemyOneAttackSelection <= 3) {
+                    EnemyOneAttack = "PitStop"
+                }
+                if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 4) {
+                    EnemyOneAttack = "Ram"
+                }
+                else {
+                    EnemyOneAttack = "Overdrive"
+                }
+            }
+        }
+    if (EnemyOne == "Origami") {
+            EnemyOneAttackSelection = Math.random() * (11-1) + 1
+            if (FoldCounter <= 5) { // 6/10 chance to do Paper Airplane, and increase fold by 2, 2/10 chance for fold, 1/10 chance for peck
+                if (EnemyOneAttackSelection <= 6) {
+                    EnemyOneAttack = "PaperAirplane"
+                }
+                if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 7) {
+                    EnemyOneAttack = "Fold"
+                }
+                else {
+                    EnemyOneAttack = "Peck"
+                }
+            }
+            if (FoldCounter >= 6) { // 2/10 chance to do Paper Airplane, and increase fold by 2, 6/10 chance for fold, 2/10 chance for peck
+                if (EnemyOneAttackSelection <= 2) {
+                    EnemyOneAttack = "PaperAirplane"
+                }
+                if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 3) {
+                    EnemyOneAttack = "Fold"
+                }
+                else {
+                    EnemyOneAttack = "Peck"
+                }
+            }
+    }
     }
 
 
@@ -225,12 +286,12 @@ function OverdriveOne() {
     EnemyOneSelfDamage = Math.random() * (51-1) + 1
 }
 
-function PitStop() {
+function PitStopOne() {
     EnemyOneAttackNumber += 1;
     EnemyOneHealValue = Math.random() * (40-30)
 }
 
-function Fold() {
+function FoldOne() {
     EnemyOneAttackNumber +=1;
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
 
@@ -263,7 +324,7 @@ function Fold() {
     }
 }
 
-function Peck() {
+function PeckOne() {
     EnemyOneAttackNumber +=1;
     EnemyOneAttackValue = Math.random() * (60-40)+40
     EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
@@ -272,7 +333,11 @@ function Peck() {
         } else {EnemyOneAttackTarget = "AllyTwo"}
 }
 
-function Virus() { // this could have issues if it stacks?
+function PaperAirplane() {
+    EnemyOneAttackNumber += 1;
+    FoldCounter += 2;
+}
+function VirusOne() { // this could have issues if it stacks?
     EnemyOneAttackNumber +=1;
     EnemyOneVirusValue = Math.random() * (20-10)+10 // done multiple times
     EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
@@ -281,11 +346,40 @@ function Virus() { // this could have issues if it stacks?
     } else {EnemyOneVirusTarget = "AllyTwo"}
 }
 
-function AGCT() { // PLACEHOLDER
+function AGCTOne() { // PLACEHOLDER
 
 }
 
-function Bind() {
+function BindOne() {
+    EnemyOneAttackNumber +=1;
+    EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
+    if (EnemyOneAttackTarget == 1) {
+        EnemyOneAttackTarget = "AllyOne"
+    } else {EnemyOneSelfDamage = 9999999999}
+}
+
+function GrabOne() {
+    
+}
+
+function DomainOne() {
+    
+}
+
+function ReduceOne() {
+    
+}
+
+function GlobOne() {
+    EnemyOneDefense += 20
+    EnemyTwoDefense += 20
+}
+
+function ReformOne() {
+    
+}
+
+function RandomizeOne() {
     
 }
 // ####### ENEMY ONE ATTACKMETER ####### //
@@ -381,7 +475,7 @@ function AngelCatHeadshot() {
     document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotSelected.png";
     document.getElementById("CharacterName").innerText = "AngelCat"
     document.getElementById("Tagline").innerText = "I will be your angle (90 degrees)"
-    document.getElementById("AttackOne").innerText = "Heavenly Strike (UPG)"
+    document.getElementById("AttackOne").innerText = "Heavenly Strike"
     document.getElementById("AttackOneText").innerText = "Strike your target down with\nhigh damage to one enemy"
     document.getElementById("AttackTwo").innerText = "Judgement"
     document.getElementById("AttackTwoText").innerText="Deal Medium damage to all \nenemies"
@@ -547,7 +641,7 @@ function HandManHeadshot() {
     document.getElementById("CharacterName").innerText = "Evil"
     document.getElementById("Tagline").innerText = "I don't even know man"
     document.getElementById("AttackOne").innerText = "Grab"
-    document.getElementById("AttackOneText").innerText = "Reduces enemy speed and \n attack for 20 seconds"
+    document.getElementById("AttackOneText").innerText = "Reduces Ally speed and \n attack for 20 seconds"
     document.getElementById("AttackTwo").innerText = "Domain"
     document.getElementById("AttackTwoText").innerText="Take matters into your\n own hands"
     document.getElementById("AttackThree").innerText="Reduce"
