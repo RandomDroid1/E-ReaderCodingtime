@@ -45,6 +45,7 @@ function StartGame() {
     localStorage.setItem("EnemyTwoStorage",EnemyTwo);
     location.assign("FightScreen.html")}
 }
+
 function StartButton() { // Starts the enemies attack when clicked
     console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     console.log("Started");
@@ -216,7 +217,11 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
                     EnemyOneAttack = "Peck"
                 }
             }
+        }
+    if (EnemyOne == "DNA") { // PLACEHOLDER BECAUSE AGCT IS STILL UNDONE
+
     }
+    if (EnemyOne == "HandMan") {}
     }
 
 
@@ -333,11 +338,11 @@ function PeckOne() {
         } else {EnemyOneAttackTarget = "AllyTwo"}
 }
 
-function PaperAirplane() {
+function PaperAirplaneOne() {
     EnemyOneAttackNumber += 1;
     FoldCounter += 2;
 }
-function VirusOne() { // this could have issues if it stacks?
+function VirusOne() { // this could have issues if it stacks? Just make it not stack lmao
     EnemyOneAttackNumber +=1;
     EnemyOneVirusValue = Math.random() * (20-10)+10 // done multiple times
     EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
@@ -347,7 +352,7 @@ function VirusOne() { // this could have issues if it stacks?
 }
 
 function AGCTOne() { // PLACEHOLDER
-
+    
 }
 
 function BindOne() {
@@ -359,28 +364,90 @@ function BindOne() {
 }
 
 function GrabOne() {
-    
+    AllySpeed = "Reduced"
+    AllyAttackDebuff += -15
 }
 
-function DomainOne() {
-    
+function DomainOne() { //   Locks a move or smth
+    EnemyOneAttackNumber +=1;
+    EnemyOneAttackTarget = Math.random()* (5-1)+1 // Above 1 hits
+    if (EnemyOneAttackTarget >= 1) {
+        EnemyOneAttackTarget = Math.random()* (3-1)+1 // Chooses 1-2 to decide which player to target
+        EnemyOneMoveLock = Math.random() * (4-1)+1 // Chooses 1-3 to decide what move to lock
+    }
+
 }
 
 function ReduceOne() {
-    
+    EnemyOneAttackValue = Math.random() * (61-40) + 40
 }
 
 function GlobOne() {
+    EnemyOneAttackNumber +=1;
     EnemyOneDefense += 20
     EnemyTwoDefense += 20
 }
 
 function ReformOne() {
-    
+    EnemyOneAttackNumber += 1;
+    EnemyOneHealValue = Math.random() * (40-30)
 }
 
 function RandomizeOne() {
-    
+    EnemyOneAttackNumber +=1;
+    EnemyRandomizeSelection = Math.random() * (18-1) + 1  // 1-17
+    if (EnemyRandomizeSelection == 1) {
+        DemonicStrikeOne()
+    }
+    if (EnemyRandomizeSelection == 2) {
+        DamningOne()
+    }
+    if (EnemyRandomizeSelection == 3) {
+        FireBlastOne()
+    }
+    if (EnemyRandomizeSelection == 4) {
+        RamOne()
+    }
+    if (EnemyRandomizeSelection == 5) {
+        OverdriveOne()
+    }
+    if (EnemyRandomizeSelection == 6) {
+        PitStopOne()
+    }
+    if (EnemyRandomizeSelection == 7) {
+        FoldOne()
+    }
+    if (EnemyRandomizeSelection == 8) {
+        PeckOne()
+    }
+    if (EnemyRandomizeSelection == 9) {
+        PaperAirplaneOne()
+    }
+    if (EnemyRandomizeSelection == 10) {
+        VirusOne()
+    }
+    if (EnemyRandomizeSelection == 11) {
+        AGCTOne()
+    }
+    if (EnemyRandomizeSelection == 12) {
+        BindOne()
+    }
+    if (EnemyRandomizeSelection == 13) {
+        GrabOne()
+    }
+    if (EnemyRandomizeSelection == 14) {
+        DomainOne()
+    }
+    if (EnemyRandomizeSelection == 15) {
+        ReduceOne()
+    }
+    if (EnemyRandomizeSelection == 16) {
+        GlobOne()
+    }
+    if (EnemyRandomizeSelection == 17) {
+        ReformOne()
+    }
+
 }
 // ####### ENEMY ONE ATTACKMETER ####### //
 function EnemyOneAttackMeterTiming() {
@@ -626,7 +693,7 @@ function DNAHeadshot() {
     document.getElementById("CharacterName").innerText = "Helix" 
     document.getElementById("Tagline").innerText = "Hopefully prion free"
     document.getElementById("AttackOne").innerText = "Virus"
-    document.getElementById("AttackOneText").innerText = "Sustained low damage to one \nAlly, can stack"
+    document.getElementById("AttackOneText").innerText = "Sustained low damage to one \nAlly."
     document.getElementById("AttackTwo").innerText = "A-C-G-T"
     document.getElementById("AttackTwoText").innerText=""
     document.getElementById("AttackThree").innerText="Bind"
@@ -643,7 +710,7 @@ function HandManHeadshot() {
     document.getElementById("AttackOne").innerText = "Grab"
     document.getElementById("AttackOneText").innerText = "Reduces Ally speed and \n attack for 20 seconds"
     document.getElementById("AttackTwo").innerText = "Domain"
-    document.getElementById("AttackTwoText").innerText="Take matters into your\n own hands"
+    document.getElementById("AttackTwoText").innerText="Locks a random move for \na random ally"
     document.getElementById("AttackThree").innerText="Reduce"
     document.getElementById("AttackThreeText").innerText="Medium damage that bypasses \ndefense"
 }    
