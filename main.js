@@ -225,7 +225,13 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
     }
 
 
+// ################################# //
+// ################################# //
 // ####### ENEMY ONE ATTACKS ####### //
+// ################################# //
+// ################################# //
+
+
 function DemonicStrikeOne() {
     VariableUpdater()
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
@@ -264,13 +270,14 @@ function DamningOne() {
     EnemyOneAttackTarget = "Both"
 }
 
-function FireBlastOne() {
+function FireBlastOne() {VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneAttackValue = Math.random() * (31 - 25) + 25;
     EnemyOneFireAttackValue = Math.random() * (30-10) + 10;
 }
 
 function RamOne() {
+    VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneAttackValue = Math.random() * (101 - 65) + 65;
     EnemyOneAttackTarget = Math.random()* (3-1)+1; // determine if attack hits, 1 = no, 2 = yes
@@ -286,17 +293,20 @@ function RamOne() {
 }
 
 function OverdriveOne() {
+    VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
     EnemyOneSelfDamage = Math.random() * (51-1) + 1
 }
 
 function PitStopOne() {
+    VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneHealValue = Math.random() * (40-30)
 }
 
 function FoldOne() {
+    VariableUpdater()
     EnemyOneAttackNumber +=1;
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
 
@@ -330,6 +340,7 @@ function FoldOne() {
 }
 
 function PeckOne() {
+    VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneAttackValue = Math.random() * (60-40)+40
     EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
@@ -339,10 +350,12 @@ function PeckOne() {
 }
 
 function PaperAirplaneOne() {
+    VariableUpdater()
     EnemyOneAttackNumber += 1;
     FoldCounter += 2;
 }
 function VirusOne() { // this could have issues if it stacks? Just make it not stack lmao
+    VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneVirusValue = Math.random() * (20-10)+10 // done multiple times
     EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
@@ -352,10 +365,17 @@ function VirusOne() { // this could have issues if it stacks? Just make it not s
 }
 
 function AGCTOne() { // PLACEHOLDER
-    
+    VariableUpdater()
+    EnemyOneAttackNumber +=1;
+    EnemyOneAttackValue = Math.random() * (100-1) + 1
+    EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
+    if (EnemyOneAttackTarget == 1) {
+        EnemyOneAttackTarget = "AllyOne"}
+        else {EnemyOneAttackTarget = "AllyTwo"}
 }
 
 function BindOne() {
+    VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
     if (EnemyOneAttackTarget == 1) {
@@ -364,11 +384,14 @@ function BindOne() {
 }
 
 function GrabOne() {
+    VariableUpdater()
+    EnemyOneAttackNumber +=1;
     AllySpeed = "Reduced"
     AllyAttackDebuff += -15
 }
 
 function DomainOne() { //   Locks a move or smth
+    VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneAttackTarget = Math.random()* (5-1)+1 // Above 1 hits
     if (EnemyOneAttackTarget >= 1) {
@@ -379,16 +402,24 @@ function DomainOne() { //   Locks a move or smth
 }
 
 function ReduceOne() {
+    VariableUpdater()
+    EnemyOneAttackNumber +=1;
     EnemyOneAttackValue = Math.random() * (61-40) + 40
+    EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
+    if (EnemyOneAttackTarget == 1) {
+        EnemyOneAttackTarget = "AllyOne"}
+        else {EnemyOneAttackTarget = "AllyTwo"}
 }
 
 function GlobOne() {
+    VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneDefense += 20
     EnemyTwoDefense += 20
 }
 
 function ReformOne() {
+    VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneHealValue = Math.random() * (40-30)
 }
@@ -449,7 +480,15 @@ function RandomizeOne() {
     }
 
 }
+
+// ##################################### //
+// ##################################### //
 // ####### ENEMY ONE ATTACKMETER ####### //
+// ##################################### //
+// ##################################### //
+
+
+
 function EnemyOneAttackMeterTiming() {
     VariableUpdater()
     if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
@@ -486,9 +525,42 @@ function EnemyOneAttackMeterReset() {
 // ####### AllyAttacks ####### //
 
 function HeavenlyStrike() {
-    enemyattack = 0
+    VariableUpdater()
+        EnemyOneAttackNumber += 1;
+        EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
+        EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        if (AllyOneHealth > AllyTwoHealth) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
+            if (EnemyOneAttackTarget  <= 4) { 
+                EnemyOneAttackTarget = "AllyOne"
+            } else {
+                EnemyOneAttackTarget = "AllyTwo"
+            }
+        }
+        if (AllyOneHealth < AllyTwoHealth) { // If ally two has more health than ally oneG, 2/3rds chance to attack ally two
+            if (EnemyOneAttackTarget  <= 4) { 
+                EnemyOneAttackTarget = "AllyTwo"
+            } else {
+                EnemyOneAttackTarget = "AllyOne"
+            }
+        } 
+        else {
+            if (EnemyOneAttackTarget  <= 3) { // neutral
+                EnemyOneAttackTarget = "AllyTwo"
+            } else {
+                EnemyOneAttackTarget = "AllyOne"
+            }
+        }
 }
+
+// ############################# //
+// ############################# //
 // ####### SelectionMenu ####### // I do not love this system but I do not know the alternative
+// ############################# //
+// ############################# //
+
+
+
+
 function UnselectAll() {
     document.getElementById("AngelCatHeadshotImage").src = "AngelCatHeadshotUnselected.png";
     document.getElementById("BlobHeadshotImage").src = "BlobHeadshotUnselected.png";
@@ -572,11 +644,11 @@ function ClockHeadshot() {
     document.getElementById("CharacterName").innerText = "Tovar"
     document.getElementById("Tagline").innerText = "Is it really the right time for this?"
     document.getElementById("AttackOne").innerText = "Bad Time"
-    document.getElementById("AttackOneText").innerText = ""
-    document.getElementById("AttackTwo").innerText = ""
-    document.getElementById("AttackTwoText").innerText=""
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackOneText").innerText = "Damage that increases\n based on the length of fight"
+    document.getElementById("AttackTwo").innerText = "Hour"
+    document.getElementById("AttackTwoText").innerText="Low-high damage, with better \nodds based on time in fight"
+    document.getElementById("AttackThree").innerText="Rewind"
+    document.getElementById("AttackThreeText").innerText="Low healing and Low damage\n if Tover is under 50% health,\n medium healing!"
 }    
 
 function SlugcatHeadshot() {
@@ -589,9 +661,9 @@ function SlugcatHeadshot() {
     document.getElementById("AttackOne").innerText = "Spear"
     document.getElementById("AttackOneText").innerText = "25% chance to instakill an \nenemy"
     document.getElementById("AttackTwo").innerText = "The Mark"
-    document.getElementById("AttackTwoText").innerText="Increased attack for 20 seconds"
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackTwoText").innerText="Increased attack for 20 \nseconds"
+    document.getElementById("AttackThree").innerText="The rot"
+    document.getElementById("AttackThreeText").innerText="Inflict poison on self in \n return for high damage"
 }    
 
 function SquareHeadshot() {
@@ -602,7 +674,7 @@ function SquareHeadshot() {
     document.getElementById("CharacterName").innerText = "Square"
     document.getElementById("Tagline").innerText = "They said be there or be square, \nhe wasn't there"
     document.getElementById("Tagline").style.fontSize = "medium"
-    document.getElementById("AttackOne").innerText = ""
+    document.getElementById("AttackOne").innerText = "4 Corners"
     document.getElementById("AttackOneText").innerText = ""
     document.getElementById("AttackTwo").innerText = ""
     document.getElementById("AttackTwoText").innerText=""
@@ -631,8 +703,8 @@ function FlibbitHeadshot() {
     document.getElementById("FlibbitHeadshotImage").src = "FlibbitHeadshotSelected.png";
     document.getElementById("CharacterName").innerText = "Flibbit"
     document.getElementById("Tagline").innerText = "Get a load of this guy"
-    document.getElementById("AttackOne").innerText = ""
-    document.getElementById("AttackOneText").innerText = ""
+    document.getElementById("AttackOne").innerText = "Clamp"
+    document.getElementById("AttackOneText").innerText = "Deal 25% of an enemies \n remaining health"
     document.getElementById("AttackTwo").innerText = ""
     document.getElementById("AttackTwoText").innerText=""
     document.getElementById("AttackThree").innerText=""
