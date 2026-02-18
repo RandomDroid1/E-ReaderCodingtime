@@ -27,7 +27,6 @@ function VariableUpdater() {
         var AllyOneHealth = document.getElementById("AllyOneHealth")
         var GameOver = document.getElementById("GameOver");
         var AllyOneAttackMeter = document.getElementById("AllyOneAttackMeter");
-        var EnemyOneAttackMeter = document.getElementById("EnemyOneAttackMeter");
  
  }
 
@@ -47,18 +46,23 @@ function StartGame() {
 }
 
 function StartButton() { // Starts the enemies attack when clicked
+    VariableUpdater()
     console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     console.log("Started");
+    console.log(EnemyOneAttackMeter.value);
+    console.log(EnemyOneHealth.value);
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
     AllyOne = localStorage.getItem("AllyOneStorage")
     AllyTwo = localStorage.getItem("AllyTwoStorage")
     EnemyOne = localStorage.getItem("EnemyOneStorage")
     EnemyTwo = localStorage.getItem("EnemyTwoStorage")
+    console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("AllyTwoImage").src = AllyTwo+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
     document.getElementById("EnemyTwoImage").src = EnemyTwo+".png"
+    TurnCaller()
 }
 
 function GameOver() {
@@ -123,7 +127,7 @@ function AllyOneAttackMeterTiming() {
 
 function AllyOneAttackMeterUpdate() {
     VariableUpdater()
-    AllyAttackMeter.value -= 25
+    AllyOneAttackMeter.value -= 25
 }
 function AllyAttackMeterAct() {
     VariableUpdater()
@@ -154,7 +158,39 @@ function AllyAttackMeterAct() {
     AllyAttackMeter.value = 100
     AllyAttackMeterTiming()
 }
+// ###################################### //
+// ###################################### //
+// ####### UNIVERSAL TURN HANDLER ####### //
+// ###################################### //
+// ###################################### //
+
+function TurnCaller() {
+    console.log("Done1")
+    setTimeout(EnemyOneAttackMeterUpdate, 1000)
+}
+
+function EnemyOneAttackMeterUpdate() {
+    VariableUpdater();
+    console.log("Done2");
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0) {
+       console.log(AllyOneHealth.value)
+       console.log(EnemyOneHealth.value)
+    } else {
+        console.log(EnemyOneAttackMeter);
+        EnemyOneAttackMeter.value -= 25 ;
+    }
+}
+
+
+
+
+// ###################################### //
+// ###################################### //
 // ####### ENEMY ONE MOVE HANDLER ####### //
+// ###################################### //
+// ###################################### //
+
+
 function EnemyOneAttackSelector() { // I would like to mention that I think breaking up the move system into different code chunks (the attack area and the attack selector which will both be called later) is a sign I've progressed as a coder since I would've put it all in one section earlier man
     if (EnemyOne == "DevilCat") { // 10 points, biased toward demonic strike, simple system. 1-5 = demonic strike, 6-8 = damning, 9-10 = Fire Blast
             EnemyOneAttackSelection = Math.random() * (11-1) + 1
@@ -502,15 +538,6 @@ function EnemyOneAttackMeterTiming() {
     console.log(AllyHealth.value);
 }
 }
-function EnemyOneAttackMeterUpdate() {
-    VariableUpdater()
-    if (AllyHealth.value <= 0 || EnemyHealth.value <= 0) {
-       console.log(EnemyHealth.value);
-       console.log(AllyHealth.value);
-    } else {
-    EnemyAttackMeter.value -= 25
-    }
-}
 function EnemyOneAttackMeterReset() {
      if (AllyHealth.value <= 0 || EnemyHealth.value <= 0) {
        console.log(EnemyHealth.value);
@@ -522,7 +549,14 @@ function EnemyOneAttackMeterReset() {
     }
     
 }
+
+
+// ########################### //
+// ########################### //
 // ####### AllyAttacks ####### //
+// ########################### //
+// ########################### //
+
 
 function HeavenlyStrike() {
     VariableUpdater()
