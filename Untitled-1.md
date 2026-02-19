@@ -29,3 +29,6 @@ TaskListFix CSs. Make the basic attack system work, with Ally one attack being o
 
 IMPORTANT NOTES:
 Fire damage inflicted to players needs to be worked, relevant variables : EnemyOneFireAttackValue
+
+
+PlayerOneHealth.value = PlayerOneHealth.value - (EnemyOneAttackOne + EnemyTwoAttackOne + PrionDamageOne + FireDamageOne - DefenseAllyOne)

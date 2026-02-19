@@ -1,5 +1,6 @@
 var AllyOneAttackNumber = 0;
 var EnemyOneAttackNumber = 0;
+var EnemyOneAttack = "none";
 var SimpleAttackSelected = false;
 var SimpleHealSelected = false;
 var GameIsOver = false;
@@ -22,12 +23,15 @@ console.log("NoneRan")
 }
 
 function VariableUpdater() {
-        var EnemyOneAttackMeter = document.getElementById("EnemyOneAttackMeter");
         var EnemyOneHealth = document.getElementById("EnemyOneHealth")
         var AllyOneHealth = document.getElementById("AllyOneHealth")
         var GameOver = document.getElementById("GameOver");
         var AllyOneAttackMeter = document.getElementById("AllyOneAttackMeter");
- 
+        var EnemyOneAttackMeterHTML = document.getElementById("EnemyOneAttackMeterHTML")
+        var EnemyTwoHealth = document.getElementById("EnemyTwoHealth")
+        var AllyTwoHealth = document.getElementById("AllyTwoHealth")
+        var AllyTwoAttackMeter = document.getElementById("AllyTwoAttackMeter");
+        var EnemyTwoAttackMeterHTML = document.getElementById("EnemyTwoAttackMeterHTML")
  }
 
 
@@ -49,8 +53,6 @@ function StartButton() { // Starts the enemies attack when clicked
     VariableUpdater()
     console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     console.log("Started");
-    console.log(EnemyOneAttackMeter.value);
-    console.log(EnemyOneHealth.value);
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
     AllyOne = localStorage.getItem("AllyOneStorage")
@@ -165,25 +167,35 @@ function AllyAttackMeterAct() {
 // ###################################### //
 
 function TurnCaller() {
-    console.log("Done1")
     setTimeout(EnemyOneAttackMeterUpdate, 1000)
 }
 
 function EnemyOneAttackMeterUpdate() {
     VariableUpdater();
-    console.log("Done2");
-    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0) {
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
        console.log(AllyOneHealth.value)
        console.log(EnemyOneHealth.value)
     } else {
-        console.log(EnemyOneAttackMeter);
-        EnemyOneAttackMeter.value -= 25 ;
+        EnemyOneAttackMeterHTML.value -= 25;
+        setTimeout(EnemyOneAttackMeterUpdate, 1000)
+        if (EnemyOneAttackMeterHTML.value <= 0) {
+            EnemyOneAttackMeterReset()
+        }
     }
 }
 
-
-
-
+function EnemyOneAttackMeterReset() {
+    VariableUpdater();
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
+       console.log(AllyOneHealth.value)
+       console.log(EnemyOneHealth.value)
+    } else {
+        console.log(EnemyOneAttackMeterHTML.max);
+        EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max;
+        EnemyOneAttackSelector()
+        console.log(EnemyOneAttack)
+    }
+}
 // ###################################### //
 // ###################################### //
 // ####### ENEMY ONE MOVE HANDLER ####### //
@@ -193,27 +205,32 @@ function EnemyOneAttackMeterUpdate() {
 
 function EnemyOneAttackSelector() { // I would like to mention that I think breaking up the move system into different code chunks (the attack area and the attack selector which will both be called later) is a sign I've progressed as a coder since I would've put it all in one section earlier man
     if (EnemyOne == "DevilCat") { // 10 points, biased toward demonic strike, simple system. 1-5 = demonic strike, 6-8 = damning, 9-10 = Fire Blast
-            EnemyOneAttackSelection = Math.random() * (11-1) + 1
+            EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
             if (EnemyOneAttackSelection <= 5) {
                 EnemyOneAttack = "DemonicStrike"
+                DemonicStrikeOne()
             }
-            if (EnemyOneAttackSelection >= 8 && EnemyOneAttackSelection <= 6) {
+            if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 6) {
                 EnemyOneAttack = "Damning"
+                DamningOne()
             }
-            else {
+            if (EnemyOneAttackSelection >= 9) {
+                console.log("FirBlastSelected")
                 EnemyOneAttack = "FireBlast"
+                FireBlastOne()
             }
         }
     if (EnemyOne == "Car") { // 10 points, if either enemy is below, biased to heal 1-5, otherwise is slightly biased to ram
-            EnemyOneAttackSelection = Math.random() * (11-1) + 1
+            EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
             if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad)
+                
                 if (EnemyOneAttackSelection <= 5) {
                     EnemyOneAttack = "PitStop"
                 }
                 if (EnemyOneAttackSelection <= 9 && EnemyOneAttackSelection >= 6) {
                     EnemyOneAttack = "Ram"
                 }
-                else {
+                if (EnemyOneAttackSelection == 10) {
                     EnemyOneAttack = "Overdrive"
                 }
             }
@@ -224,13 +241,13 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 4) {
                     EnemyOneAttack = "Ram"
                 }
-                else {
+                if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Overdrive"
                 }
             }
         }
     if (EnemyOne == "Origami") {
-            EnemyOneAttackSelection = Math.random() * (11-1) + 1
+            EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
             if (FoldCounter <= 5) { // 6/10 chance to do Paper Airplane, and increase fold by 2, 2/10 chance for fold, 1/10 chance for peck
                 if (EnemyOneAttackSelection <= 6) {
                     EnemyOneAttack = "PaperAirplane"
@@ -238,7 +255,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 7) {
                     EnemyOneAttack = "Fold"
                 }
-                else {
+                if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Peck"
                 }
             }
@@ -249,13 +266,48 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 3) {
                     EnemyOneAttack = "Fold"
                 }
-                else {
+                if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Peck"
                 }
             }
         }
-    if (EnemyOne == "DNA") { // PLACEHOLDER BECAUSE AGCT IS STILL UNDONE
-
+    if (EnemyOne == "DNA") { // PLACEHOLDER BECAUSE ACGT IS STILL UNDONE
+        EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+        console.log(EnemyOneAttackSelection + " EnemyOneAttackSelection")
+        if (EnemyOneAttackNumber <= 3) { // under 3 turns, 2/10 for virus, 7/10 for ACGT, 1/10 for bind
+            console.log(EnemyOneAttackNumber)
+            if (EnemyOneAttackSelection <= 2) {
+                EnemyOneAttack = "Virus"
+            }
+            if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 9) {
+                EnemyOneAttack = "ACGT"
+            }
+            if (EnemyOneAttackSelection == 10) {
+                EnemyOneAttack = "Bind"
+            }
+        }
+        if (EnemyOneAttackNumber >= 4 && EnemyOneAttackNumber <= 6) { // 4-6 turns, 2/10 for virus, 5/10 for ACGT, 3/10 for bind
+            if (EnemyOneAttackSelection <= 2) {
+                EnemyOneAttack = "Virus"
+            }
+            if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 7) {
+                EnemyOneAttack = "ACGT"
+            }
+            if (EnemyOneAttackSelection >= 8) {
+                EnemyOneAttack = "Bind"
+            }
+        } 
+        if (EnemyOneAttackNumber >= 7) { // above 7 turns, 1/10 for virus, 3/10 for ACGT, 6/10 for bind
+            if (EnemyOneAttackSelection == 1) {
+                EnemyOneAttack = "Virus"
+            }
+            if (EnemyOneAttackSelection >= 2 && EnemyOneAttackSelection <= 4) {
+                EnemyOneAttack = "ACGT"
+            }
+            if (EnemyOneAttackSelection >= 4) {
+                EnemyOneAttack = "Bind"
+            }
+        }
     }
     if (EnemyOne == "HandMan") {}
     }
@@ -270,20 +322,20 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
 
 function DemonicStrikeOne() {
     VariableUpdater()
-    if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
+    if (EnemyOneHealth.value <= 0 || AllyOneHealth.value <= 0) {
 
     } else {
         EnemyOneAttackNumber += 1;
         EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
         EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
-        if (AllyOneHealth > AllyTwoHealth) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
+        if (AllyOneHealth.value > AllyTwoHealth.value) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
             if (EnemyOneAttackTarget  <= 4) { 
                 EnemyOneAttackTarget = "AllyOne"
             } else {
                 EnemyOneAttackTarget = "AllyTwo"
             }
         }
-        if (AllyOneHealth < AllyTwoHealth) { // If ally two has more health than ally oneG, 2/3rds chance to attack ally two
+        if (AllyOneHealth.value < AllyTwoHealth.value) { // If ally two has more health than ally oneG, 2/3rds chance to attack ally two
             if (EnemyOneAttackTarget  <= 4) { 
                 EnemyOneAttackTarget = "AllyTwo"
             } else {
@@ -400,7 +452,7 @@ function VirusOne() { // this could have issues if it stacks? Just make it not s
     } else {EnemyOneVirusTarget = "AllyTwo"}
 }
 
-function AGCTOne() { // PLACEHOLDER
+function ACGTOne() { // PLACEHOLDER
     VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneAttackValue = Math.random() * (100-1) + 1
@@ -494,7 +546,7 @@ function RandomizeOne() {
         VirusOne()
     }
     if (EnemyRandomizeSelection == 11) {
-        AGCTOne()
+        ACGTOne()
     }
     if (EnemyRandomizeSelection == 12) {
         BindOne()
@@ -537,17 +589,6 @@ function EnemyOneAttackMeterTiming() {
     console.log(EnemyHealth.value);
     console.log(AllyHealth.value);
 }
-}
-function EnemyOneAttackMeterReset() {
-     if (AllyHealth.value <= 0 || EnemyHealth.value <= 0) {
-       console.log(EnemyHealth.value);
-       console.log(AllyHealth.value);
-    } else {
-    VariableUpdater()
-    EnemyAttackMeter.value = 100
-    EnemyAttackSelector()
-    }
-    
 }
 
 
@@ -801,7 +842,7 @@ function DNAHeadshot() {
     document.getElementById("AttackOne").innerText = "Virus"
     document.getElementById("AttackOneText").innerText = "Sustained low damage to one \nAlly."
     document.getElementById("AttackTwo").innerText = "A-C-G-T"
-    document.getElementById("AttackTwoText").innerText=""
+    document.getElementById("AttackTwoText").innerText="Incredibly high or low damage \n to one ally."
     document.getElementById("AttackThree").innerText="Bind"
     document.getElementById("AttackThreeText").innerText="Coin flip, 50% chance to kill \n self, 50% chance to kill Ally"
 }    

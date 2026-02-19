@@ -46,6 +46,17 @@ html {
   color:red;
 }
 
+#AllyTwoHealth {
+  height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
+}
+
+#EnemyTwoHealth {
+  height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
+}
 /* Progress Bars Two*/
 #AllyTwoAttackMeterDiv {
   position: absolute;
@@ -72,28 +83,28 @@ html {
 /* Images */
 #AllyOneImage {
   position: absolute;
-  left: 50px;
+  right: 50px;
   bottom: 240px;
   max-height:200px;
   max-width: 150px;
 }
 #AllyTwoImage {
   position: absolute;
-  left: 30px;
+  right: 30px;
   bottom: 500px;
   max-height:200px;
   max-width: 150px;
 }
 #EnemyOneImage {
   position: absolute;
-  right: 50px;
+  left: 50px;
   bottom: 240px;
   max-height:200px;
   max-width: 150px;
 }
 #EnemyTwoImage {
   position: absolute;
-  right: 20px;
+  left: 20px;
   bottom: 500px;
   max-height:200px;
   max-width: 150px;
