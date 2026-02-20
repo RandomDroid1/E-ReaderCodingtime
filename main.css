@@ -27,7 +27,7 @@ html {
 #EnemyOneHealthDiv {
   position: absolute;
   bottom: 185px;
-  right: 20px;
+  left: 20px;
   
 }
 #EnemyOneHealth {
@@ -38,7 +38,7 @@ html {
 #AllyOneHealthDiv {
   position: absolute;
   bottom: 185px;
-  left: 20px;
+  right: 20px;
 }
 #AllyOneHealth {
   height: 30px;
@@ -71,13 +71,13 @@ html {
 #EnemyTwoHealthDiv {
   position: absolute;
   bottom: 450px;
-  right: 20px;
+  left: 20px;
   
 }
 #AllyTwoHealthDiv {
   position: absolute;
   bottom: 450px;
-  left: 20px;
+  right: 20px;
 }
 
 /* Images */

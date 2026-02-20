@@ -31,4 +31,5 @@ IMPORTANT NOTES:
 Fire damage inflicted to players needs to be worked, relevant variables : EnemyOneFireAttackValue
 
 
-PlayerOneHealth.value = PlayerOneHealth.value - (EnemyOneAttackOne + EnemyTwoAttackOne + PrionDamageOne + FireDamageOne - DefenseAllyOne)
+PlayerOneHealth.value = PlayerOneHealth.value - (EnemyOneAttackOne + EnemyTwoAttackOne + PrionDamageOne + FireDamageOne - DefenseAllyOne
+)

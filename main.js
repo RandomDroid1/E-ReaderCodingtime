@@ -1,5 +1,7 @@
 var AllyOneAttackNumber = 0;
 var EnemyOneAttackNumber = 0;
+var AllyTwoAttackNumber = 0;
+var EnemyTwoAttackNumber = 0;
 var EnemyOneAttack = "none";
 var SimpleAttackSelected = false;
 var SimpleHealSelected = false;
@@ -14,6 +16,7 @@ var EnemyOneSelfDamage = 0;
 var EnemyTwoSelfDamage = 0;
 var FoldCounter = 0;
 var EnemyOneAttackNumberText = document.getElementById("EnemyAttackLog");
+var AllyOneDefense = 0;
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -168,6 +171,7 @@ function AllyAttackMeterAct() {
 
 function TurnCaller() {
     setTimeout(EnemyOneAttackMeterUpdate, 1000)
+    setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 }
 
 function EnemyOneAttackMeterUpdate() {
@@ -190,12 +194,64 @@ function EnemyOneAttackMeterReset() {
        console.log(AllyOneHealth.value)
        console.log(EnemyOneHealth.value)
     } else {
-        console.log(EnemyOneAttackMeterHTML.max);
         EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max;
         EnemyOneAttackSelector()
-        console.log(EnemyOneAttack)
+        EnemyOneAttacker()
     }
 }
+
+function EnemyOneAttacker() {
+        console.log(AllyOneHealth.value)
+        console.log(EnemyOneAttackValue)
+        if (EnemyOneAttackTarget == "AllyOne") {
+            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+        }
+        if (EnemyOneAttackTarget == "AllyTwo") {
+            AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+        }
+        if (EnemyOneAttackTarget == "Both") {
+            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+        }
+
+}
+function EnemyTwoAttackMeterUpdate() {
+    VariableUpdater();
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
+       console.log(AllyTwoHealth.value)
+       console.log(EnemyTwoHealth.value)
+    } else {
+        EnemyTwoAttackMeterHTML.value -= 25;
+        setTimeout(EnemyTwoAttackMeterUpdate, 1000)
+        if (EnemyTwoAttackMeterHTML.value <= 0) {
+            EnemyTwoAttackMeterReset()
+        }
+    }            
+}
+
+function EnemyTwoAttackMeterReset() {
+    VariableUpdater();
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
+       console.log(AllyTwoHealth.value)
+       console.log(EnemyTwoHealth.value)
+    } else {
+        EnemyTwoAttackMeterHTML.value = EnemyTwoAttackMeterHTML.max;
+        EnemyTwoAttacker()
+    }
+}
+function EnemyTwoAttacker() {
+        if (EnemyTwoAttackTarget == "AllyOne") {
+            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+        }
+        if (EnemyTwoAttackTarget == "AllyTwo") {
+            AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+        }
+        if (EnemyTwoAttackTarget == "Both") {
+            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+        }
+    }
+
 // ###################################### //
 // ###################################### //
 // ####### ENEMY ONE MOVE HANDLER ####### //
@@ -222,27 +278,33 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
         }
     if (EnemyOne == "Car") { // 10 points, if either enemy is below, biased to heal 1-5, otherwise is slightly biased to ram
             EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
-            if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad)
+            if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad) Heal from death? Like fnaf world refreshed??
                 
                 if (EnemyOneAttackSelection <= 5) {
                     EnemyOneAttack = "PitStop"
+                    PitStopOne()
                 }
                 if (EnemyOneAttackSelection <= 9 && EnemyOneAttackSelection >= 6) {
                     EnemyOneAttack = "Ram"
+                    RamOne()
                 }
                 if (EnemyOneAttackSelection == 10) {
                     EnemyOneAttack = "Overdrive"
+                    OverdriveOne()
                 }
             }
             else { // BASICALLY EQUAL CHANCE FOR ALL, still biased to ram
                 if (EnemyOneAttackSelection <= 3) {
                     EnemyOneAttack = "PitStop"
+                    PitStopOne()
                 }
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 4) {
                     EnemyOneAttack = "Ram"
+                    RamOne()
                 }
                 if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Overdrive"
+                    OverdriveOne()
                 }
             }
         }
@@ -251,65 +313,125 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
             if (FoldCounter <= 5) { // 6/10 chance to do Paper Airplane, and increase fold by 2, 2/10 chance for fold, 1/10 chance for peck
                 if (EnemyOneAttackSelection <= 6) {
                     EnemyOneAttack = "PaperAirplane"
+                    PaperAirplaneOne()
                 }
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 7) {
                     EnemyOneAttack = "Fold"
+                    FoldOne()
                 }
                 if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Peck"
+                    PeckOne() // Sounds kinda like penguin
                 }
             }
             if (FoldCounter >= 6) { // 2/10 chance to do Paper Airplane, and increase fold by 2, 6/10 chance for fold, 2/10 chance for peck
                 if (EnemyOneAttackSelection <= 2) {
                     EnemyOneAttack = "PaperAirplane"
+                    PaperAirplaneOne()
                 }
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 3) {
                     EnemyOneAttack = "Fold"
+                    FoldOne()
                 }
                 if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Peck"
+                    PeckOne()
                 }
             }
         }
     if (EnemyOne == "DNA") { // PLACEHOLDER BECAUSE ACGT IS STILL UNDONE
         EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
-        console.log(EnemyOneAttackSelection + " EnemyOneAttackSelection")
         if (EnemyOneAttackNumber <= 3) { // under 3 turns, 2/10 for virus, 7/10 for ACGT, 1/10 for bind
             console.log(EnemyOneAttackNumber)
             if (EnemyOneAttackSelection <= 2) {
                 EnemyOneAttack = "Virus"
+                VirusOne()
             }
             if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 9) {
                 EnemyOneAttack = "ACGT"
+                ACGTOne()
             }
             if (EnemyOneAttackSelection == 10) {
                 EnemyOneAttack = "Bind"
+                BindOne()
             }
         }
         if (EnemyOneAttackNumber >= 4 && EnemyOneAttackNumber <= 6) { // 4-6 turns, 2/10 for virus, 5/10 for ACGT, 3/10 for bind
             if (EnemyOneAttackSelection <= 2) {
                 EnemyOneAttack = "Virus"
+                VirusOne()
             }
             if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 7) {
                 EnemyOneAttack = "ACGT"
+                ACGTOne()
             }
             if (EnemyOneAttackSelection >= 8) {
                 EnemyOneAttack = "Bind"
+                BindOne()
             }
         } 
         if (EnemyOneAttackNumber >= 7) { // above 7 turns, 1/10 for virus, 3/10 for ACGT, 6/10 for bind
             if (EnemyOneAttackSelection == 1) {
                 EnemyOneAttack = "Virus"
+                VirusOne()
             }
             if (EnemyOneAttackSelection >= 2 && EnemyOneAttackSelection <= 4) {
                 EnemyOneAttack = "ACGT"
+                ACGTOne()
             }
             if (EnemyOneAttackSelection >= 4) {
                 EnemyOneAttack = "Bind"
+                BindOne()
             }
         }
     }
-    if (EnemyOne == "HandMan") {}
+    if (EnemyOne == "HandMan") {
+        EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1) // 2/10 chance for  Grab, 2/10 for domain, 6/10 for reduce
+        if (EnemyOneAttackSelection <= 2) {
+            EnemyOneAttack = "Grab"
+            GrabOne()
+        }
+        if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 5) {
+            EnemyOneAttack = "Domain"
+            DomainOne()
+        }
+        if (EnemyOneAttackSelection >= 6) {
+            EnemyOneAttack = "Reduce"
+            ReduceOne()
+        }
+    }
+
+    if (EnemyOne == "Blob") {
+        EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+            if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // Under half, 40% chance for reform, 40% chance for glob, 20% chance for randomize
+                if (EnemyOneAttackSelection <= 4) {
+                    EnemyOneAttack = "Glob"
+                    PitStopOne()
+                }
+                if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 4) {
+                    EnemyOneAttack = "Ram"
+                    RamOne()
+                }
+                if (EnemyOneAttackSelection >= 9) {
+                    EnemyOneAttack = "Randomize"
+                    OverdriveOne()
+                }
+            }
+            else { // Above Half , 2/10 reform, 2/10 glob, 6/10 randomize
+                if (EnemyOneAttackSelection <= 2) {
+                    EnemyOneAttack = "PitStop"
+                    PitStopOne()
+                }
+                if (EnemyOneAttackSelection <= 4 && EnemyOneAttackSelection >= 3) {
+                    EnemyOneAttack = "Ram"
+                    RamOne()
+                }
+                if (EnemyOneAttackSelection >= 5) {
+                    EnemyOneAttack = "Overdrive"
+                    OverdriveOne()
+                }
+            }
+    }
     }
 
 
@@ -354,20 +476,21 @@ function DemonicStrikeOne() {
 
 function DamningOne() {
     EnemyOneAttackNumber += 1;
-    EnemyOneAttackValue = Math.random() * (51 - 25) + 25;
+    EnemyOneAttackValue = Math.floor(Math.random() * (51 - 25) + 25);
     EnemyOneAttackTarget = "Both"
 }
 
 function FireBlastOne() {VariableUpdater()
     EnemyOneAttackNumber += 1;
-    EnemyOneAttackValue = Math.random() * (31 - 25) + 25;
-    EnemyOneFireAttackValue = Math.random() * (30-10) + 10;
+    EnemyOneAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
+    EnemyOneFireAttackValue = Math.floor(Math.random() * (30-10) + 10);
+    EnemyOneAttackTarget = "Both"
 }
 
 function RamOne() {
     VariableUpdater()
     EnemyOneAttackNumber += 1;
-    EnemyOneAttackValue = Math.random() * (101 - 65) + 65;
+    EnemyOneAttackValue = Math.floor(Math.random() * (101 - 65) + 65);
     EnemyOneAttackTarget = Math.random()* (3-1)+1; // determine if attack hits, 1 = no, 2 = yes
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "Missed"
