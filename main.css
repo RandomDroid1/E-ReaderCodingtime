@@ -185,27 +185,29 @@ button {
 /* Attack Logs */
 #EnemyOneAttackLog {
   position: absolute;
-  bottom: 220px;
-  left: 220px;
-  text-align: right;
-}
-#AllyOneAttackLog {
-  position: absolute;
   bottom: 375px;
   left: 200px;
   text-align: left;
+  
 }
-#EnemyTwoAttackLog {
+#AllyOneAttackLog {
   position: absolute;
-  bottom: 490px;
-  left: 270px;
+  bottom: 220px;
+  right: 190px;
   text-align: right;
 }
-#AllyTwoAttackLog {
+#EnemyTwoAttackLog {
   position: absolute;
   bottom: 630px;
   left: 200px;
   text-align: left;
+}
+#AllyTwoAttackLog {
+  position: absolute;
+  bottom: 490px;
+  right: 190px;
+  text-align: right;
+  
 }
 
 /* AttackMeu */

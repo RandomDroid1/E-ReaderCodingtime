@@ -2,21 +2,40 @@ var AllyOneAttackNumber = 0;
 var EnemyOneAttackNumber = 0;
 var AllyTwoAttackNumber = 0;
 var EnemyTwoAttackNumber = 0;
+
+var AllyOneDefense = 0;
+var AllyTwoDefense = 0;
+var EnemyOneDefense = 0;
+var EnemyTwoDefense = 0;
+
 var EnemyOneAttack = "none";
-var SimpleAttackSelected = false;
-var SimpleHealSelected = false;
+var EnemyTwoAttack = "none";
+
 var GameIsOver = false;
+
 var CharacterSelected = "none";
 var FactionSelected = "none";
+
 var AllyOneSelected = false;
 var EnemyOneSelected = false;
 var AllyTwoSelected = false;
 var EnemyTwoSelected = false;
+
 var EnemyOneSelfDamage = 0;
 var EnemyTwoSelfDamage = 0;
+
+var EnemyOneAttackTarget = "none"
+var EnemyTwoAttackTarget = "none"
+
 var FoldCounter = 0;
-var EnemyOneAttackNumberText = document.getElementById("EnemyAttackLog");
-var AllyOneDefense = 0;
+var EnemyOneAttackNumberText = document.getElementById("EnemyOneAttackLog"); // what could this possbiley be for?
+
+var PlayerOneAttackType = "none"
+var PlayerTwoAttackType = "none"
+var EnemyOneAttackType = "none"
+var EnemyTwoAttackType = "none"
+
+
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -201,8 +220,7 @@ function EnemyOneAttackMeterReset() {
 }
 
 function EnemyOneAttacker() {
-        console.log(AllyOneHealth.value)
-        console.log(EnemyOneAttackValue)
+        console.log("EnemyOneAttacked, Used " + EnemyOneAttack)
         if (EnemyOneAttackTarget == "AllyOne") {
             AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
         }
@@ -213,6 +231,7 @@ function EnemyOneAttacker() {
             AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
             AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
         }
+        document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + "\n, dealing " + EnemyOneAttackValue + " Damage!"
 
 }
 function EnemyTwoAttackMeterUpdate() {
@@ -236,20 +255,23 @@ function EnemyTwoAttackMeterReset() {
        console.log(EnemyTwoHealth.value)
     } else {
         EnemyTwoAttackMeterHTML.value = EnemyTwoAttackMeterHTML.max;
+        EnemyTwoAttackSelector()
         EnemyTwoAttacker()
     }
 }
 function EnemyTwoAttacker() {
+        console.log("EnemyTwoAttacked, Used" + EnemyTwoAttack)
         if (EnemyTwoAttackTarget == "AllyOne") {
-            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            AllyOneHealth.value -= (EnemyTwoAttackValue - AllyOneDefense)
         }
         if (EnemyTwoAttackTarget == "AllyTwo") {
-            AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            AllyTwoHealth.value -= (EnemyTwoAttackValue - AllyTwoDefense)
         }
         if (EnemyTwoAttackTarget == "Both") {
-            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
-            AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            AllyOneHealth.value -= (EnemyTwoAttackValue - AllyOneDefense)
+            AllyTwoHealth.value -= (EnemyTwoAttackValue - AllyTwoDefense)
         }
+        document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + "\n, dealing " + EnemyTwoAttackValue + " Damage!"
     }
 
 // ###################################### //
@@ -265,6 +287,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
             if (EnemyOneAttackSelection <= 5) {
                 EnemyOneAttack = "DemonicStrike"
                 DemonicStrikeOne()
+                EnemyOneAttackType = "Damage"
             }
             if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 6) {
                 EnemyOneAttack = "Damning"
@@ -278,7 +301,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
         }
     if (EnemyOne == "Car") { // 10 points, if either enemy is below, biased to heal 1-5, otherwise is slightly biased to ram
             EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
-            if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad) Heal from death? Like fnaf world refreshed??
+            if (EnemyOneHealth.value <= 50 || EnemyTwoHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad) Heal from death? Like fnaf world refreshed??
                 
                 if (EnemyOneAttackSelection <= 5) {
                     EnemyOneAttack = "PitStop"
@@ -403,7 +426,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
 
     if (EnemyOne == "Blob") {
         EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
-            if (EnemyOneHealth.value <= 50 || EnemyOneHealth.value <= 50) { // Under half, 40% chance for reform, 40% chance for glob, 20% chance for randomize
+            if (EnemyOneHealth.value <= 50 || EnemyTwoHealth.value <= 50) { // Under half, 40% chance for reform, 40% chance for glob, 20% chance for randomize
                 if (EnemyOneAttackSelection <= 4) {
                     EnemyOneAttack = "Glob"
                     PitStopOne()
@@ -448,7 +471,7 @@ function DemonicStrikeOne() {
 
     } else {
         EnemyOneAttackNumber += 1;
-        EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
+        EnemyOneAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
         EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
         if (AllyOneHealth.value > AllyTwoHealth.value) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
             if (EnemyOneAttackTarget  <= 4) { 
@@ -692,26 +715,444 @@ function RandomizeOne() {
 
 }
 
-// ##################################### //
-// ##################################### //
-// ####### ENEMY ONE ATTACKMETER ####### //
-// ##################################### //
-// ##################################### //
+// ###################################### //
+// ###################################### //
+// ####### ENEMY TWO MOVE HANDLER ####### //
+// ###################################### //
+// ###################################### //
 
 
+function EnemyTwoAttackSelector() { // I would like to mention that I think breaking up the move system into different code chunks (the attack area and the attack selector which will both be called later) is a sign I've progressed as a coder since I would've put it all in Two section earlier man
+    if (EnemyTwo == "DevilCat") { // 10 points, biased toward demonic strike, simple system. 1-5 = demonic strike, 6-8 = damning, 9-10 = Fire Blast
+            EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+            if (EnemyTwoAttackSelection <= 5) {
+                EnemyTwoAttack = "DemonicStrike"
+                DemonicStrikeTwo()
+            }
+            if (EnemyTwoAttackSelection <= 8 && EnemyTwoAttackSelection >= 6) {
+                EnemyTwoAttack = "Damning"
+                DamningTwo()
+            }
+            if (EnemyTwoAttackSelection >= 9) {
+                console.log("FirBlastSelected")
+                EnemyTwoAttack = "FireBlast"
+                FireBlastTwo()
+            }
+        }
+    if (EnemyTwo == "Car") { // 10 points, if either enemy is below, biased to heal 1-5, otherwise is slightly biased to ram
+            EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+            if (EnemyOneHealth.value <= 50 || EnemyTwoHealth.value <= 50) { // HEAL BIASED FOR WHEN UNDER HALF (this would trigger when an enemy is dead? bad bad bad) Heal from death? Like fnaf world refreshed??
+                
+                if (EnemyTwoAttackSelection <= 5) {
+                    EnemyTwoAttack = "PitStop"
+                    PitStopTwo()
+                }
+                if (EnemyTwoAttackSelection <= 9 && EnemyTwoAttackSelection >= 6) {
+                    EnemyTwoAttack = "Ram"
+                    RamTwo()
+                }
+                if (EnemyTwoAttackSelection == 10) {
+                    EnemyTwoAttack = "Overdrive"
+                    OverdriveTwo()
+                }
+            }
+            else { // BASICALLY EQUAL CHANCE FOR ALL, still biased to ram
+                if (EnemyTwoAttackSelection <= 3) {
+                    EnemyTwoAttack = "PitStop"
+                    PitStopTwo()
+                }
+                if (EnemyTwoAttackSelection <= 8 && EnemyTwoAttackSelection >= 4) {
+                    EnemyTwoAttack = "Ram"
+                    RamTwo()
+                }
+                if (EnemyTwoAttackSelection >= 9) {
+                    EnemyTwoAttack = "Overdrive"
+                    OverdriveTwo()
+                }
+            }
+        }
+    if (EnemyTwo == "Origami") {
+            EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+            if (FoldCounter <= 5) { // 6/10 chance to do Paper Airplane, and increase fold by 2, 2/10 chance for fold, 1/10 chance for peck
+                if (EnemyTwoAttackSelection <= 6) {
+                    EnemyTwoAttack = "PaperAirplane"
+                    PaperAirplaneTwo()
+                }
+                if (EnemyTwoAttackSelection <= 8 && EnemyTwoAttackSelection >= 7) {
+                    EnemyTwoAttack = "Fold"
+                    FoldTwo()
+                }
+                if (EnemyTwoAttackSelection >= 9) {
+                    EnemyTwoAttack = "Peck"
+                    PeckTwo() // Sounds kinda like penguin
+                }
+            }
+            if (FoldCounter >= 6) { // 2/10 chance to do Paper Airplane, and increase fold by 2, 6/10 chance for fold, 2/10 chance for peck
+                if (EnemyTwoAttackSelection <= 2) {
+                    EnemyTwoAttack = "PaperAirplane"
+                    PaperAirplaneTwo()
+                }
+                if (EnemyTwoAttackSelection <= 8 && EnemyTwoAttackSelection >= 3) {
+                    EnemyTwoAttack = "Fold"
+                    FoldTwo()
+                }
+                if (EnemyTwoAttackSelection >= 9) {
+                    EnemyTwoAttack = "Peck"
+                    PeckTwo()
+                }
+            }
+        }
+    if (EnemyTwo == "DNA") { // PLACEHOLDER BECAUSE ACGT IS STILL UNDTwo
+        EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+        if (EnemyTwoAttackNumber <= 3) { // under 3 turns, 2/10 for virus, 7/10 for ACGT, 1/10 for bind
+            console.log(EnemyTwoAttackNumber)
+            if (EnemyTwoAttackSelection <= 2) {
+                EnemyTwoAttack = "Virus"
+                VirusTwo()
+            }
+            if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 9) {
+                EnemyTwoAttack = "ACGT"
+                ACGTTwo()
+            }
+            if (EnemyTwoAttackSelection == 10) {
+                EnemyTwoAttack = "Bind"
+                BindTwo()
+            }
+        }
+        if (EnemyTwoAttackNumber >= 4 && EnemyTwoAttackNumber <= 6) { // 4-6 turns, 2/10 for virus, 5/10 for ACGT, 3/10 for bind
+            if (EnemyTwoAttackSelection <= 2) {
+                EnemyTwoAttack = "Virus"
+                VirusTwo()
+            }
+            if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 7) {
+                EnemyTwoAttack = "ACGT"
+                ACGTTwo()
+            }
+            if (EnemyTwoAttackSelection >= 8) {
+                EnemyTwoAttack = "Bind"
+                BindTwo()
+            }
+        } 
+        if (EnemyTwoAttackNumber >= 7) { // above 7 turns, 1/10 for virus, 3/10 for ACGT, 6/10 for bind
+            if (EnemyTwoAttackSelection == 1) {
+                EnemyTwoAttack = "Virus"
+                VirusTwo()
+            }
+            if (EnemyTwoAttackSelection >= 2 && EnemyTwoAttackSelection <= 4) {
+                EnemyTwoAttack = "ACGT"
+                ACGTTwo()
+            }
+            if (EnemyTwoAttackSelection >= 4) {
+                EnemyTwoAttack = "Bind"
+                BindTwo()
+            }
+        }
+    }
+    if (EnemyTwo == "HandMan") {
+        EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1) // 2/10 chance for  Grab, 2/10 for domain, 6/10 for reduce
+        if (EnemyTwoAttackSelection <= 2) {
+            EnemyTwoAttack = "Grab"
+            GrabTwo()
+        }
+        if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 5) {
+            EnemyTwoAttack = "Domain"
+            DomainTwo()
+        }
+        if (EnemyTwoAttackSelection >= 6) {
+            EnemyTwoAttack = "Reduce"
+            ReduceTwo()
+        }
+    }
 
-function EnemyOneAttackMeterTiming() {
+    if (EnemyTwo == "Blob") {
+        EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+            if (EnemyOneHealth.value <= 50 || EnemyTwoHealth.value <= 50) { // Under half, 40% chance for reform, 40% chance for glob, 20% chance for randomize
+                if (EnemyTwoAttackSelection <= 4) {
+                    EnemyTwoAttack = "Glob"
+                    PitStopTwo()
+                }
+                if (EnemyTwoAttackSelection <= 8 && EnemyTwoAttackSelection >= 4) {
+                    EnemyTwoAttack = "Ram"
+                    RamTwo()
+                }
+                if (EnemyTwoAttackSelection >= 9) {
+                    EnemyTwoAttack = "Randomize"
+                    OverdriveTwo()
+                }
+            }
+            else { // Above Half , 2/10 reform, 2/10 glob, 6/10 randomize
+                if (EnemyTwoAttackSelection <= 2) {
+                    EnemyTwoAttack = "PitStop"
+                    PitStopTwo()
+                }
+                if (EnemyTwoAttackSelection <= 4 && EnemyTwoAttackSelection >= 3) {
+                    EnemyTwoAttack = "Ram"
+                    RamTwo()
+                }
+                if (EnemyTwoAttackSelection >= 5) {
+                    EnemyTwoAttack = "Overdrive"
+                    OverdriveTwo()
+                }
+            }
+    }
+    }
+
+
+// ################################# //
+// ################################# //
+// ####### ENEMY TWO ATTACKS ####### //
+// ################################# //
+// ################################# //
+
+
+function DemonicStrikeTwo() {
     VariableUpdater()
-    if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
+    if (EnemyTwoHealth.value <= 0 || AllyTwoHealth.value <= 0) {
 
-    } else { // I cannot possibly be doing this right, will this introduce like 1ms of delay over time that will haunt me later? probably?? Not my problem. Just like the fnaf world migration glitch :(
-    setTimeout(EnemyOneAttackMeterUpdate, 1000);
-    setTimeout(EnemyOneAttackMeterUpdate, 2000);
-    setTimeout(EnemyOneAttackMeterUpdate, 3000);
-    setTimeout(EnemyOneAttackMeterReset, 4000);
-    console.log(EnemyHealth.value);
-    console.log(AllyHealth.value);
+    } else {
+        EnemyTwoAttackNumber += 1;
+        EnemyTwoAttackValue = Math.random() * (76 - 50) + 50;
+        EnemyTwoAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        if (AllyOneHealth.value > AllyTwoHealth.value) { // If ally One has more health than ally two, 2/3rds chance to attack ally One
+            if (EnemyTwoAttackTarget  <= 4) { 
+                EnemyTwoAttackTarget = "AllyOne"
+            } else {
+                EnemyTwoAttackTarget = "AllyTwo"
+            }
+        }
+        if (AllyOneHealth.value < AllyTwoHealth.value) { // If ally two has more health than ally One, 2/3rds chance to attack ally two
+            if (EnemyTwoAttackTarget  <= 4) { 
+                EnemyTwoAttackTarget = "AllyOne"
+            } else {
+                EnemyTwoAttackTarget = "AllyTwo"
+            }
+        } 
+        else {
+            if (EnemyTwoAttackTarget  <= 3) { // neutral
+                EnemyTwoAttackTarget = "AllyOne"
+            } else {
+                EnemyTwoAttackTarget = "AllyTwo"
+            }
+        }
+    }
 }
+
+function DamningTwo() {
+    EnemyTwoAttackNumber += 1;
+    EnemyTwoAttackValue = Math.floor(Math.random() * (51 - 25) + 25);
+    EnemyTwoAttackTarget = "Both"
+}
+
+function FireBlastTwo() {VariableUpdater()
+    EnemyTwoAttackNumber += 1;
+    EnemyTwoAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
+    EnemyTwoFireAttackValue = Math.floor(Math.random() * (30-10) + 10);
+    EnemyTwoAttackTarget = "Both"
+}
+
+function RamTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber += 1;
+    EnemyTwoAttackValue = Math.floor(Math.random() * (101 - 65) + 65);
+    EnemyTwoAttackTarget = Math.random()* (3-1)+1; // determine if attack hits, 1 = no, 2 = yes
+    if (EnemyTwoAttackTarget == 1) {
+        EnemyTwoAttackTarget = "Missed"
+    }
+    if (EnemyTwoAttackTarget == 2) {
+        EnemyTwoAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks Two
+        if (EnemyTwoAttackTarget == 1) {
+            EnemyTwoAttackTarget = "AllyOne"
+        } else {EnemyTwoAttackTarget = "AllyTwo"}
+    }
+}
+
+function OverdriveTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber += 1;
+    EnemyTwoAttackValue = Math.random() * (76 - 50) + 50;
+    EnemyTwoSelfDamage = Math.random() * (51-1) + 1
+}
+
+function PitStopTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber += 1;
+    EnemyTwoHealValue = Math.random() * (40-30)
+}
+
+function FoldTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    if (EnemyOneHealth.value <= 0 || AllyOneHealth.value <= 0) {
+
+    } else {
+        EnemyTwoAttackNumber += 1;
+        FoldCounter += 1;
+        EnemyTwoAttackValue = FoldCounter*10
+        EnemyTwoAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        if (AllyTwoHealth > AllyTwoHealth) { // If ally Two has more health than ally two, 2/3rds chance to attack ally Two
+            if (EnemyTwoAttackTarget  <= 4) { 
+                EnemyTwoAttackTarget = "AllyOne"
+            } else {
+                EnemyTwoAttackTarget = "AllyTwo"
+            }
+        }
+        if (AllyTwoHealth < AllyTwoHealth) { // If ally two has more health than ally TwoG, 2/3rds chance to attack ally two
+            if (EnemyTwoAttackTarget  <= 4) { 
+                EnemyTwoAttackTarget = "AllyOne"
+            } else {
+                EnemyTwoAttackTarget = "AllyTwo"
+            }
+        } 
+        else {
+            if (EnemyTwoAttackTarget  <= 3) { // neutral
+                EnemyTwoAttackTarget = "AllyOne"
+            } else {
+                EnemyTwoAttackTarget = "AllyTwo"
+            }
+        }
+    }
+}
+
+function PeckTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoAttackValue = Math.random() * (60-40)+40
+    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks Two
+        if (EnemyTwoAttackTarget == 1) {
+            EnemyTwoAttackTarget = "AllyOne"
+        } else {EnemyTwoAttackTarget = "AllyTwo"}
+}
+
+function PaperAirplaneTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber += 1;
+    FoldCounter += 2;
+}
+function VirusTwo() { // this could have issues if it stacks? Just make it not stack lmao
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoVirusValue = Math.random() * (20-10)+10 // dTwo multiple times
+    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks Two
+    if (EnemyTwoAttackTarget == 1) {
+        EnemyTwoVirusTarget = "AllyOne"
+    } else {EnemyTwoVirusTarget = "AllyTwo"}
+}
+
+function ACGTTwo() { // PLACEHOLDER
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoAttackValue = Math.random() * (100-1) + 1
+    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Two, or two
+    if (EnemyTwoAttackTarget == 1) {
+        EnemyTwoAttackTarget = "AllyOne"}
+        else {EnemyTwoAttackTarget = "AllyTwo"}
+}
+
+function BindTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Two, or two
+    if (EnemyTwoAttackTarget == 1) {
+        EnemyTwoAttackTarget = "AllyTwo"
+    } else {EnemyTwoSelfDamage = 9999999999}
+}
+
+function GrabTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    AllySpeed = "Reduced"
+    AllyAttackDebuff += -15
+}
+
+function DomainTwo() { //   Locks a move or smth
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoAttackTarget = Math.random()* (5-1)+1 // Above 1 hits
+    if (EnemyTwoAttackTarget >= 1) {
+        EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Chooses 1-2 to decide which player to target
+        EnemyTwoMoveLock = Math.random() * (4-1)+1 // Chooses 1-3 to decide what move to lock
+    }
+
+}
+
+function ReduceTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoAttackValue = Math.random() * (61-40) + 40
+    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Two, or two
+    if (EnemyTwoAttackTarget == 1) {
+        EnemyTwoAttackTarget = "AllyTwo"}
+        else {EnemyTwoAttackTarget = "AllyTwo"}
+}
+
+function GlobTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber +=1;
+    EnemyTwoDefense += 20
+    EnemyTwoDefense += 20
+}
+
+function ReformTwo() {
+    VariableUpdater()
+    EnemyTwoAttackNumber += 1;
+    EnemyTwoHealValue = Math.random() * (40-30)
+}
+
+function RandomizeTwo() {
+    EnemyTwoAttackNumber +=1;
+    EnemyRandomizeSelection = Math.random() * (18-1) + 1  // 1-17
+    if (EnemyRandomizeSelection == 1) {
+        DemonicStrikeTwo()
+    }
+    if (EnemyRandomizeSelection == 2) {
+        DamningTwo()
+    }
+    if (EnemyRandomizeSelection == 3) {
+        FireBlastTwo()
+    }
+    if (EnemyRandomizeSelection == 4) {
+        RamTwo()
+    }
+    if (EnemyRandomizeSelection == 5) {
+        OverdriveTwo()
+    }
+    if (EnemyRandomizeSelection == 6) {
+        PitStopTwo()
+    }
+    if (EnemyRandomizeSelection == 7) {
+        FoldTwo()
+    }
+    if (EnemyRandomizeSelection == 8) {
+        PeckTwo()
+    }
+    if (EnemyRandomizeSelection == 9) {
+        PaperAirplaneTwo()
+    }
+    if (EnemyRandomizeSelection == 10) {
+        VirusTwo()
+    }
+    if (EnemyRandomizeSelection == 11) {
+        ACGTTwo()
+    }
+    if (EnemyRandomizeSelection == 12) {
+        BindTwo()
+    }
+    if (EnemyRandomizeSelection == 13) {
+        GrabTwo()
+    }
+    if (EnemyRandomizeSelection == 14) {
+        DomainTwo()
+    }
+    if (EnemyRandomizeSelection == 15) {
+        ReduceTwo()
+    }
+    if (EnemyRandomizeSelection == 16) {
+        GlobTwo()
+    }
+    if (EnemyRandomizeSelection == 17) {
+        ReformTwo()
+    }
+
 }
 
 
