@@ -35,7 +35,8 @@ var PlayerTwoAttackType = "none"
 var EnemyOneAttackType = "none"
 var EnemyTwoAttackType = "none"
 
-
+var EnemyOneAttackValue = 0
+var EnemyTwoAttackValue = 0
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -217,22 +218,49 @@ function EnemyOneAttackMeterReset() {
         EnemyOneAttackSelector()
         EnemyOneAttacker()
     }
+    
 }
 
 function EnemyOneAttacker() {
         console.log("EnemyOneAttacked, Used " + EnemyOneAttack)
         if (EnemyOneAttackTarget == "AllyOne") {
             AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneAttackValue + " Damage to " + AllyOne
         }
         if (EnemyOneAttackTarget == "AllyTwo") {
             AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneAttackValue + " Damage to " + AllyTwo
         }
         if (EnemyOneAttackTarget == "Both") {
             AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
             AllyTwoHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneAttackValue + " Damage to " + AllyOne + " and " + AllyTwo
         }
-        document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + "\n, dealing " + EnemyOneAttackValue + " Damage!"
+        if (EnemyOneAttackTarget == "SelfHeal") {
+            EnemyOneHealth += EnemyOneHealValue
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n healing " + EnemyOneAttackValue + " health "
+        }
+        if (EnemyOneAttackTarget == "TeamHeal") {
+            EnemyOneHealth += EnemyOneHealValue
+            EnemyTwoHealth += EnemyOneHealValue
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n healing " + EnemyOneAttackValue + " health for both enemies"
+        }
+        if (EnemyOneAttackTarget == "Overdrive") {
+            EnemyOneHealth -= EnemyOneSelfDamage
+            AllyOneHealth -= EnemyOneAttackValue
+            AllyTwoHealth -= EnemyOneAttackValue
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneAttackValue + "damage to enemies, and " + EnemyOneSelfDamage + " damage to self"
+        }
 
+        EnemyOneAttackValue = 0
+        EnemyOneSelfDamage = 0
+        EnemyOneHealValue = 0
+        EnemyOneAttack = "none"
+
+}
+
+function EnemyOneChronicDamage() {
+    if(EnemyOneVirusValue != 0) {}
 }
 function EnemyTwoAttackMeterUpdate() {
     VariableUpdater();
@@ -260,18 +288,39 @@ function EnemyTwoAttackMeterReset() {
     }
 }
 function EnemyTwoAttacker() {
-        console.log("EnemyTwoAttacked, Used" + EnemyTwoAttack)
+        console.log("EnemyTwoAttacked, Used " + EnemyTwoAttack)
         if (EnemyTwoAttackTarget == "AllyOne") {
             AllyOneHealth.value -= (EnemyTwoAttackValue - AllyOneDefense)
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n dealing " + EnemyTwoAttackValue + " Damage to " + AllyOne
         }
         if (EnemyTwoAttackTarget == "AllyTwo") {
-            AllyTwoHealth.value -= (EnemyTwoAttackValue - AllyTwoDefense)
+            AllyTwoHealth.value -= (EnemyTwoAttackValue - AllyOneDefense)
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n dealing " + EnemyTwoAttackValue + " Damage to " + AllyTwo
         }
         if (EnemyTwoAttackTarget == "Both") {
             AllyOneHealth.value -= (EnemyTwoAttackValue - AllyOneDefense)
-            AllyTwoHealth.value -= (EnemyTwoAttackValue - AllyTwoDefense)
+            AllyTwoHealth.value -= (EnemyTwoAttackValue - AllyOneDefense)
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n dealing " + EnemyTwoAttackValue + " Damage to " + AllyOne + " and " + AllyTwo
         }
-        document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + "\n, dealing " + EnemyTwoAttackValue + " Damage!"
+        if (EnemyTwoAttackTarget == "SelfHeal") {
+            EnemyTwoHealth += EnemyTwoHealValue
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n healing " + EnemyTwoAttackValue + " health "
+        }
+        if (EnemyTwoAttackTarget == "TeamHeal") {
+            EnemyOneHealth += EnemyTwoHealValue
+            EnemyTwoHealth += EnemyTwoHealValue
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n healing " + EnemyTwoAttackValue + " health for both enemies"
+        }
+        if (EnemyTwoAttackTarget == "Overdrive") {
+            EnemyTwoHealth -= EnemyTwoSelfDamage
+            AllyOneHealth -= EnemyOneAttackValue
+            AllyTwoHealth -= EnemyOneAttackValue
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n dealing " + EnemyTwoAttackValue + "damage to enemies, and " + EnemyTwoSelfDamage + " damage to self"
+        }
+        EnemyTwoAttackValue = 0
+        EnemyTwoSelfDamage = 0
+        EnemyTwoHealValue = 0
+        EnemyTwoAttack = "none"
     }
 
 // ###################################### //
@@ -472,7 +521,7 @@ function DemonicStrikeOne() {
     } else {
         EnemyOneAttackNumber += 1;
         EnemyOneAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
-        EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        EnemyOneAttackTarget = Math.floor(Math.random() * (7-1)+1) // Generates a random number 1-6
         if (AllyOneHealth.value > AllyTwoHealth.value) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
             if (EnemyOneAttackTarget  <= 4) { 
                 EnemyOneAttackTarget = "AllyOne"
@@ -514,7 +563,7 @@ function RamOne() {
     VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneAttackValue = Math.floor(Math.random() * (101 - 65) + 65);
-    EnemyOneAttackTarget = Math.random()* (3-1)+1; // determine if attack hits, 1 = no, 2 = yes
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1); // determine if attack hits, 1 = no, 2 = yes
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "Missed"
     }
@@ -525,30 +574,31 @@ function RamOne() {
         } else {EnemyOneAttackTarget = "AllyTwo"}
     }
 }
-
 function OverdriveOne() {
     VariableUpdater()
     EnemyOneAttackNumber += 1;
-    EnemyOneAttackValue = Math.random() * (76 - 50) + 50;
-    EnemyOneSelfDamage = Math.random() * (51-1) + 1
+    EnemyOneAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
+    EnemyOneSelfDamage = Math.floor(Math.random() * (51-1) + 1)
+    EnemyOneAttackTarget = "Overdrive"
 }
 
 function PitStopOne() {
     VariableUpdater()
     EnemyOneAttackNumber += 1;
-    EnemyOneHealValue = Math.random() * (40-30)
+    EnemyOneHealValue = Math.floor(Math.random() * (40-30))
+    EnemyOneAttackTarget = "TeamHeal"
 }
 
 function FoldOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
+    if (EnemyOneHealth.value <= 0 || AllyOneHealth.value <= 0) {
 
     } else {
         EnemyOneAttackNumber += 1;
         FoldCounter += 1;
         EnemyOneAttackValue = FoldCounter*10
-        EnemyOneAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        EnemyOneAttackTarget = Math.floor(Math.random() * (7-1)+1) // Generates a random number 1-6
         if (AllyOneHealth > AllyTwoHealth) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
             if (EnemyOneAttackTarget  <= 4) { 
                 EnemyOneAttackTarget = "AllyOne"
@@ -576,8 +626,8 @@ function FoldOne() {
 function PeckOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackValue = Math.random() * (60-40)+40
-    EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
+    EnemyOneAttackValue = Math.floor(Math.random() * (60-40)+40)
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // he cares not for attacking the enemy with the lowest health, he just attacks one
         if (EnemyOneAttackTarget == 1) {
             EnemyOneAttackTarget = "AllyOne"
         } else {EnemyOneAttackTarget = "AllyTwo"}
@@ -591,18 +641,18 @@ function PaperAirplaneOne() {
 function VirusOne() { // this could have issues if it stacks? Just make it not stack lmao
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneVirusValue = Math.random() * (20-10)+10 // done multiple times
-    EnemyOneAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks one
+    EnemyOneVirusValue = Math.floor(Math.random() * (20-10)+10) // done multiple times
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // he cares not for attacking the enemy with the lowest health, he just attacks one
     if (EnemyOneAttackTarget == 1) {
         EnemyOneVirusTarget = "AllyOne"
     } else {EnemyOneVirusTarget = "AllyTwo"}
 }
-
+// RESUME RESUME RESUME RESUME
 function ACGTOne() { // PLACEHOLDER
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackValue = Math.random() * (100-1) + 1
-    EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
+    EnemyOneAttackValue = Math.floor(Math.random() * (100-1) + 1)
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // One, or two
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "AllyOne"}
         else {EnemyOneAttackTarget = "AllyTwo"}
@@ -611,7 +661,7 @@ function ACGTOne() { // PLACEHOLDER
 function BindOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // One, or two
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "AllyOne"
     } else {EnemyOneSelfDamage = 9999999999}
@@ -627,10 +677,10 @@ function GrabOne() {
 function DomainOne() { //   Locks a move or smth
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackTarget = Math.random()* (5-1)+1 // Above 1 hits
+    EnemyOneAttackTarget = Math.floor(Math.random()* (5-1)+1) // Above 1 hits
     if (EnemyOneAttackTarget >= 1) {
-        EnemyOneAttackTarget = Math.random()* (3-1)+1 // Chooses 1-2 to decide which player to target
-        EnemyOneMoveLock = Math.random() * (4-1)+1 // Chooses 1-3 to decide what move to lock
+        EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // Chooses 1-2 to decide which player to target
+        EnemyOneMoveLock = Math.floor(Math.random() * (4-1)+1) // Chooses 1-3 to decide what move to lock
     }
 
 }
@@ -638,8 +688,8 @@ function DomainOne() { //   Locks a move or smth
 function ReduceOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackValue = Math.random() * (61-40) + 40
-    EnemyOneAttackTarget = Math.random()* (3-1)+1 // One, or two
+    EnemyOneAttackValue = Math.floor(Math.random() * (61-40) + 40)
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // One, or two
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "AllyOne"}
         else {EnemyOneAttackTarget = "AllyTwo"}
@@ -655,12 +705,12 @@ function GlobOne() {
 function ReformOne() {
     VariableUpdater()
     EnemyOneAttackNumber += 1;
-    EnemyOneHealValue = Math.random() * (40-30)
+    EnemyOneHealValue = Math.floor(Math.random() * (40-30))
 }
 
 function RandomizeOne() {
     EnemyOneAttackNumber +=1;
-    EnemyRandomizeSelection = Math.random() * (18-1) + 1  // 1-17
+    EnemyRandomizeSelection = Math.floor(Math.random() * (18-1) + 1)  // 1-17
     if (EnemyRandomizeSelection == 1) {
         DemonicStrikeOne()
     }
@@ -911,8 +961,8 @@ function DemonicStrikeTwo() {
 
     } else {
         EnemyTwoAttackNumber += 1;
-        EnemyTwoAttackValue = Math.random() * (76 - 50) + 50;
-        EnemyTwoAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        EnemyTwoAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
+        EnemyTwoAttackTarget = Math.floor(Math.random() * (7-1)+1) // Generates a random number 1-6
         if (AllyOneHealth.value > AllyTwoHealth.value) { // If ally One has more health than ally two, 2/3rds chance to attack ally One
             if (EnemyTwoAttackTarget  <= 4) { 
                 EnemyTwoAttackTarget = "AllyOne"
@@ -954,12 +1004,12 @@ function RamTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber += 1;
     EnemyTwoAttackValue = Math.floor(Math.random() * (101 - 65) + 65);
-    EnemyTwoAttackTarget = Math.random()* (3-1)+1; // determine if attack hits, 1 = no, 2 = yes
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1); // determine if attack hits, 1 = no, 2 = yes
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = "Missed"
     }
     if (EnemyTwoAttackTarget == 2) {
-        EnemyTwoAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks Two
+        EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // he cares not for attacking the enemy with the lowest health, he just attacks Two
         if (EnemyTwoAttackTarget == 1) {
             EnemyTwoAttackTarget = "AllyOne"
         } else {EnemyTwoAttackTarget = "AllyTwo"}
@@ -969,14 +1019,14 @@ function RamTwo() {
 function OverdriveTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber += 1;
-    EnemyTwoAttackValue = Math.random() * (76 - 50) + 50;
-    EnemyTwoSelfDamage = Math.random() * (51-1) + 1
+    EnemyTwoAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
+    EnemyTwoSelfDamage = Math.floor(Math.random() * (51-1) + 1);
 }
 
 function PitStopTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber += 1;
-    EnemyTwoHealValue = Math.random() * (40-30)
+    EnemyTwoHealValue = Math.floor(Math.random() * (40-30))
 }
 
 function FoldTwo() {
@@ -988,7 +1038,7 @@ function FoldTwo() {
         EnemyTwoAttackNumber += 1;
         FoldCounter += 1;
         EnemyTwoAttackValue = FoldCounter*10
-        EnemyTwoAttackTarget = Math.random() * (7-1)+1 // Generates a random number 1-6
+        EnemyTwoAttackTarget = Math.floor(Math.random() * (7-1)+1) // Generates a random number 1-6
         if (AllyTwoHealth > AllyTwoHealth) { // If ally Two has more health than ally two, 2/3rds chance to attack ally Two
             if (EnemyTwoAttackTarget  <= 4) { 
                 EnemyTwoAttackTarget = "AllyOne"
@@ -1016,8 +1066,8 @@ function FoldTwo() {
 function PeckTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackValue = Math.random() * (60-40)+40
-    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks Two
+    EnemyTwoAttackValue = Math.floor(Math.random() * (60-40)+40)
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1)
         if (EnemyTwoAttackTarget == 1) {
             EnemyTwoAttackTarget = "AllyOne"
         } else {EnemyTwoAttackTarget = "AllyTwo"}
@@ -1031,8 +1081,8 @@ function PaperAirplaneTwo() {
 function VirusTwo() { // this could have issues if it stacks? Just make it not stack lmao
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoVirusValue = Math.random() * (20-10)+10 // dTwo multiple times
-    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // he cares not for attacking the enemy with the lowest health, he just attacks Two
+    EnemyTwoVirusValue = Math.floor(Math.random() * (20-10)+10) //  multiple times
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // he cares not for attacking the enemy with the lowest health, he just attacks Two
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoVirusTarget = "AllyOne"
     } else {EnemyTwoVirusTarget = "AllyTwo"}
@@ -1041,8 +1091,8 @@ function VirusTwo() { // this could have issues if it stacks? Just make it not s
 function ACGTTwo() { // PLACEHOLDER
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackValue = Math.random() * (100-1) + 1
-    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Two, or two
+    EnemyTwoAttackValue = Math.floor(Math.random() * (100-1) + 1)
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // Two, or two
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = "AllyOne"}
         else {EnemyTwoAttackTarget = "AllyTwo"}
@@ -1051,7 +1101,7 @@ function ACGTTwo() { // PLACEHOLDER
 function BindTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Two, or two
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // Two, or two
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = "AllyTwo"
     } else {EnemyTwoSelfDamage = 9999999999}
@@ -1067,10 +1117,10 @@ function GrabTwo() {
 function DomainTwo() { //   Locks a move or smth
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackTarget = Math.random()* (5-1)+1 // Above 1 hits
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (5-1)+1) // Above 1 hits
     if (EnemyTwoAttackTarget >= 1) {
-        EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Chooses 1-2 to decide which player to target
-        EnemyTwoMoveLock = Math.random() * (4-1)+1 // Chooses 1-3 to decide what move to lock
+        EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // Chooses 1-2 to decide which player to target
+        EnemyTwoMoveLock = Math.floor(Math.random() * (4-1)+1) // Chooses 1-3 to decide what move to lock
     }
 
 }
@@ -1078,8 +1128,8 @@ function DomainTwo() { //   Locks a move or smth
 function ReduceTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackValue = Math.random() * (61-40) + 40
-    EnemyTwoAttackTarget = Math.random()* (3-1)+1 // Two, or two
+    EnemyTwoAttackValue = Math.floor(Math.random() * (61-40) + 40)
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // Two, or two
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = "AllyTwo"}
         else {EnemyTwoAttackTarget = "AllyTwo"}
@@ -1095,12 +1145,12 @@ function GlobTwo() {
 function ReformTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber += 1;
-    EnemyTwoHealValue = Math.random() * (40-30)
+    EnemyTwoHealValue = Math.floor(Math.random() * (40-30))
 }
 
 function RandomizeTwo() {
     EnemyTwoAttackNumber +=1;
-    EnemyRandomizeSelection = Math.random() * (18-1) + 1  // 1-17
+    EnemyRandomizeSelection = Math.floor(Math.random() * (18-1) + 1)  // 1-17
     if (EnemyRandomizeSelection == 1) {
         DemonicStrikeTwo()
     }
