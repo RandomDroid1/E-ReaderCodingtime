@@ -26,3 +26,7 @@ Make ally moves function for ally one
 Make ally moves function for ally two
 Make buttons change value upon selectioN!!
 balance /:
+
+
+
+AGCT SUSPEND: Math.floor(Math.random() * (100-1) + 1)

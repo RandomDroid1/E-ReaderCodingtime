@@ -45,10 +45,8 @@ var EnemyOneVirusSlotTwoCounter = 0
 var EnemyTwoVirusSlotOneCounter = 0
 var EnemyTwoVirusSlotTwoCounter = 0
 
-var EnemyOneFireSlotOneCounter = 0
-var EnemyOneFireSlotTwoCounter = 0
-var EnemyTwoFireSlotOneCounter = 0
-var EnemyTwoFireSlotTwoCounter = 0
+var EnemyOneVirusSlotOneTargetLock = "none"
+var EnemyOneVirusSlotTwoTargetLock = "none"
 
 var EnemyOneAttackValue = 0
 var EnemyTwoAttackValue = 0
@@ -280,26 +278,65 @@ function EnemyOneVirusDamageSlotOne() {
     }
     if(EnemyOneVirusSlotOne == "Free") {
         if(EnemyOneVirusTarget == "AllyOne") {
-          AllyOneHealth -= EnemyOneVirusValue  
-          console.log("VirusUsedAllyOne")
+            EnemyOneVirusSlotOneTargetLock = "AllyOne";
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
         }
         if(EnemyOneVirusTarget == "AllyTwo") {
-          AllyTwoHealth -= EnemyOneVirusValue  
-          console.log("VirusUsedAllyTwo")
+            EnemyOneVirusSlotOneTargetLock = "AllyTwo";
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
         }
 }
 }
 
+function EnemyOneVirusDamageSlotOneDamager() {
+    EnemyOneVirusSlotOneCounter += 1;
+    if(EnemyOneVirusSlotOneTargetLock == "AllyOne") {
+        AllyOneHealth.value -= 20
+        console.log("VirusAttackedAllyOne")
+    }
+    if(EnemyOneVirusSlotOneTargetLock == "AllyTwo") {
+        AllyTwoHealth.value -= 20
+        console.log("VirusAttackedAllyTwo")
+    }
+    if(EnemyOneVirusSlotOneCounter == 4) {
+        EnemyOneVirusSlotOneCounter = 0
+        EnemyOneVirusSlotOne = "Free"
+        EnemyOneVirusSlotOneTargetLock = "none"
+        console.log("VirusSlotOneEnd")
+    }
+}
+
 function EnemyOneVirusDamageSlotTwo() {
+console.log("Virus2Used")
     if(EnemyOneVirusSlotTwo == "Taken") {
-        console.log("HELP HELP I AM BEING EXPLODED INTO 2 TRILLION PEICES AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        EnemyOneVirusDamageSlotTwo()
     }
-    if(EnemyOneVirusTarget == "AllyOne") {
-          AllyOneHealth -= EnemyOneVirusValue  
+    if(EnemyOneVirusSlotTwo == "Free") {
+        if(EnemyOneVirusTarget == "AllyOne") {
+            EnemyOneVirusSlotTwoTargetLock = "AllyOne";
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 4000);
         }
-    if(EnemyOneVirusTarget == "AllyTwo") {
-          AllyTwoHealth -= EnemyOneVirusValue  
-    }
+        if(EnemyOneVirusTarget == "AllyTwo") {
+            EnemyOneVirusSlotTwoTargetLock = "AllyTwo";
+        }
+}
 }
 
 
@@ -696,7 +733,7 @@ function VirusOne() { // this could have issues if it stacks? Just make it not s
 function ACGTOne() { // PLACEHOLDER
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackValue = Math.floor(Math.random() * (100-1) + 1)
+    EnemyOneAttackValue = 0
     EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // One, or two
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "AllyOne"}
