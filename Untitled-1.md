@@ -12,24 +12,17 @@ Multiple Enemies
 Multiple Player characters
 make the background shift color a touch
 
-Opp move ideas:
-Claw (inconsistent damage, high risk high reward)
-Healing potion (middling healing)
-Strike (consistent middling damage)
-Speed up (Speeds up enemy attacks)
-Slow down (Slows down player attacks)
-Prion (Sustained damage)
 
 
 
-Add it so you can expend a turn to upgrade a move? Or you can pass to gain coins to spend on upgrading moves? Get it working but that next
 
-TaskListFix CSs. Make the basic attack system work, with Ally one attack being on the left, and Ally 2 on the right. HAve the Timing subract by 20 instead of weird so slow can happen easier
-
-
-IMPORTANT NOTES:
-Fire damage inflicted to players needs to be worked, relevant variables : EnemyOneFireAttackValue
+CHRONIC DAMAGE IS NEXT. Sysstem where there are 2 functions that serve as chronic damage slots (if theresalready one virus active, it uses slot 2 for damage, so it can stack, and since chronic damage only lasts 2 turns its like boom boom boom you suck)
+Use a variable to count how many cycles of virus damage have been completed
 
 
-PlayerOneHealth.value = PlayerOneHealth.value - (EnemyOneAttackOne + EnemyTwoAttackOne + PrionDamageOne + FireDamageOne - DefenseAllyOne
-)
+What to do:
+Make Ally moves show up in text
+Make ally moves function for ally one
+Make ally moves function for ally two
+Make buttons change value upon selectioN!!
+balance /:

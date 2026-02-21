@@ -35,6 +35,21 @@ var PlayerTwoAttackType = "none"
 var EnemyOneAttackType = "none"
 var EnemyTwoAttackType = "none"
 
+var EnemyOneVirusSlotOne = "Free"
+var EnemyOneVirusSlotTwo = "Free"
+var EnemyTwoVirusSlotOne = "Free"
+var EnemyTwoVirusSlotTwo = "Free"
+
+var EnemyOneVirusSlotOneCounter = 0
+var EnemyOneVirusSlotTwoCounter = 0
+var EnemyTwoVirusSlotOneCounter = 0
+var EnemyTwoVirusSlotTwoCounter = 0
+
+var EnemyOneFireSlotOneCounter = 0
+var EnemyOneFireSlotTwoCounter = 0
+var EnemyTwoFireSlotOneCounter = 0
+var EnemyTwoFireSlotTwoCounter = 0
+
 var EnemyOneAttackValue = 0
 var EnemyTwoAttackValue = 0
 if (AllyOne == undefined) {
@@ -191,7 +206,6 @@ function AllyAttackMeterAct() {
 
 function TurnCaller() {
     setTimeout(EnemyOneAttackMeterUpdate, 1000)
-    setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 }
 
 function EnemyOneAttackMeterUpdate() {
@@ -259,9 +273,37 @@ function EnemyOneAttacker() {
 
 }
 
-function EnemyOneChronicDamage() {
-    if(EnemyOneVirusValue != 0) {}
+function EnemyOneVirusDamageSlotOne() {
+    console.log("VirusUsed")
+    if(EnemyOneVirusSlotOne == "Taken") {
+        EnemyOneVirusDamageSlotTwo()
+    }
+    if(EnemyOneVirusSlotOne == "Free") {
+        if(EnemyOneVirusTarget == "AllyOne") {
+          AllyOneHealth -= EnemyOneVirusValue  
+          console.log("VirusUsedAllyOne")
+        }
+        if(EnemyOneVirusTarget == "AllyTwo") {
+          AllyTwoHealth -= EnemyOneVirusValue  
+          console.log("VirusUsedAllyTwo")
+        }
 }
+}
+
+function EnemyOneVirusDamageSlotTwo() {
+    if(EnemyOneVirusSlotTwo == "Taken") {
+        console.log("HELP HELP I AM BEING EXPLODED INTO 2 TRILLION PEICES AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    }
+    if(EnemyOneVirusTarget == "AllyOne") {
+          AllyOneHealth -= EnemyOneVirusValue  
+        }
+    if(EnemyOneVirusTarget == "AllyTwo") {
+          AllyTwoHealth -= EnemyOneVirusValue  
+    }
+}
+
+
+
 function EnemyTwoAttackMeterUpdate() {
     VariableUpdater();
     if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
@@ -418,6 +460,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
             if (EnemyOneAttackSelection <= 2) {
                 EnemyOneAttack = "Virus"
                 VirusOne()
+                EnemyOneVirusDamageSlotOne()
             }
             if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 9) {
                 EnemyOneAttack = "ACGT"
@@ -432,6 +475,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
             if (EnemyOneAttackSelection <= 2) {
                 EnemyOneAttack = "Virus"
                 VirusOne()
+                EnemyOneVirusDamageSlotOne()
             }
             if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 7) {
                 EnemyOneAttack = "ACGT"
@@ -446,6 +490,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
             if (EnemyOneAttackSelection == 1) {
                 EnemyOneAttack = "Virus"
                 VirusOne()
+                EnemyOneVirusDamageSlotOne()
             }
             if (EnemyOneAttackSelection >= 2 && EnemyOneAttackSelection <= 4) {
                 EnemyOneAttack = "ACGT"
@@ -647,7 +692,7 @@ function VirusOne() { // this could have issues if it stacks? Just make it not s
         EnemyOneVirusTarget = "AllyOne"
     } else {EnemyOneVirusTarget = "AllyTwo"}
 }
-// RESUME RESUME RESUME RESUME
+// RESUME RESUME RESUME RESUME // RESUME WHAT?
 function ACGTOne() { // PLACEHOLDER
     VariableUpdater()
     EnemyOneAttackNumber +=1;

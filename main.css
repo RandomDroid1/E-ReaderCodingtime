@@ -188,26 +188,28 @@ button {
   bottom: 375px;
   left: 200px;
   text-align: left;
-  
+  max-width: 200px;
 }
 #AllyOneAttackLog {
   position: absolute;
   bottom: 220px;
   right: 190px;
   text-align: right;
+  max-width: 200px;
 }
 #EnemyTwoAttackLog {
   position: absolute;
   bottom: 630px;
   left: 200px;
   text-align: left;
+  max-width: 200px;
 }
 #AllyTwoAttackLog {
   position: absolute;
   bottom: 490px;
   right: 190px;
   text-align: right;
-  
+  max-width: 200px;
 }
 
 /* AttackMeu */
@@ -354,3 +356,32 @@ button {
   font-size: medium;
   font-weight: 300;
 }
+
+#AllyOneVirusMarker {
+  position: absolute;
+  width: 50px;
+  bottom: 375px;
+  right: 20px;
+}
+
+#AllyOneFireMarker {
+  position: absolute;
+  width: 50px;
+  bottom: 375px;
+  right: 150px;
+}
+
+#AllyTwoVirusMarker {
+  position: absolute;
+  width: 50px;
+  top: 130px;
+  right: 20px;
+}
+
+#AllyTwoFireMarker {
+  position: absolute;
+  width: 50px;
+  top: 130px;
+  right: 150px;
+}
+
