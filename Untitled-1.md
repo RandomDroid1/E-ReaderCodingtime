@@ -14,19 +14,17 @@ make the background shift color a touch
 
 
 
-
-FIRE IS NEXT
-
+UP NEXT: Make Ally moves show up in text
 
 
 What to do:
-Make Ally moves show up in text
+
 Make ally moves function for ally one
 Make ally moves function for ally two
 Make buttons change value upon selectioN!!
 balance /:
 Make game over work properly
-
+Give Evil Hand Man his defense bypass lmao, hes being cheated
 
 
 AGCT SUSPEND: Math.floor(Math.random() * (100-1) + 1)

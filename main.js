@@ -50,9 +50,14 @@ var EnemyOneVirusSlotTwoTargetLock = "none";
 var EnemyTwoVirusSlotOneTargetLock = "none";
 var EnemyTwoVirusSlotTwoTargetLock = "none";
 
-
 var EnemyOneAttackValue = 0
 var EnemyTwoAttackValue = 0
+
+var EnemyOneFireCounter = 0
+var EnemyTwoFireCounter = 0
+
+
+
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -123,8 +128,8 @@ function GameOver() {
 
 }
 function CheckHealth() { // Checks health of Ally and enemy, does needed updates and shutdowns
-    if (AllyOneHealth.value > 0 && EnemyOneHealth.value  > 0) {
-        console.log("Both Alive")
+    if (AllyOneHealth.value > 0 && EnemyOneHealth.value  > 0 && AllyTwoHealth.value > 0 && EnemyTwoHealth.value  > 0) {
+        console.log("All Alive")
         setTimeout(CheckHealth,100)
     } else if (AllyOneHealth.value <= 0) {
         console.log("AllyDead")
@@ -340,7 +345,7 @@ function EnemyTwoAttacker() {
 // ############################# //
 // ####### VIRUS HANDLER ####### //
 // ############################# //
-// #############################//
+// ############################# //
 function EnemyOneVirusDamageSlotOne() {
     console.log("VIRUS SLOT 1 STARTED")
     if(EnemyOneVirusSlotOne == "Taken") {
@@ -561,6 +566,40 @@ function EnemyTwoVirusDamageSlotTwoDamager() {
     }
 }
 
+// ############################ //
+// ############################ //
+// ####### FIRE HANDLER ####### //
+// ############################ //
+// ############################ //
+function EnemyOneFireDamager() {
+    if(EnemyOneAttackTarget == "Both") {
+        EnemyOneFireCounter += 1
+        document.getElementById("AllyOneFireMarker").src = "FireDamage.png"
+        document.getElementById("AllyTwoFireMarker").src = "FireDamage.png"
+        AllyOneHealth.value -= EnemyOneFireAttackValue
+        AllyTwoHealth.value -= EnemyOneFireAttackValue
+    }
+    if(EnemyOneFireCounter == 4) {
+        EnemyOneFireCounter = 0
+        document.getElementById("AllyOneFireMarker").src = ""
+        document.getElementById("AllyTwoFireMarker").src = ""
+    }
+}
+
+function EnemyTwoFireDamager() {
+    if(EnemyTwoAttackTarget == "Both") {
+        EnemyTwoFireCounter += 1
+        document.getElementById("AllyOneFireMarker").src = "FireDamage.png"
+        document.getElementById("AllyTwoFireMarker").src = "FireDamage.png"
+        AllyOneHealth.value -= EnemyTwoFireAttackValue
+        AllyTwoHealth.value -= EnemyTwoFireAttackValue
+    }
+    if(EnemyTwoFireCounter == 4) {
+        EnemyTwoFireCounter = 0
+        document.getElementById("AllyOneFireMarker").src = ""
+        document.getElementById("AllyTwoFireMarker").src = ""
+    }
+}
 
 // ###################################### //
 // ###################################### //
@@ -794,11 +833,16 @@ function DamningOne() {
     EnemyOneAttackTarget = "Both"
 }
 
-function FireBlastOne() {VariableUpdater()
+function FireBlastOne() {
+    VariableUpdater()
     EnemyOneAttackNumber += 1;
     EnemyOneAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
-    EnemyOneFireAttackValue = Math.floor(Math.random() * (30-10) + 10);
+    EnemyOneFireAttackValue = Math.floor(Math.random() * (20-10) + 10);
     EnemyOneAttackTarget = "Both"
+    setTimeout(EnemyOneFireDamager, 1000)
+    setTimeout(EnemyOneFireDamager, 2000)
+    setTimeout(EnemyOneFireDamager, 3000)
+    setTimeout(EnemyOneFireDamager, 3700)
 }
 
 function RamOne() {
@@ -1029,6 +1073,7 @@ function EnemyTwoAttackSelector() { // I would like to mention that I think brea
                 console.log("FirBlastSelected")
                 EnemyTwoAttack = "FireBlast"
                 FireBlastTwo()
+                
             }
         }
     if (EnemyTwo == "Car") { // 10 points, if either enemy is below, biased to heal 1-5, otherwise is slightly biased to ram
@@ -1238,11 +1283,16 @@ function DamningTwo() {
     EnemyTwoAttackTarget = "Both"
 }
 
-function FireBlastTwo() {VariableUpdater()
+function FireBlastTwo() {
+    VariableUpdater()
     EnemyTwoAttackNumber += 1;
     EnemyTwoAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
-    EnemyTwoFireAttackValue = Math.floor(Math.random() * (30-10) + 10);
+    EnemyTwoFireAttackValue = Math.floor(Math.random() * (20-10) + 10);
     EnemyTwoAttackTarget = "Both"
+    setTimeout(EnemyOneFireDamager, 1000)
+    setTimeout(EnemyOneFireDamager, 2000)
+    setTimeout(EnemyOneFireDamager, 3000)
+    setTimeout(EnemyOneFireDamager, 3700)
 }
 
 function RamTwo() {
