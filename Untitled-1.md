@@ -15,9 +15,8 @@ make the background shift color a touch
 
 
 
+FIRE IS NEXT
 
-CHRONIC DAMAGE IS NEXT. Sysstem where there are 2 functions that serve as chronic damage slots (if theresalready one virus active, it uses slot 2 for damage, so it can stack, and since chronic damage only lasts 2 turns its like boom boom boom you suck)
-Use a variable to count how many cycles of virus damage have been completed
 
 
 What to do:
@@ -26,6 +25,7 @@ Make ally moves function for ally one
 Make ally moves function for ally two
 Make buttons change value upon selectioN!!
 balance /:
+Make game over work properly
 
 
 

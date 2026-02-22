@@ -30,23 +30,26 @@ var EnemyTwoAttackTarget = "none"
 var FoldCounter = 0;
 var EnemyOneAttackNumberText = document.getElementById("EnemyOneAttackLog"); // what could this possbiley be for?
 
-var PlayerOneAttackType = "none"
-var PlayerTwoAttackType = "none"
-var EnemyOneAttackType = "none"
-var EnemyTwoAttackType = "none"
+var PlayerOneAttackType = "none";
+var PlayerTwoAttackType = "none";
+var EnemyOneAttackType = "none";
+var EnemyTwoAttackType = "none";
 
-var EnemyOneVirusSlotOne = "Free"
-var EnemyOneVirusSlotTwo = "Free"
-var EnemyTwoVirusSlotOne = "Free"
-var EnemyTwoVirusSlotTwo = "Free"
+var EnemyOneVirusSlotOne = "Free";
+var EnemyOneVirusSlotTwo = "Free";
+var EnemyTwoVirusSlotOne = "Free";
+var EnemyTwoVirusSlotTwo = "Free";
 
-var EnemyOneVirusSlotOneCounter = 0
-var EnemyOneVirusSlotTwoCounter = 0
-var EnemyTwoVirusSlotOneCounter = 0
-var EnemyTwoVirusSlotTwoCounter = 0
+var EnemyOneVirusSlotOneCounter = 0;
+var EnemyOneVirusSlotTwoCounter = 0;
+var EnemyTwoVirusSlotOneCounter = 0;
+var EnemyTwoVirusSlotTwoCounter = 0;
 
-var EnemyOneVirusSlotOneTargetLock = "none"
-var EnemyOneVirusSlotTwoTargetLock = "none"
+var EnemyOneVirusSlotOneTargetLock = "none";
+var EnemyOneVirusSlotTwoTargetLock = "none";
+var EnemyTwoVirusSlotOneTargetLock = "none";
+var EnemyTwoVirusSlotTwoTargetLock = "none";
+
 
 var EnemyOneAttackValue = 0
 var EnemyTwoAttackValue = 0
@@ -204,6 +207,7 @@ function AllyAttackMeterAct() {
 
 function TurnCaller() {
     setTimeout(EnemyOneAttackMeterUpdate, 1000)
+    setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 }
 
 function EnemyOneAttackMeterUpdate() {
@@ -271,76 +275,6 @@ function EnemyOneAttacker() {
 
 }
 
-function EnemyOneVirusDamageSlotOne() {
-    console.log("VirusUsed")
-    if(EnemyOneVirusSlotOne == "Taken") {
-        EnemyOneVirusDamageSlotTwo()
-    }
-    if(EnemyOneVirusSlotOne == "Free") {
-        if(EnemyOneVirusTarget == "AllyOne") {
-            EnemyOneVirusSlotOneTargetLock = "AllyOne";
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
-        }
-        if(EnemyOneVirusTarget == "AllyTwo") {
-            EnemyOneVirusSlotOneTargetLock = "AllyTwo";
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
-        }
-}
-}
-
-function EnemyOneVirusDamageSlotOneDamager() {
-    EnemyOneVirusSlotOneCounter += 1;
-    if(EnemyOneVirusSlotOneTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 20
-        console.log("VirusAttackedAllyOne")
-    }
-    if(EnemyOneVirusSlotOneTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 20
-        console.log("VirusAttackedAllyTwo")
-    }
-    if(EnemyOneVirusSlotOneCounter == 4) {
-        EnemyOneVirusSlotOneCounter = 0
-        EnemyOneVirusSlotOne = "Free"
-        EnemyOneVirusSlotOneTargetLock = "none"
-        console.log("VirusSlotOneEnd")
-    }
-}
-
-function EnemyOneVirusDamageSlotTwo() {
-console.log("Virus2Used")
-    if(EnemyOneVirusSlotTwo == "Taken") {
-        EnemyOneVirusDamageSlotTwo()
-    }
-    if(EnemyOneVirusSlotTwo == "Free") {
-        if(EnemyOneVirusTarget == "AllyOne") {
-            EnemyOneVirusSlotTwoTargetLock = "AllyOne";
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 4000);
-        }
-        if(EnemyOneVirusTarget == "AllyTwo") {
-            EnemyOneVirusSlotTwoTargetLock = "AllyTwo";
-        }
-}
-}
-
-
-
 function EnemyTwoAttackMeterUpdate() {
     VariableUpdater();
     if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
@@ -401,6 +335,232 @@ function EnemyTwoAttacker() {
         EnemyTwoHealValue = 0
         EnemyTwoAttack = "none"
     }
+
+// ############################# //
+// ############################# //
+// ####### VIRUS HANDLER ####### //
+// ############################# //
+// #############################//
+function EnemyOneVirusDamageSlotOne() {
+    console.log("VIRUS SLOT 1 STARTED")
+    if(EnemyOneVirusSlotOne == "Taken") {
+        EnemyOneVirusDamageSlotTwo()
+    }
+    if(EnemyOneVirusSlotOne == "Free") {
+        if(EnemyOneVirusTarget == "AllyOne") {
+            EnemyOneVirusSlotOneTargetLock = "AllyOne";
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
+        }
+        if(EnemyOneVirusTarget == "AllyTwo") {
+            EnemyOneVirusSlotOneTargetLock = "AllyTwo"; // I HATE INTERVALS WE HATE INTERVALS (it didnt work once so now I am refusing to use it on this part even though it would work better probably)
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
+        }
+}
+}
+
+function EnemyOneVirusDamageSlotOneDamager() {
+    EnemyOneVirusSlotOneCounter += 1;
+    
+    if(EnemyOneVirusSlotOneTargetLock == "AllyOne") {
+        AllyOneHealth.value -= 10
+        console.log("VirusAttackedAllyOne")
+        document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
+    }
+    if(EnemyOneVirusSlotOneTargetLock == "AllyTwo") {
+        AllyTwoHealth.value -= 10
+        console.log("VirusAttackedAllyTwo")
+        document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
+    }
+    if(EnemyOneVirusSlotOneCounter == 8) {
+        EnemyOneVirusSlotOneCounter = 0
+        EnemyOneVirusSlotOne = "Free"
+        EnemyOneVirusSlotOneTargetLock = "none"
+        document.getElementById("AllyTwoVirusMarker").src = ""
+        document.getElementById("AllyOneVirusMarker").src = ""
+        console.log("VirusSlotOneEnd")
+    }
+}
+
+
+function EnemyOneVirusDamageSlotTwo() {
+    console.log("Virus2Used")
+    if(EnemyOneVirusSlotTwo == "Taken") {
+        EnemyOneVirusDamageSlotTwo()
+    }
+    if(EnemyOneVirusSlotTwo == "Free") {
+        if(EnemyOneVirusTarget == "AllyOne") {
+            EnemyOneVirusSlotTwoTargetLock = "AllyOne";
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 4000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 5000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 6000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7500);
+        }
+        if(EnemyOneVirusTarget == "AllyTwo") {
+            EnemyOneVirusSlotTwoTargetLock = "AllyTwo";
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 1000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 2000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 3000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 4000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 5000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 6000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7000);
+            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7500);
+        }
+}
+}
+
+function EnemyOneVirusDamageSlotTwoDamager() {
+    EnemyOneVirusSlotTwoCounter += 1;
+    console.log("VIRUS SLOT 2 STARTED")
+    if(EnemyOneVirusSlotTwoTargetLock == "AllyOne") {
+        AllyOneHealth.value -= 10
+        document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
+        console.log("VirusAttackedAllyOne")
+    }
+    if(EnemyOneVirusSlotTwoTargetLock == "AllyTwo") {
+        AllyTwoHealth.value -= 10
+        console.log("VirusAttackedAllyTwo")
+        document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
+    }
+    if(EnemyOneVirusSlotTwoCounter == 8) {
+        EnemyOneVirusSlotTwoCounter = 0
+        EnemyOneVirusSlotTwo = "Free"
+        EnemyOneVirusSlotTwoTargetLock = "none"
+        console.log("VirusSlotTwoEnd")
+        document.getElementById("AllyTwoVirusMarker").src = ""
+        document.getElementById("AllyOneVirusMarker").src = ""
+    }
+}
+
+// enemy two// 
+
+function EnemyTwoVirusDamageSlotOne() {
+    console.log("VIRUS SLOT 1 STARTED")
+    if(EnemyTwoVirusSlotOne == "Taken") {
+        EnemyTwoVirusDamageSlotTwo()
+    }
+    if(EnemyTwoVirusSlotOne == "Free") {
+        if(EnemyTwoVirusTarget == "AllyOne") {
+            EnemyTwoVirusSlotOneTargetLock = "AllyOne";
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+        }
+        if(EnemyTwoVirusTarget == "AllyTwo") {
+            EnemyTwoVirusSlotOneTargetLock = "AllyTwo"; // I HATE INTERVALS WE HATE INTERVALS (it didnt work once so now I am refusing to use it on this part even though it would work better probably)
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+        }
+}
+}
+
+function EnemyTwoVirusDamageSlotOneDamager() {
+    EnemyTwoVirusSlotOneCounter += 1;
+    
+    if(EnemyTwoVirusSlotOneTargetLock == "AllyOne") {
+        AllyOneHealth.value -= 10
+        console.log("VirusAttackedAllyOne")
+        document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
+    }
+    if(EnemyTwoVirusSlotOneTargetLock == "AllyTwo") {
+        AllyTwoHealth.value -= 10
+        console.log("VirusAttackedAllyTwo")
+        document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
+    }
+    if(EnemyTwoVirusSlotOneCounter == 8) {
+        EnemyTwoVirusSlotOneCounter = 0
+        EnemyTwoVirusSlotOne = "Free"
+        EnemyTwoVirusSlotOneTargetLock = "none"
+        document.getElementById("AllyTwoVirusMarker").src = ""
+        document.getElementById("AllyOneVirusMarker").src = ""
+        console.log("VirusSlotOneEnd")
+    }
+}
+
+
+function EnemyTwoVirusDamageSlotTwo() {
+    console.log("Virus2Used")
+    if(EnemyTwoeVirusSlotTwo == "Taken") {
+        EnemyTwoVirusDamageSlotTwo()
+    }
+    if(EnemyTwoVirusSlotTwo == "Free") {
+        if(EnemyTwoVirusTarget == "AllyOne") {
+            EnemyTwoVirusSlotTwoTargetLock = "AllyOne";
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+        }
+        if(EnemyTwoVirusTarget == "AllyTwo") {
+            EnemyTwoVirusSlotTwoTargetLock = "AllyTwo";
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
+            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+        }
+}
+}
+
+function EnemyTwoVirusDamageSlotTwoDamager() {
+    EnemyTwoVirusSlotTwoCounter += 1;
+    console.log("VIRUS SLOT 2 STARTED")
+    if(EnemyTwoVirusSlotTwoTargetLock == "AllyOne") {
+        AllyOneHealth.value -= 10
+        document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
+        console.log("VirusAttackedAllyOne")
+    }
+    if(EnemyTwoVirusSlotTwoTargetLock == "AllyTwo") {
+        AllyTwoHealth.value -= 10
+        console.log("VirusAttackedAllyTwo")
+        document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
+    }
+    if(EnemyTwoVirusSlotTwoCounter == 8) {
+        EnemyTwoVirusSlotTwoCounter = 0
+        EnemyTwoVirusSlotTwo = "Free"
+        EnemyTwoVirusSlotTwoTargetLock = "none"
+        console.log("VirusSlotTwoEnd")
+        document.getElementById("AllyTwoVirusMarker").src = ""
+        document.getElementById("AllyOneVirusMarker").src = ""
+    }
+}
+
 
 // ###################################### //
 // ###################################### //
@@ -941,6 +1101,7 @@ function EnemyTwoAttackSelector() { // I would like to mention that I think brea
             if (EnemyTwoAttackSelection <= 2) {
                 EnemyTwoAttack = "Virus"
                 VirusTwo()
+                EnemyTwoVirusDamageSlotOne()
             }
             if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 9) {
                 EnemyTwoAttack = "ACGT"
@@ -955,6 +1116,7 @@ function EnemyTwoAttackSelector() { // I would like to mention that I think brea
             if (EnemyTwoAttackSelection <= 2) {
                 EnemyTwoAttack = "Virus"
                 VirusTwo()
+                EnemyTwoVirusDamageSlotOne()
             }
             if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 7) {
                 EnemyTwoAttack = "ACGT"
@@ -969,6 +1131,7 @@ function EnemyTwoAttackSelector() { // I would like to mention that I think brea
             if (EnemyTwoAttackSelection == 1) {
                 EnemyTwoAttack = "Virus"
                 VirusTwo()
+                EnemyTwoVirusDamageSlotOne()
             }
             if (EnemyTwoAttackSelection >= 2 && EnemyTwoAttackSelection <= 4) {
                 EnemyTwoAttack = "ACGT"
