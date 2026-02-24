@@ -1,6 +1,5 @@
-var AllyOneAttackNumber = 0;
+var AllyAttackNumber = 0;
 var EnemyOneAttackNumber = 0;
-var AllyTwoAttackNumber = 0;
 var EnemyTwoAttackNumber = 0;
 
 var AllyOneDefense = 0;
@@ -26,6 +25,8 @@ var EnemyTwoSelfDamage = 0;
 
 var EnemyOneAttackTarget = "none"
 var EnemyTwoAttackTarget = "none"
+var AllyOneAttackTarget = "none"
+var AllyTwoAttackTarget = "none"
 
 var FoldCounter = 0;
 var EnemyOneAttackNumberText = document.getElementById("EnemyOneAttackLog"); // what could this possbiley be for?
@@ -52,11 +53,25 @@ var EnemyTwoVirusSlotTwoTargetLock = "none";
 
 var EnemyOneAttackValue = 0
 var EnemyTwoAttackValue = 0
+var AllyOneAttackValue = 0
+var AllyTwoAttackValue = 0
 
 var EnemyOneFireCounter = 0
 var EnemyTwoFireCounter = 0
 
+var AllyOneAttackOneText = "none"
+var AllyOneAttackOneText = "none"
+var AllyOneAttackOneText = "none"
+var AllyTwoAttackOneText = "none"
+var AllyTwoAttackOneText = "none"
+var AllyTwoAttackOneText = "none"
 
+var AllyOneAttackMultiplier = 1
+var AllyTwoAttackMultiplier = 1
+
+var TheMarkCounterVariable = "20"
+var TheMarkInterval = "none"
+var TheRotInterval = "none"
 
 if (AllyOne == undefined) {
 var AllyOne = "none";
@@ -70,11 +85,11 @@ function VariableUpdater() {
         var EnemyOneHealth = document.getElementById("EnemyOneHealth")
         var AllyOneHealth = document.getElementById("AllyOneHealth")
         var GameOver = document.getElementById("GameOver");
-        var AllyOneAttackMeter = document.getElementById("AllyOneAttackMeter");
+        var AllyOneAttackMeterHTML = document.getElementById("AllyOneAttackMeterHTML");
         var EnemyOneAttackMeterHTML = document.getElementById("EnemyOneAttackMeterHTML")
         var EnemyTwoHealth = document.getElementById("EnemyTwoHealth")
         var AllyTwoHealth = document.getElementById("AllyTwoHealth")
-        var AllyTwoAttackMeter = document.getElementById("AllyTwoAttackMeter");
+        var AllyTwoAttackMeterHTML = document.getElementById("AllyTwoAttackMeterHTML");
         var EnemyTwoAttackMeterHTML = document.getElementById("EnemyTwoAttackMeterHTML")
  }
 
@@ -109,6 +124,8 @@ function StartButton() { // Starts the enemies attack when clicked
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
     document.getElementById("EnemyTwoImage").src = EnemyTwo+".png"
     TurnCaller()
+    AllyOneMoveList()
+    AllyTwoMoveList()
 }
 
 function GameOver() {
@@ -152,59 +169,92 @@ function SimpleAttack() { // Praise stack overflow
     }
 }
 
-function SimpleHeal() {
-    if (SimpleAttackSelected == false) {
-        SimpleHealSelected = true
-        document.getElementById("HealButton").style.borderWidth = "5px";
-        document.getElementById("HealButton").style.borderColor = "red";
+function HeavenlyStrike() {
+    AllyAttackNumber += 1;
+    AllyOneAttackValue = Math.floor(Math.random() * (81-40)+1) // Slightly higher max than demonic strike w/ a larger range?
+    if (AllyOneTarget == "EnemyOne") {
+        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    }
+    if (AllyOneTarget == "EnemyTwo") {
+        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     }
 }
 
-function AllyOneAttackMeterTiming() {
-    VariableUpdater()
-    if (EnemyHealth.value <= 0 || AllyHealth.value <= 0) {
-
-    } else { 
-    setTimeout(AllyOneAttackMeterUpdate, 1000);
-    setTimeout(AllyOneAttackMeterUpdate, 2000);
-    setTimeout(AllyOneAttackMeterUpdate, 3000);
-    setTimeout(AllyOneAttackMeterAct, 4000);}
+function Judgement() {
+    AllyAttackNumber += 1;
+    AllyOneAttackValue = Math.floor(Math.random() * (51-25)+1)
+    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
 }
 
-function AllyOneAttackMeterUpdate() {
-    VariableUpdater()
-    AllyOneAttackMeter.value -= 25
+function HealingPrayer() {
+    AllyAttackNumber += 1;
+    AllyOneAttackValue = Math.floor(Math.random() * (51-25)+1)
+    AllyOneHealth.value += AllyOneAttackValue
+    AllyTwoHealth.value += AllyOneAttackValue
 }
-function AllyAttackMeterAct() {
-    VariableUpdater()
-    if (SimpleAttackSelected == true) {
-        AllyAttackNumber =+ 1;
-        var AllyAttackDamage = Math.floor(Math.random() * (75-10+1));
-        SimpleAttackSelected = false;
-        const AllyAttackNumberText = document.getElementById("AllyAttackLog");
-        AllyAttackNumberText.innerHTML = "Ally attacked! <br>" + AllyAttackDamage + " Damage Dealt (" + AllyAttackNumber + ")";
-        EnemyHealth.value -= AllyAttackDamage;
-        document.getElementById("AttackButton").style.borderWidth = "1px";
-        document.getElementById("AttackButton").style.borderColor = "black";
-        console.log("AllyAttacked");
-        
-        }
-    if (SimpleHealSelected == true && AllyHealth.value > 0) {
-        AllyHealNumber =+ 1;
-        var AllyHealAmount = Math.floor(Math.random() * (50-10+1));
-        SimpleAttackSelected = false;
-        const AllyHealNumberText = document.getElementById("AllyAttackLog");
-        AllyHealNumberText.innerHTML = "Ally Healed! <br>" + AllyHealAmount + " Health Healed (" + AllyHealNumber + ")";
-        AllyHealth.value += AllyHealAmount;
-        SimpleHealSelected = false
-        document.getElementById("HealButton").style.borderWidth = "1px";
-        document.getElementById("HealButton").style.borderColor = "black";
-        console.log("AllyHeal")
-        }
-    AllyAttackMeter.value = 100
-    AllyAttackMeterTiming()
+
+function BadTime() {
+    AllyAttackNumber += 1;
+    AllyOneAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyOneAttackNumber*10)
+    if (AllyOneTarget == "EnemyOne") {
+        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    }
+    if (AllyOneTarget == "EnemyTwo") {
+        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    }
 }
-// ###################################### //
+
+function Rewind() {
+    AllyAttackNumber +=1;
+    if (AllyOneHealth.value <= 250) {
+        AllyOneHealth += Math.floor(Math.random() * (101-65)+65)
+        EnemyOneHealth -= (Math.floor(Math.random() * (51-25)+25)) * AllyOneAttackMultiplier
+        EnemyTwoHealth -= (Math.floor(Math.random() * (51-25)+25)) * AllyOneAttackMultiplier
+    }
+    if (AllyOneHealth.value >> 250) {
+        AllyOneHealth += Math.floor(Math.random() * (51-10)+10)
+        EnemyOneHealth -= (Math.floor(Math.random() * (51-25)+25)) * AllyOneAttackMultiplier
+        EnemyTwoHealth -= (Math.floor(Math.random() * (51-25)+25)) * AllyOneAttackMultiplier
+    }
+}
+
+function Spear() {
+    AllyAttackNumber += 1
+    AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))
+    if (AllyOneAttackValue == 4) {
+        if (AllyOneTarget == "EnemyOne") {
+            EnemyOneHealth.value -= 999999
+        }
+        if (AllyOneTarget == "EnemyTwo") {
+            EnemyTwoHealth.value -= 999999
+        }
+    }
+}
+
+function TheMark() {
+    AllyAttackNumber +=1
+    AllyOneAttackMultiplier = 1.5
+    TheMarkInterval = setInterval(TheMarkCounter, 1000)
+}
+function TheMarkCounter() {
+    TheMarkCounterVariable -= 1
+    TheMarkCancel()
+}
+function TheMarkCancel() {
+    if (TheMarkCounterVariable == 0) {
+        clearInterval(TheMarkInterval)
+        TheMarkCounterVariable = 20
+        AllyOneAttackMultiplier = 1
+    }
+}
+
+function TheRot() {
+    AllyAttackNumber +=1
+    AllyOneAttackMultiplier = 1.5
+    TheMarkInterval = setInterval(TheMarkCounter, 1000)
+}
+// ###################################### // 
 // ###################################### //
 // ####### UNIVERSAL TURN HANDLER ####### //
 // ###################################### //
@@ -213,6 +263,32 @@ function AllyAttackMeterAct() {
 function TurnCaller() {
     setTimeout(EnemyOneAttackMeterUpdate, 1000)
     setTimeout(EnemyTwoAttackMeterUpdate, 1000)
+    setTimeout(AllyOneAttackMeterUpdate, 1000)
+}
+
+function AllyOneAttackMeterUpdate() {
+    VariableUpdater();
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
+       console.log(AllyOneHealth.value)
+       console.log(EnemyOneHealth.value)
+    } else {
+        AllyOneAttackMeterHTML.value -= 25;
+        setTimeout(AllyOneAttackMeterUpdate, 1000)
+        if (AllyOneAttackMeterHTML.value <= 0) {
+            AllyOneAttackMeterReset()
+        }
+    }
+}
+
+function AllyOneAttackMeterReset() {
+    VariableUpdater();
+    if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
+       console.log(AllyOneHealth.value)
+       console.log(EnemyOneHealth.value)
+    } else {
+        AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max;
+    }
+    
 }
 
 function EnemyOneAttackMeterUpdate() {
@@ -340,6 +416,70 @@ function EnemyTwoAttacker() {
         EnemyTwoHealValue = 0
         EnemyTwoAttack = "none"
     }
+
+
+
+// ################################ // 
+// ################################ // 
+// ####### ALLY MOVE LABELS ####### // 
+// ################################ // 
+// ################################ // 
+
+function AllyOneMoveList() { // This is going to take so long oh my god what is a better way?
+    if(AllyOne == "AngelCat") {
+        AllyOneAttackOneText = "Heavenly Strike"
+        AllyOneAttackTwoText = "Judgement"
+        AllyOneAttackThreeText = "Healing Prayer"
+        document.getElementById("AllyOneAttackOne").innerHTML = "Heavenly Strike"
+        document.getElementById("AllyOneAttackTwo").innerHTML = "Judgement"
+        document.getElementById("AllyOneAttackThree").innerHTML = "Healing Prayer"
+    }
+    if(AllyOne == "Clock") {
+        AllyOneAttackOneText = "Bad Time"
+        AllyOneAttackTwoText = "Hour"
+        AllyOneAttackThreeText = "Rewind"
+        document.getElementById("AllyOneAttackOne").innerHTML = "Bad Time"
+        document.getElementById("AllyOneAttackTwo").innerHTML = "Hour"
+        document.getElementById("AllyOneAttackThree").innerHTML = "Rewind"
+    }
+    if(AllyOne == "Slugcat") {
+        AllyOneAttackOneText = "Spear"
+        AllyOneAttackTwoText = "The Mark"
+        AllyOneAttackThreeText = "The Rot"
+        document.getElementById("AllyOneAttackOne").innerHTML = "Spear"
+        document.getElementById("AllyOneAttackTwo").innerHTML = "The Mark"
+        document.getElementById("AllyOneAttackThree").innerHTML = "The Rot"
+    }
+    if(AllyOne == "Square") {
+        AllyOneAttackOneText = "4 Corners"
+        AllyOneAttackTwoText = ""
+        AllyOneAttackThreeText = ""
+        document.getElementById("AllyOneAttackOne").innerHTML = "4 Corners"
+        document.getElementById("AllyOneAttackTwo").innerHTML = ""
+        document.getElementById("AllyOneAttackThree").innerHTML = ""
+    }
+    if(AllyOne == "Boat") {
+        AllyOneAttackOneText = "Boat"
+        AllyOneAttackTwoText = "Fish"
+        AllyOneAttackThreeText = "Hook"
+        document.getElementById("AllyOneAttackOne").innerHTML = "Boat"
+        document.getElementById("AllyOneAttackTwo").innerHTML = "Fish"
+        document.getElementById("AllyOneAttackThree").innerHTML = "Hook"
+    }
+    if(AllyOne == "Flibbit") {
+        AllyOneAttackOneText = "Clamp"
+        AllyOneAttackTwoText = "Chomp"
+        AllyOneAttackThreeText = "Chew"
+        document.getElementById("AllyOneAttackOne").innerHTML = "Clamp"
+        document.getElementById("AllyOneAttackTwo").innerHTML = "Chomp"
+        document.getElementById("AllyOneAttackThree").innerHTML = "Chew"
+    }
+}
+function AllyTwoMoveList() {}
+
+
+
+
 
 // ############################# //
 // ############################# //
@@ -1688,11 +1828,11 @@ function FlibbitHeadshot() {
     document.getElementById("CharacterName").innerText = "Flibbit"
     document.getElementById("Tagline").innerText = "Get a load of this guy"
     document.getElementById("AttackOne").innerText = "Clamp"
-    document.getElementById("AttackOneText").innerText = "Deal 25% of an enemies \n remaining health"
-    document.getElementById("AttackTwo").innerText = ""
-    document.getElementById("AttackTwoText").innerText=""
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackOneText").innerText = "Deal 15% of an enemies \n remaining health"
+    document.getElementById("AttackTwo").innerText = "Chomp"
+    document.getElementById("AttackTwoText").innerText="Deal 10% of an enemies \n max health"
+    document.getElementById("AttackThree").innerText="Chew"
+    document.getElementById("AttackThreeText").innerText="Deal 20% of Flibbit's \n remaining health to an enemy"
 }    
 
 function DevilCatHeadshot() {
