@@ -72,6 +72,9 @@ var AllyTwoAttackMultiplier = 1
 var TheMarkCounterVariable = "20"
 var TheMarkInterval = "none"
 var TheRotInterval = "none"
+var MarkAlreadyActive = false
+var MarkAlreadyActive = false
+
 
 if (AllyOne == undefined) {
 var AllyOne = "none";
@@ -221,7 +224,7 @@ function Rewind() {
 
 function Spear() {
     AllyAttackNumber += 1
-    AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))
+    AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))* AllyOneAttackMultiplier
     if (AllyOneAttackValue == 4) {
         if (AllyOneTarget == "EnemyOne") {
             EnemyOneHealth.value -= 999999
@@ -235,7 +238,13 @@ function Spear() {
 function TheMark() {
     AllyAttackNumber +=1
     AllyOneAttackMultiplier = 1.5
+    if(MarkAlreadyActive == false) {
     TheMarkInterval = setInterval(TheMarkCounter, 1000)
+    MarkAlreadyActive = true
+    }
+    if(MarkAlreadyActive == true) {
+        TheMarkCounterVariable = 20 // should it reset, or add?
+    }
 }
 function TheMarkCounter() {
     TheMarkCounterVariable -= 1
@@ -245,14 +254,35 @@ function TheMarkCancel() {
     if (TheMarkCounterVariable == 0) {
         clearInterval(TheMarkInterval)
         TheMarkCounterVariable = 20
+        MarkAlreadyActive = false
         AllyOneAttackMultiplier = 1
     }
 }
 
 function TheRot() {
     AllyAttackNumber +=1
-    AllyOneAttackMultiplier = 1.5
-    TheMarkInterval = setInterval(TheMarkCounter, 1000)
+    AllyOneAttackValue = (Math.floor(Math.random() * (126-90)+90))*AllyOneAttackMultiplier
+    if(RotAlreadyActive == false) {
+    TheRotInterval = setInterval(TheRotCounter, 1000)
+    RotAlreadyActive = true
+    }
+    if(RotAlreadyActive == true) {
+        TheRotCounterVariable += 5
+    }
+    
+}
+function TheRotCounter() {
+    TheRotCounterVariable -= 1
+    AllyOneHealth -= 20
+    TheRotCancel()
+}
+
+function TheRotCancel() {
+    if (TheRotCounterVariable == 0) {
+        clearInterval(TheRotInterval)
+        TheRotCounterVariable = 20
+        RotAlreadyActive = false
+    }
 }
 // ###################################### // 
 // ###################################### //
