@@ -176,7 +176,7 @@ function SimpleAttack() { // Praise stack overflow
     }
 }
 
-function HeavenlyStrike() {
+function HeavenlyStrikeOne() {
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (81-40)+1) // Slightly higher max than demonic strike w/ a larger range?
     if (AllyOneTarget == "EnemyOne") {
@@ -187,21 +187,21 @@ function HeavenlyStrike() {
     }
 }
 
-function Judgement() {
+function JudgementOne() {
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (51-25)+1)
     EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
 }
 
-function HealingPrayer() {
+function HealingPrayerOne() {
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (51-25)+1)
     AllyOneHealth.value += AllyOneAttackValue
     AllyTwoHealth.value += AllyOneAttackValue
 }
 
-function BadTime() {
+function BadTimeOne() {
     AllyAttackNumber += 1;
     AllyOneAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyOneAttackNumber*10)
     if (AllyOneTarget == "EnemyOne") {
@@ -212,7 +212,7 @@ function BadTime() {
     }
 }
 
-function Rewind() {
+function RewindOne() {
     AllyAttackNumber +=1;
     if (AllyOneHealth.value <= 250) {
         AllyOneHealth += Math.floor(Math.random() * (101-65)+65)
@@ -226,7 +226,7 @@ function Rewind() {
     }
 }
 
-function Spear() {
+function SpearOne() {
     AllyAttackNumber += 1
     AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))* AllyOneAttackMultiplier
     if (AllyOneAttackValue == 4) {
@@ -239,22 +239,22 @@ function Spear() {
     }
 }
 
-function TheMark() {
+function TheMarkOne() {
     AllyAttackNumber +=1
     AllyOneAttackMultiplier = 1.5
     if(MarkAlreadyActive == false) {
-    TheMarkInterval = setInterval(TheMarkCounter, 1000)
+    TheMarkInterval = setInterval(TheMarkOneCounter, 1000)
     MarkAlreadyActive = true
     }
     if(MarkAlreadyActive == true) {
         TheMarkCounterVariable = 20 // should it reset, or add?
     }
 }
-function TheMarkCounter() {
+function TheMarkOneCounter() {
     TheMarkCounterVariable -= 1
-    TheMarkCancel()
+    TheMarkOneCancel()
 }
-function TheMarkCancel() {
+function TheMarkOneCancel() {
     if (TheMarkCounterVariable == 0) {
         clearInterval(TheMarkInterval)
         TheMarkCounterVariable = 20
@@ -263,11 +263,11 @@ function TheMarkCancel() {
     }
 }
 
-function TheRot() {
+function TheRotOne() {
     AllyAttackNumber +=1
     AllyOneAttackValue = (Math.floor(Math.random() * (126-90)+90))*AllyOneAttackMultiplier
     if(RotAlreadyActive == false) {
-    TheRotInterval = setInterval(TheRotCounter, 1000)
+    TheRotInterval = setInterval(TheRotOneCounter, 1000)
     RotAlreadyActive = true
     }
     if(RotAlreadyActive == true) {
@@ -275,13 +275,13 @@ function TheRot() {
     }
 }
 
-function TheRotCounter() {
+function TheRotOneCounter() {
     TheRotCounterVariable -= 1
     AllyOneHealth -= 20
-    TheRotCancel()
+    TheRotOneCancel()
 }
 
-function TheRotCancel() {
+function TheRotOneCancel() {
     if (TheRotCounterVariable == 0) {
         clearInterval(TheRotInterval)
         TheRotCounterVariable = 20
@@ -289,7 +289,7 @@ function TheRotCancel() {
     }
 }
 
-function BoatAttack() {
+function BoatAttackOne() {
     AllyAttackNumber += 1
     AllyAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
     if (AllyOneAttackTarget == "EnemyOne") {
@@ -297,7 +297,7 @@ function BoatAttack() {
     }
 }
 
-function Fish() { // theres probably a smarter way to write this with like variables and crap and multiplication
+function FishOne() { // theres probably a smarter way to write this with like variables and crap and multiplication
     AllyOneAttackValue = (Math.floor(Math.random() * (11-1)+1)) // decides what subsection of random to put it in
     if (AllyOneAttackValue == 1) { // Highest one, 500-300 damage
         FishStatus = "Attack"
@@ -358,7 +358,7 @@ function Fish() { // theres probably a smarter way to write this with like varia
     }
 }
 
-function Hook() {
+function HookOne() {
     AllyAttackCounter += 1
     AllyOneAttackValue = Math.floor(Math.random() * (2-1)+1)
     if (AllyOneAttackValue == 1) {
@@ -377,7 +377,7 @@ function Hook() {
             EnemyTwoHealth.value += AllyOneAttackValue
         }
         if(HookAlreadyActive == false) {
-            HookInterval = setInterval(HookCounter, 1000)
+            HookInterval = setInterval(HookOneCounter, 1000)
             HookAlreadyActive = true
             EnemyOneAttackMeter.max = 175
             EnemyTwoAttackMeter.max = 175
@@ -387,17 +387,62 @@ function Hook() {
         }
     }
 }
-function HookCounter() {
+function HookOneCounter() {
     HookCounterVariable -= 1
-    HookCancel()
+    HookOneCancel()
 }
-function HookCancel() {
+function HookOneCancel() {
     if (HookCounterVariable == 0) {
         clearInterval(HookInterval)
         HookCounterVariable = 15
         EnemyOneAttackMeter.max = 100
         EnemyTwoAttackMeter.max = 100
         HookAlreadyActive = false
+    }
+}
+
+function ClampOne() {
+    AllyAttackNumber += 1
+    if (AllyOneAttackTarget == "EnemyOne") {
+        AllyOneAttackValue = (EnemyOneHealth.value / 5) // 20%, not 15.
+        EnemyOneHealth -= AllyOneAttackValue
+    }
+    if (AllyOneAttackTarget == "EnemyTwo") {
+        AllyOneAttackValue = (EnemyTwoHealth.value / 5)
+        EnemyTwoHealth -= AllyOneAttackValue
+    }
+}
+
+function ChompOne() {
+    AllyAttackNumber += 1
+    if (AllyOneAttackTarget == "EnemyOne") {
+        AllyOneAttackValue = (EnemyOneHealth.max / 10)
+        EnemyOneHealth -= AllyOneAttackValue
+    }
+    if (AllyOneAttackTarget == "EnemyTwo") {
+        AllyOneAttackValue = (EnemyTwoHealth.value / 10)
+        EnemyTwoHealth -= AllyOneAttackValue
+    }
+}
+
+
+function ChewOne() {
+    AllyAttackNumber += 1
+    if (AllyOneAttackTarget == "EnemyOne") {
+        AllyOneAttackValue = (AllyOneHealth.value / 5)
+        EnemyOneHealth -= AllyOneAttackValue
+    }
+    if (AllyOneAttackTarget == "EnemyTwo") {
+        AllyOneAttackValue = (AllyOneHealth.value / 5)
+        EnemyTwoHealth -= AllyOneAttackValue
+    }
+}
+
+function SquareAttackOne() {
+    AllyAttackNumber += 1
+    AllyOneAttackValue = Math.floor(Math.random() * (21-1)+1)
+    if (AllyOneAttackValue == 1) {// Heavenly Strike
+        Heave
     }
 }
 // ###################################### // 
