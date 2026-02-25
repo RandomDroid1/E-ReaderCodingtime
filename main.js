@@ -69,12 +69,16 @@ var AllyTwoAttackOneText = "none"
 var AllyOneAttackMultiplier = 1
 var AllyTwoAttackMultiplier = 1
 
-var TheMarkCounterVariable = "20"
+var TheMarkCounterVariable = 20
 var TheMarkInterval = "none"
 var TheRotInterval = "none"
 var MarkAlreadyActive = false
 var MarkAlreadyActive = false
+var HookInterval = "none"
+var HookAlreadyActive = false
+var HookCounterVariable = 15
 
+var FishStatus = "Attack"
 
 if (AllyOne == undefined) {
 var AllyOne = "none";
@@ -269,8 +273,8 @@ function TheRot() {
     if(RotAlreadyActive == true) {
         TheRotCounterVariable += 5
     }
-    
 }
+
 function TheRotCounter() {
     TheRotCounterVariable -= 1
     AllyOneHealth -= 20
@@ -282,6 +286,118 @@ function TheRotCancel() {
         clearInterval(TheRotInterval)
         TheRotCounterVariable = 20
         RotAlreadyActive = false
+    }
+}
+
+function BoatAttack() {
+    AllyAttackNumber += 1
+    AllyAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
+    if (AllyOneAttackTarget == "EnemyOne") {
+        EnemyOneHealth.value -= AllyOneAttackValue
+    }
+}
+
+function Fish() { // theres probably a smarter way to write this with like variables and crap and multiplication
+    AllyOneAttackValue = (Math.floor(Math.random() * (11-1)+1)) // decides what subsection of random to put it in
+    if (AllyOneAttackValue == 1) { // Highest one, 500-300 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = (Math.floor(Math.random() * (501-300)+300)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 2) { //2nd best, 400-250 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = (Math.floor(Math.random() * (401-250)+250)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 3) { // 350-200 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = (Math.floor(Math.random() * (351-200)+200)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 4) { // 250-100 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = (Math.floor(Math.random() * (251-100)+100)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 5) { // 150-1 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = (Math.floor(Math.random() * (151-1)+1)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 6) { // 50-1 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = (Math.floor(Math.random() * (51-1)+1)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 7) { // 1 damage
+        FishStatus = "Attack"
+        AllyOneAttackValue = 1 * AllyOneAttackMultipler
+    }
+    else if (AllyOneAttackValue == 8) { // 10-50 healing
+        FishStatus = "Heal"
+        AllyOneAttackValue = (Math.floor(Math.random() * (51-10)+10)) * AllyOneAttackMultiplier // attack multiplier applies lmao
+    }
+    else if (AllyOneAttackValue == 9) { // 50-200 healing
+        FishStatus = "Heal"
+        AllyOneAttackValue = (Math.floor(Math.random() * (201-50)+50)) * AllyOneAttackMultiplier
+    }
+    else if (AllyOneAttackValue == 10) { // 300-500 healing
+        FishStatus = "Heal"
+        AllyOneAttackValue = (Math.floor(Math.random() * (501-300)+300)) * AllyOneAttackMultiplier
+    };
+    
+    if(FishStatus == "Attack") {
+        if(AllyOneAttackTarget == "EnemyOne") {
+            EnemyOneHealth.value -= AllyOneAttackValue
+        }
+        if(AllyOneAttackTarget == "EnemyTwo") {
+            EnemyTwoHealth.value -= AllyOneAttackValue
+        }
+    }
+    if(FishStatus == "Heal") {
+        if(AllyOneAttackTarget == "EnemyOne") {
+            EnemyOneHealth.value += AllyOneAttackValue
+        }
+        if(AllyOneAttackTarget == "EnemyTwo") {
+            EnemyTwoHealth.value += AllyOneAttackValue
+        }
+    }
+}
+
+function Hook() {
+    AllyAttackCounter += 1
+    AllyOneAttackValue = Math.floor(Math.random() * (2-1)+1)
+    if (AllyOneAttackValue == 1) {
+        if(AllyOneAttackTarget == "EnemyOne") {
+            EnemyOneHealth.value += AllyOneAttackValue
+        }
+        if(AllyOneAttackTarget == "EnemyTwo") {
+            EnemyTwoHealth.value += AllyOneAttackValue
+        }
+    }
+    else if (AllyOneAttackTarget == 2) {
+        if(AllyOneAttackTarget == "EnemyOne") {
+            EnemyOneHealth.value += AllyOneAttackValue
+        }
+        if(AllyOneAttackTarget == "EnemyTwo") {
+            EnemyTwoHealth.value += AllyOneAttackValue
+        }
+        if(HookAlreadyActive == false) {
+            HookInterval = setInterval(HookCounter, 1000)
+            HookAlreadyActive = true
+            EnemyOneAttackMeter.max = 175
+            EnemyTwoAttackMeter.max = 175
+        }
+        if(HookAlreadyActive == true) {
+            HookCounterVariable += 5
+        }
+    }
+}
+function HookCounter() {
+    HookCounterVariable -= 1
+    HookCancel()
+}
+function HookCancel() {
+    if (HookCounterVariable == 0) {
+        clearInterval(HookInterval)
+        HookCounterVariable = 15
+        EnemyOneAttackMeter.max = 100
+        EnemyTwoAttackMeter.max = 100
+        HookAlreadyActive = false
     }
 }
 // ###################################### // 
@@ -1828,12 +1944,12 @@ function SquareHeadshot() {
     document.getElementById("CharacterName").innerText = "Square"
     document.getElementById("Tagline").innerText = "They said be there or be square, \nhe wasn't there"
     document.getElementById("Tagline").style.fontSize = "medium"
-    document.getElementById("AttackOne").innerText = "4 Corners"
-    document.getElementById("AttackOneText").innerText = ""
-    document.getElementById("AttackTwo").innerText = ""
-    document.getElementById("AttackTwoText").innerText=""
-    document.getElementById("AttackThree").innerText=""
-    document.getElementById("AttackThreeText").innerText=""
+    document.getElementById("AttackOne").innerText = "Square"
+    document.getElementById("AttackOneText").innerText = "Pulls from a random list of \nmoves, with exclusive moves"
+    document.getElementById("AttackTwo").innerText = "Square"
+    document.getElementById("AttackTwoText").innerText="Pulls from a random list of \nmoves, with exclusive moves"
+    document.getElementById("AttackThree").innerText="Square"
+    document.getElementById("AttackThreeText").innerText="Pulls from a random list of \nmoves, with exclusive moves"
 }    
 function BoatHeadshot() {
     UnselectAll()
@@ -1845,7 +1961,7 @@ function BoatHeadshot() {
     document.getElementById("AttackOne").innerText = "Boat"
     document.getElementById("AttackOneText").innerText = "Hit the enemy with medium \nto high damage"
     document.getElementById("AttackTwo").innerText = "Fish"
-    document.getElementById("AttackTwoText").innerText="Apply a random status\n effect to you or the enemy"
+    document.getElementById("AttackTwoText").innerText="Chance to deal extreme damage, \n or heal the enemy"
     document.getElementById("AttackThree").innerText="Hook"
     document.getElementById("AttackThreeText").innerText="Medium damage with a\n 50% chance to slow enemies"
 }    
