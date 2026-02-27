@@ -80,6 +80,9 @@ var HookCounterVariable = 15
 
 var FishStatus = "Attack"
 
+var AllyOneLocked = "false"
+var AllyTwoLocked = "false"
+
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -167,14 +170,6 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
 
 
 // ####### Ally ATTACKS ####### // 
-
-function SimpleAttack() { // Praise stack overflow
-    if (SimpleHealSelected == false) {
-        SimpleAttackSelected = true
-        document.getElementById("AttackButton").style.borderWidth = "5px";
-        document.getElementById("AttackButton").style.borderColor = "red";
-    }
-}
 
 function HeavenlyStrikeOne() {
     AllyAttackNumber += 1;
@@ -537,6 +532,12 @@ function TargetEnemyTwoAllyOneButton() {
     AllyOneAttackTarget = "EnemyTwo"
 }
 function AllyOneLockInButton() {
+    AllyOneLocked = "true"
+    document.getElementById("AllyOneAttackOne").setAttribute('disabled','disabled')
+    document.getElementById("AllyOneAttackTwo").setAttribute('disabled','disabled')
+    document.getElementById("AllyOneAttackThree").setAttribute('disabled','disabled')
+    document.getElementById("TargetEnemyTwoAllyOne").setAttribute('disabled','disabled')
+    document.getElementById("TargetEnemyOneAllyOne").setAttribute('disabled','disabled')
 
 }
 
@@ -571,7 +572,15 @@ function TargetEnemyTwoAllyTwoButton() {
     document.getElementById("TargetEnemyOneAllyTwo").style.borderWidth = "2px"
     AllyTwoAttackTarget = "EnemyTwo"
 }
+function AllyTwoLockInButton() {
+    AllyTwoLocked = "true"
+    document.getElementById("AllyTwoAttackOne").setAttribute('disabled','disabled')
+    document.getElementById("AllyTwoAttackTwo").setAttribute('disabled','disabled')
+    document.getElementById("AllyTwoAttackThree").setAttribute('disabled','disabled')
+    document.getElementById("TargetEnemyTwoAllyTwo").setAttribute('disabled','disabled')
+    document.getElementById("TargetEnemyOneAllyTwo").setAttribute('disabled','disabled')
 
+}
 // ###################################### // 
 // ###################################### //
 // ####### UNIVERSAL TURN HANDLER ####### //
@@ -598,9 +607,6 @@ function AllyOneAttackMeterUpdate() {
     }
 }
 
-function AllyAttackActer() {
-    
-}
 function AllyOneAttackMeterReset() {
     VariableUpdater();
     if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {
