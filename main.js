@@ -438,13 +438,140 @@ function ChewOne() {
     }
 }
 
-function SquareAttackOne() {
+function SquareAttackOne() { // cant do any moves that have lasting effects becasue I dont want to deal with it mannn
     AllyAttackNumber += 1
-    AllyOneAttackValue = Math.floor(Math.random() * (21-1)+1)
+    AllyOneAttackValue = Math.floor(Math.random() * (16-1)+1)
     if (AllyOneAttackValue == 1) {// Heavenly Strike
-        Heave
+        HeavenlyStrikeOne()
     }
+    else if (AllyOneAttackValue == 2) { // 
+        JudgementOne()
+    }
+    else if (AllyOneAttackValue == 3) { // 
+        HealingPrayerOne()
+    }
+    else if (AllyOneAttackValue == 4) { // 
+        BadTimeOne()
+    }
+    else if (AllyOneAttackValue == 5) { // 
+        HourOne()
+    }
+    else if (AllyOneAttackValue == 6) { // 
+        RewindOne()
+    }
+    else if (AllyOneAttackValue == 7) { // 
+        SpearOne()
+    }
+    else if (AllyOneAttackValue == 8) { // 
+        BoatOne()
+    }
+    else if (AllyOneAttackValue == 9) { // 
+        FishOne()
+    }
+    else if (AllyOneAttackValue == 10) { // 
+        HookOne()
+    }
+    else if (AllyOneAttackValue == 11) { // 
+        ClampOne()
+    }
+    else if (AllyOneAttackValue == 12) { // 
+        ChompOne()
+    }
+    else if (AllyOneAttackValue == 13) { // 
+        AllyOneAttackValue = 10
+        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyTwoAttack.value -= AllyOneAttackValue
+    }
+    else if (AllyOneAttackValue == 14) { // 
+        AllyOneAttackValue = 100
+        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyTwoAttack.value -= AllyOneAttackValue
+    }
+    else if (AllyOneAttackValue == 15) { //  SNOWGRAVE BABYYY
+        AllyOneAttackValue = 99999999999999
+        if(AllyOneTarget == "EnemyOne") {
+            EnemyOneHealth -= AllyOneAttackValue
+            document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
+        }
+        if(AllyOneTarget == "EnemyOne") {
+            EnemyTwoHealth -= AllyOnesAttackValue
+            document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
+        }
+    };
 }
+
+// ################################### // 
+// ################################### //
+// ####### ALLY ATTACK BUTTONS ####### //
+// ################################### //
+// ################################### //
+
+function AllyOneAttackButtonReset() {
+    document.getElementById("AllyOneAttackOne").style.borderWidth = "2px"
+    document.getElementById("AllyOneAttackTwo").style.borderWidth = "2px"
+    document.getElementById("AllyOneAttackThree").style.borderWidth = "2px"
+}
+function AllyOneAttackButtonOne() {
+    AllyOneAttackButtonReset()
+    AllyOneAttackSelected = "One"
+    document.getElementById("AllyOneAttackOne").style.borderWidth = "5px"
+}
+function AllyOneAttackButtonTwo() {
+    AllyOneAttackButtonReset()
+    AllyOneAttackSelected = "Two"
+    document.getElementById("AllyOneAttackTwo").style.borderWidth = "5px"
+}
+function AllyOneAttackButtonThree() {
+    AllyOneAttackButtonReset()
+    AllyOneAttackSelected = "Three"
+    document.getElementById("AllyOneAttackThree").style.borderWidth = "5px"
+}
+function TargetEnemyOneAllyOneButton() {
+    document.getElementById("TargetEnemyTwoAllyOne").style.borderWidth = "2px"
+    document.getElementById("TargetEnemyOneAllyOne").style.borderWidth = "5px"
+    AllyOneAttackTarget = "EnemyOne"
+}
+function TargetEnemyTwoAllyOneButton() {
+    document.getElementById("TargetEnemyTwoAllyOne").style.borderWidth = "5px"
+    document.getElementById("TargetEnemyOneAllyOne").style.borderWidth = "2px"
+    AllyOneAttackTarget = "EnemyTwo"
+}
+function AllyOneLockInButton() {
+
+}
+
+
+function AllyTwoAttackButtonReset() {
+    document.getElementById("AllyTwoAttackOne").style.borderWidth = "2px"
+    document.getElementById("AllyTwoAttackTwo").style.borderWidth = "2px"
+    document.getElementById("AllyTwoAttackThree").style.borderWidth = "2px"
+}
+function AllyTwoAttackButtonOne() {
+    AllyTwoAttackButtonReset()
+    AllyTwoAttackSelected = "One"
+    document.getElementById("AllyTwoAttackOne").style.borderWidth = "5px"
+}
+function AllyTwoAttackButtonTwo() {
+    AllyTwoAttackButtonReset()
+    AllyTwoAttackSelected = "Two"
+    document.getElementById("AllyTwoAttackTwo").style.borderWidth = "5px"
+}
+function AllyTwoAttackButtonThree() {
+    AllyTwoAttackButtonReset()
+    AllyTwoAttackSelected = "Three"
+    document.getElementById("AllyTwoAttackThree").style.borderWidth = "5px"
+}
+function TargetEnemyOneAllyTwoButton() {
+    document.getElementById("TargetEnemyTwoAllyTwo").style.borderWidth = "2px"
+    document.getElementById("TargetEnemyOneAllyTwo").style.borderWidth = "5px"
+    AllyTwoAttackTarget = "EnemyOne"
+}
+function TargetEnemyTwoAllyTwoButton() {
+    document.getElementById("TargetEnemyTwoAllyTwo").style.borderWidth = "5px"
+    document.getElementById("TargetEnemyOneAllyTwo").style.borderWidth = "2px"
+    AllyTwoAttackTarget = "EnemyTwo"
+}
+
 // ###################################### // 
 // ###################################### //
 // ####### UNIVERSAL TURN HANDLER ####### //
@@ -471,6 +598,9 @@ function AllyOneAttackMeterUpdate() {
     }
 }
 
+function AllyAttackActer() {
+    
+}
 function AllyOneAttackMeterReset() {
     VariableUpdater();
     if (AllyOneHealth.value <= 0 || EnemyOneHealth.value <= 0 || AllyTwoHealth.value <= 0 || EnemyTwoHealth.value <= 0) {

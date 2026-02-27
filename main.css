@@ -412,3 +412,17 @@ button {
   right: 110px;
   bottom: 395px;
 }
+
+#SnowgraveEnemyOne {
+  position: absolute;
+  width: 200px;
+  top: 350px;
+  z-index: 5;
+}
+
+#SnowgraveEnemyTwo {
+  position: absolute;
+  width: 200px;
+  top: 100px;
+  z-index: 5;
+}
