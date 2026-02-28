@@ -83,6 +83,10 @@ var FishStatus = "Attack"
 var AllyOneLocked = "false"
 var AllyTwoLocked = "false"
 
+var AllyOneAttackUsed = "none"
+var AllyTwoAttackUsed = "none"
+
+var AllyOneTarget = "none"
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -198,7 +202,7 @@ function HealingPrayerOne() {
 
 function BadTimeOne() {
     AllyAttackNumber += 1;
-    AllyOneAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyOneAttackNumber*10)
+    AllyOneAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyAttackNumber*10)
     if (AllyOneTarget == "EnemyOne") {
         EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     }
@@ -293,6 +297,7 @@ function BoatAttackOne() {
 }
 
 function FishOne() { // theres probably a smarter way to write this with like variables and crap and multiplication
+    AllyAttackNumber += 1
     AllyOneAttackValue = (Math.floor(Math.random() * (11-1)+1)) // decides what subsection of random to put it in
     if (AllyOneAttackValue == 1) { // Highest one, 500-300 damage
         FishStatus = "Attack"
@@ -354,7 +359,7 @@ function FishOne() { // theres probably a smarter way to write this with like va
 }
 
 function HookOne() {
-    AllyAttackCounter += 1
+    AllyAttackNumber += 1
     AllyOneAttackValue = Math.floor(Math.random() * (2-1)+1)
     if (AllyOneAttackValue == 1) {
         if(AllyOneAttackTarget == "EnemyOne") {
@@ -458,7 +463,7 @@ function SquareAttackOne() { // cant do any moves that have lasting effects beca
         SpearOne()
     }
     else if (AllyOneAttackValue == 8) { // 
-        BoatOne()
+        BoatAttackOne()
     }
     else if (AllyOneAttackValue == 9) { // 
         FishOne()
@@ -495,6 +500,103 @@ function SquareAttackOne() { // cant do any moves that have lasting effects beca
     };
 }
 
+function AllyOneMoveEnacter() {
+    if(AllyOneLocked = "false") {
+        AllyOneAttackUsed = "none"
+    }
+    if(AllyOneLocked = "true") {
+        if(AllyOne == "AngelCat") {
+            if(AllyOneAttackSelected = "One") {
+                HeavenlyStrikeOne()
+                AllyOneAttackUsed = "Heavenly Strike"
+            }
+            if(AllyOneAttackSelected = "Two") {
+                JudgementOne()
+                AllyOneAttackUsed = "Judgement"
+            }
+            if(AllyOneAttackSelected = "Three") {
+                HealingPrayerOne()
+                AllyOneAttackUsed = "Healing Prayer"
+            }
+        }
+        if(AllyOne == "Clock") {
+            if(AllyOneAttackSelected = "One") {
+                BadTimeOne()
+                AllyOneAttackUsed = "Bad Time"
+            }
+            if(AllyOneAttackSelected = "Two") {
+                HourOne()
+                AllyOneAttackUsed = "Hour"
+            }
+            if(AllyOneAttackSelected = "Three") {
+                RewindOne()
+                AllyOneAttackUsed = "Rewind"
+            }
+        }
+        if(AllyOne == "SlugCat") {
+            if(AllyOneAttackSelected = "One") {
+                SpearOne()
+                AllyOneAttackUsed = "Spear"
+            }
+            if(AllyOneAttackSelected = "Two") {
+                TheMarkOne()
+                AllyOneAttackUsed = "The Mark"
+            }
+            if(AllyOneAttackSelected = "Three") {
+                TheRotOne()
+                AllyOneAttackUsed = "The Rot"
+            }
+        }
+        if(AllyOne == "Square") {
+            if(AllyOneAttackSelected = "One") {
+                SquareAttackOne()
+                AllyOneAttackUsed = "Square"
+            }
+            if(AllyOneAttackSelected = "Two") {
+                SquareAttackOne()
+                AllyOneAttackUsed = "Square"
+            }
+            if(AllyOneAttackSelected = "Three") {
+                SquareAttackOne()
+                AllyOneAttackUsed = "Square"
+            }
+        }
+        if(AllyOne == "Boat") {
+            if(AllyOneAttackSelected = "One") {
+                BoatOne()
+                AllyOneAttackUsed = "Boat"
+            }
+            if(AllyOneAttackSelected = "Two") {
+                FishOne()
+                AllyOneAttackUsed = "Fish"
+            }
+            if(AllyOneAttackSelected = "Three") {
+                HookOne()
+                AllyOneAttackUsed = "Hook"
+            }
+        }
+        if(AllyOne == "Flibbit") {
+            if(AllyOneAttackSelected = "One") {
+                ClampOne()
+                AllyOneAttackUsed = "Clamp"
+            }
+            if(AllyOneAttackSelected = "Two") {
+                ChompOne()
+                AllyOneAttackUsed = "Chomp"
+            }
+            if(AllyOneAttackSelected = "Three") {
+                ChewOne()
+                AllyOneAttackUsed = "Chew"
+            }
+        }
+    }
+    console.log("AllyOneAttacked, used " + AllyOneAttackUsed)
+    document.getElementById("AllyOneAttackOne").disabled = false;
+    document.getElementById("AllyOneAttackTwo").disabled = false;
+    document.getElementById("AllyOneAttackThree").disabled = false;
+    document.getElementById("TargetEnemyTwoAllyOne").disabled = false;
+    document.getElementById("TargetEnemyOneAllyOne").disabled = false;
+}
 // ################################### // 
 // ################################### //
 // ####### ALLY ATTACK BUTTONS ####### //
@@ -614,6 +716,7 @@ function AllyOneAttackMeterReset() {
        console.log(EnemyOneHealth.value)
     } else {
         AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max;
+        AllyOneMoveEnacter()
     }
     
 }
