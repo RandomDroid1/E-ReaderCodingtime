@@ -311,7 +311,7 @@ function BoatAttackOne() {
     AllyAttackNumber += 1
     AllyOneAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
     if (AllyOneAttackTarget == "EnemyOne") {
-                    EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue
         }
     if (AllyOneAttackTarget == "EnemyTwo") {
         EnemyTwoHealth.value -= AllyOneAttackValue
@@ -382,29 +382,36 @@ function FishOne() { // theres probably a smarter way to write this with like va
 
 function HookOne() {
     AllyAttackNumber += 1
-    AllyOneAttackValue = Math.floor(Math.random() * (2-1)+1)
+    AllyOneAttackValue = Math.floor(Math.random() * (3-2)+2)
+    console.log("HookAttackSelector = " + AllyOneAttackValue)
     if (AllyOneAttackValue == 1) {
-        AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50)
+        console.log("HookCheck1")
+        AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50) * AllyOneAttackMultiplier
         if(AllyOneAttackTarget == "EnemyOne") {
-            EnemyOneHealth.value += AllyOneAttackValue
+            EnemyOneHealth.value -= AllyOneAttackValue
         }
         if(AllyOneAttackTarget == "EnemyTwo") {
-            EnemyTwoHealth.value += AllyOneAttackValue
+            EnemyTwoHealth.value -= AllyOneAttackValue
         }
     }
-    else if (AllyOneAttackTarget == 2) {
-        AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50)
+    else if (AllyOneAttackValue == 2) {
+        console.log("HookCheck2")
+        AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50) * AllyOneAttackMultiplier
         if(AllyOneAttackTarget == "EnemyOne") {
-            EnemyOneHealth.value += AllyOneAttackValue
+            EnemyOneHealth.value -= AllyOneAttackValue
         }
         if(AllyOneAttackTarget == "EnemyTwo") {
-            EnemyTwoHealth.value += AllyOneAttackValue
+            EnemyTwoHealth.value -= AllyOneAttackValue
         }
+        console.log("Hook = " + HookAlreadyActive)
         if(HookAlreadyActive == false) {
             HookInterval = setInterval(HookOneCounter, 1000)
             HookAlreadyActive = true
-            EnemyOneAttackMeter.max = 175
-            EnemyTwoAttackMeter.max = 175
+            console.log("EnemyTwoAttackMaxPre = " + EnemyOneAttackMeterHTML.max)
+            EnemyOneAttackMeterHTML.max = 175
+            EnemyTwoAttackMeterHTML.max = 175
+            console.log("EnemyTwoAttackMaxPost = " + EnemyOneAttackMeterHTML.max)
+            HookInterval
         }
         if(HookAlreadyActive == true) {
             HookCounterVariable += 5
@@ -414,9 +421,11 @@ function HookOne() {
 function HookOneCounter() {
     HookCounterVariable -= 1
     HookOneCancel()
+    console.log(HookCounterVariable)
 }
 function HookOneCancel() {
     if (HookCounterVariable == 0) {
+        console.log("HOOK END")
         clearInterval(HookInterval)
         HookCounterVariable = 15
         EnemyOneAttackMeter.max = 100
@@ -428,11 +437,11 @@ function HookOneCancel() {
 function ClampOne() {
     AllyAttackNumber += 1
     if (AllyOneAttackTarget == "EnemyOne") {
-        AllyOneAttackValue = (EnemyOneHealth.value / 5) // 20%, not 15.
+        AllyOneAttackValue =  Math.floor((EnemyOneHealth.value / 5)) // 20%, not 15.
         EnemyOneHealth.value -= AllyOneAttackValue
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
-        AllyOneAttackValue = (EnemyTwoHealth.value / 5)
+        AllyOneAttackValue =  Math.floor((EnemyTwoHealth.value / 5))
         EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
@@ -440,11 +449,11 @@ function ClampOne() {
 function ChompOne() {
     AllyAttackNumber += 1
     if (AllyOneAttackTarget == "EnemyOne") {
-        AllyOneAttackValue = (EnemyOneHealth.max / 10)
+        AllyOneAttackValue =  Math.floor((EnemyOneHealth.max / 10))
         EnemyOneHealth.value -= AllyOneAttackValue
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
-        AllyOneAttackValue = (EnemyTwoHealth.value / 10)
+        AllyOneAttackValue = Math.floor((EnemyTwoHealth.value / 10))
         EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
@@ -453,11 +462,11 @@ function ChompOne() {
 function ChewOne() {
     AllyAttackNumber += 1
     if (AllyOneAttackTarget == "EnemyOne") {
-        AllyOneAttackValue = (AllyOneHealth.value / 5)
+        AllyOneAttackValue =  Math.floor((AllyOneHealth.value / 5))
         EnemyOneHealth.value -= AllyOneAttackValue
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
-        AllyOneAttackValue = (AllyOneHealth.value / 5)
+        AllyOneAttackValue =  Math.floor((AllyOneHealth.value / 5))
         EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
@@ -618,6 +627,17 @@ function AllyOneMoveEnacter() {
     document.getElementById("TargetEnemyOneAllyOne").disabled = false;
     console.log("AllyOneAttackValue: " + AllyOneAttackValue)
     console.log("AllyOneAttackTarget = " + AllyOneAttackTarget)
+    AllyOneTextUpdater() 
+}
+
+function AllyOneTextUpdater() {
+    if(AllyOneAttackTarget == "EnemyOne") {
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ",\n dealing " + AllyOneAttackValue + " damage to " + EnemyOne
+
+    }
+    if(AllyOneAttackTarget == "EnemyTwo") {
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ",\n dealing " + AllyOneAttackValue + " damage to " + EnemyTwo
+    }
 }
 // ################################### // 
 // ################################### //
