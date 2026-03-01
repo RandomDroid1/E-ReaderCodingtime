@@ -86,7 +86,7 @@ var AllyTwoLocked = "false"
 var AllyOneAttackUsed = "none"
 var AllyTwoAttackUsed = "none"
 
-var AllyOneTarget = "none"
+var AllyOneAttackTarget = "none"
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -179,10 +179,10 @@ function HeavenlyStrikeOne() {
     console.log("HeavenlyUsed")
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (81-40)+1) // Slightly higher max than demonic strike w/ a larger range?
-    if (AllyOneTarget == "EnemyOne") {
+    if (AllyOneAttackTarget == "EnemyOne") {
         EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     }
-    if (AllyOneTarget == "EnemyTwo") {
+    if (AllyOneAttackTarget == "EnemyTwo") {
         EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     }
 }
@@ -206,10 +206,10 @@ function HealingPrayerOne() {
 function BadTimeOne() {
     AllyAttackNumber += 1;
     AllyOneAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyAttackNumber*10)
-    if (AllyOneTarget == "EnemyOne") {
+    if (AllyOneAttackTarget == "EnemyOne") {
         EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     }
-    if (AllyOneTarget == "EnemyTwo") {
+    if (AllyOneAttackTarget == "EnemyTwo") {
         EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
     }
 }
@@ -248,10 +248,10 @@ function SpearOne() {
     AllyAttackNumber += 1
     AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))* AllyOneAttackMultiplier
     if (AllyOneAttackValue == 4) {
-        if (AllyOneTarget == "EnemyOne") {
+        if (AllyOneAttackTarget == "EnemyOne") {
             EnemyOneHealth.value -= 999999
         }
-        if (AllyOneTarget == "EnemyTwo") {
+        if (AllyOneAttackTarget == "EnemyTwo") {
             EnemyTwoHealth.value -= 999999
         }
     }
@@ -309,10 +309,10 @@ function TheRotOneCancel() {
 
 function BoatAttackOne() {
     AllyAttackNumber += 1
-    AllyAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
+    AllyOneAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
     if (AllyOneAttackTarget == "EnemyOne") {
-        EnemyOneHealth.value -= AllyOneAttackValue
-    }
+                    EnemyOneHealth.value -= AllyOneAttackValue
+        }
     if (AllyOneAttackTarget == "EnemyTwo") {
         EnemyTwoHealth.value -= AllyOneAttackValue
     }
@@ -513,11 +513,11 @@ function SquareAttackOne() { // cant do any moves that have lasting effects beca
     }
     else if (AllyOneAttackValue == 15) { //  SNOWGRAVE BABYYY
         AllyOneAttackValue = 99999999999999
-        if(AllyOneTarget == "EnemyOne") {
+        if(AllyOneAttackTarget == "EnemyOne") {
             EnemyOneHealth -= AllyOneAttackValue
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
-        if(AllyOneTarget == "EnemyOne") {
+        if(AllyOneAttackTarget == "EnemyOne") {
             EnemyTwoHealth -= AllyOneAttackValue
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
@@ -583,8 +583,9 @@ function AllyOneMoveEnacter() {
         }
         if(AllyOne == "Boat") {
             if(AllyOneAttackSelected == "One") {
-                BoatOne()
+                BoatAttackOne()
                 AllyOneAttackUsed = "Boat"
+                console.log("A1 Attack mult = " + AllyOneAttackMultiplier)
             }
             if(AllyOneAttackSelected == "Two") {
                 FishOne()
@@ -616,7 +617,7 @@ function AllyOneMoveEnacter() {
     document.getElementById("TargetEnemyTwoAllyOne").disabled = false;
     document.getElementById("TargetEnemyOneAllyOne").disabled = false;
     console.log("AllyOneAttackValue: " + AllyOneAttackValue)
-    console.log("AllyOneTarget = " + AllyOneAttackTarget)
+    console.log("AllyOneAttackTarget = " + AllyOneAttackTarget)
 }
 // ################################### // 
 // ################################### //
