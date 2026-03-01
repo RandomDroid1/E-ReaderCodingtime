@@ -176,6 +176,7 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
 // ####### Ally ATTACKS ####### // 
 
 function HeavenlyStrikeOne() {
+    console.log("HeavenlyUsed")
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (81-40)+1) // Slightly higher max than demonic strike w/ a larger range?
     if (AllyOneTarget == "EnemyOne") {
@@ -187,6 +188,7 @@ function HeavenlyStrikeOne() {
 }
 
 function JudgementOne() {
+    console.log("JudgeUsed")
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (51-25)+1)
     EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
@@ -194,6 +196,7 @@ function JudgementOne() {
 }
 
 function HealingPrayerOne() {
+    console.log("HealUsed")
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (51-25)+1)
     AllyOneHealth.value += AllyOneAttackValue
@@ -208,6 +211,22 @@ function BadTimeOne() {
     }
     if (AllyOneTarget == "EnemyTwo") {
         EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    }
+}
+
+function HourOne() {
+    AllyAttackNumber += 1;
+    if(AllyAttackNumber <= 6) { // 3 turns
+        AllyOneAttackValue = (Math.floor(Math.random()*(101-15)+15)) // expected value of like 60 or smth
+    }
+    if(AllyAttackNumber >= 7 && AllyAttackNumber <= 12) { // 4-6 turns
+        AllyOneAttackValue = (Math.floor(Math.random()*(151-30)+30))
+    }
+    if(AllyAttackNumber >= 13 && AllyAttackNumber <= 20) { // 7-10 turns
+        AllyOneAttackValue = (Math.floor(Math.random()*(250-150)+150))
+    }
+    if(AllyAttackNumber >= 21) {
+        AllyOneAttackValue = (Math.floor(Math.random()*(350-250)+250))
     }
 }
 
@@ -264,7 +283,7 @@ function TheMarkOneCancel() {
 
 function TheRotOne() {
     AllyAttackNumber +=1
-    AllyOneAttackValue = (Math.floor(Math.random() * (126-90)+90))*AllyOneAttackMultiplier
+    AllyOneAttackValue = (Math.floor(Math.random() * (126-90)+90))*AllyOneAttackMultiplier // what the hell is this even for man
     if(RotAlreadyActive == false) {
     TheRotInterval = setInterval(TheRotOneCounter, 1000)
     RotAlreadyActive = true
@@ -293,6 +312,9 @@ function BoatAttackOne() {
     AllyAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
     if (AllyOneAttackTarget == "EnemyOne") {
         EnemyOneHealth.value -= AllyOneAttackValue
+    }
+    if (AllyOneAttackTarget == "EnemyTwo") {
+        EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
 
@@ -325,7 +347,7 @@ function FishOne() { // theres probably a smarter way to write this with like va
     }
     else if (AllyOneAttackValue == 7) { // 1 damage
         FishStatus = "Attack"
-        AllyOneAttackValue = 1 * AllyOneAttackMultipler
+        AllyOneAttackValue = 1 * AllyOneAttackMultiplier
     }
     else if (AllyOneAttackValue == 8) { // 10-50 healing
         FishStatus = "Heal"
@@ -362,6 +384,7 @@ function HookOne() {
     AllyAttackNumber += 1
     AllyOneAttackValue = Math.floor(Math.random() * (2-1)+1)
     if (AllyOneAttackValue == 1) {
+        AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50)
         if(AllyOneAttackTarget == "EnemyOne") {
             EnemyOneHealth.value += AllyOneAttackValue
         }
@@ -370,6 +393,7 @@ function HookOne() {
         }
     }
     else if (AllyOneAttackTarget == 2) {
+        AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50)
         if(AllyOneAttackTarget == "EnemyOne") {
             EnemyOneHealth.value += AllyOneAttackValue
         }
@@ -405,11 +429,11 @@ function ClampOne() {
     AllyAttackNumber += 1
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackValue = (EnemyOneHealth.value / 5) // 20%, not 15.
-        EnemyOneHealth -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackValue = (EnemyTwoHealth.value / 5)
-        EnemyTwoHealth -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
 
@@ -417,11 +441,11 @@ function ChompOne() {
     AllyAttackNumber += 1
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackValue = (EnemyOneHealth.max / 10)
-        EnemyOneHealth -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackValue = (EnemyTwoHealth.value / 10)
-        EnemyTwoHealth -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
 
@@ -430,11 +454,11 @@ function ChewOne() {
     AllyAttackNumber += 1
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackValue = (AllyOneHealth.value / 5)
-        EnemyOneHealth -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackValue = (AllyOneHealth.value / 5)
-        EnemyTwoHealth -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue
     }
 }
 
@@ -494,101 +518,96 @@ function SquareAttackOne() { // cant do any moves that have lasting effects beca
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
         if(AllyOneTarget == "EnemyOne") {
-            EnemyTwoHealth -= AllyOnesAttackValue
+            EnemyTwoHealth -= AllyOneAttackValue
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
     };
 }
 
 function AllyOneMoveEnacter() {
-    if(AllyOneLocked = "false") {
-        AllyOneAttackUsed = "none"
-    }
-    if(AllyOneLocked = "true") {
         if(AllyOne == "AngelCat") {
-            if(AllyOneAttackSelected = "One") {
+            if(AllyOneAttackSelected == "One") {
                 HeavenlyStrikeOne()
                 AllyOneAttackUsed = "Heavenly Strike"
             }
-            if(AllyOneAttackSelected = "Two") {
+            if(AllyOneAttackSelected == "Two") {
                 JudgementOne()
                 AllyOneAttackUsed = "Judgement"
             }
-            if(AllyOneAttackSelected = "Three") {
+            if(AllyOneAttackSelected == "Three") {
                 HealingPrayerOne()
                 AllyOneAttackUsed = "Healing Prayer"
             }
         }
         if(AllyOne == "Clock") {
-            if(AllyOneAttackSelected = "One") {
+            if(AllyOneAttackSelected == "One") {
                 BadTimeOne()
                 AllyOneAttackUsed = "Bad Time"
             }
-            if(AllyOneAttackSelected = "Two") {
+            if(AllyOneAttackSelected == "Two") {
                 HourOne()
                 AllyOneAttackUsed = "Hour"
             }
-            if(AllyOneAttackSelected = "Three") {
+            if(AllyOneAttackSelected == "Three") {
                 RewindOne()
                 AllyOneAttackUsed = "Rewind"
             }
         }
         if(AllyOne == "SlugCat") {
-            if(AllyOneAttackSelected = "One") {
+            if(AllyOneAttackSelected == "One") {
                 SpearOne()
                 AllyOneAttackUsed = "Spear"
             }
-            if(AllyOneAttackSelected = "Two") {
+            if(AllyOneAttackSelected == "Two") {
                 TheMarkOne()
                 AllyOneAttackUsed = "The Mark"
             }
-            if(AllyOneAttackSelected = "Three") {
+            if(AllyOneAttackSelected == "Three") {
                 TheRotOne()
                 AllyOneAttackUsed = "The Rot"
             }
         }
         if(AllyOne == "Square") {
-            if(AllyOneAttackSelected = "One") {
+            if(AllyOneAttackSelected == "One") {
                 SquareAttackOne()
                 AllyOneAttackUsed = "Square"
             }
-            if(AllyOneAttackSelected = "Two") {
+            if(AllyOneAttackSelected == "Two") {
                 SquareAttackOne()
                 AllyOneAttackUsed = "Square"
             }
-            if(AllyOneAttackSelected = "Three") {
+            if(AllyOneAttackSelected == "Three") {
                 SquareAttackOne()
                 AllyOneAttackUsed = "Square"
             }
         }
         if(AllyOne == "Boat") {
-            if(AllyOneAttackSelected = "One") {
+            if(AllyOneAttackSelected == "One") {
                 BoatOne()
                 AllyOneAttackUsed = "Boat"
             }
-            if(AllyOneAttackSelected = "Two") {
+            if(AllyOneAttackSelected == "Two") {
                 FishOne()
                 AllyOneAttackUsed = "Fish"
             }
-            if(AllyOneAttackSelected = "Three") {
+            if(AllyOneAttackSelected == "Three") {
                 HookOne()
                 AllyOneAttackUsed = "Hook"
             }
         }
         if(AllyOne == "Flibbit") {
-            if(AllyOneAttackSelected = "One") {
+            if(AllyOneAttackSelected == "One") {
                 ClampOne()
                 AllyOneAttackUsed = "Clamp"
             }
-            if(AllyOneAttackSelected = "Two") {
+            if(AllyOneAttackSelected == "Two") {
                 ChompOne()
                 AllyOneAttackUsed = "Chomp"
             }
-            if(AllyOneAttackSelected = "Three") {
+            if(AllyOneAttackSelected == "Three") {
                 ChewOne()
                 AllyOneAttackUsed = "Chew"
             }
-        }
     }
     console.log("AllyOneAttacked, used " + AllyOneAttackUsed)
     document.getElementById("AllyOneAttackOne").disabled = false;
@@ -596,6 +615,8 @@ function AllyOneMoveEnacter() {
     document.getElementById("AllyOneAttackThree").disabled = false;
     document.getElementById("TargetEnemyTwoAllyOne").disabled = false;
     document.getElementById("TargetEnemyOneAllyOne").disabled = false;
+    console.log("AllyOneAttackValue: " + AllyOneAttackValue)
+    console.log("AllyOneTarget = " + AllyOneAttackTarget)
 }
 // ################################### // 
 // ################################### //
@@ -690,6 +711,7 @@ function AllyTwoLockInButton() {
 // ###################################### //
 
 function TurnCaller() {
+    VariableUpdater()
     setTimeout(EnemyOneAttackMeterUpdate, 1000)
     setTimeout(EnemyTwoAttackMeterUpdate, 1000)
     setTimeout(AllyOneAttackMeterUpdate, 1000)
