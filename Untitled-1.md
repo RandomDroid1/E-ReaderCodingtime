@@ -8,10 +8,8 @@ turn it horizontal mode.
 Make it so you can see what the moves do before acting
 
 Stretch goals:
-Multiple Enemies
-Multiple Player characters
-make the background shift color a touch
-
+Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
+Different Health stats for different characters
 
 
 UP NEXT: Make ally moves function for ally two
