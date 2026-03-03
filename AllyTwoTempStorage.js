@@ -296,249 +296,248 @@ function HookTwoCancel() {
         HookAlreadyActive = false
     }
 }
-// RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE
-function ClampOne() {
+
+function ClampTwo() {
     AllyAttackNumber += 1
-    if (AllyOneAttackTarget == "EnemyOne") {
-        AllyOneAttackType = "AttackEnemyOne"
-        AllyOneAttackValue =  Math.floor((EnemyOneHealth.value / 5)) // 20%, not 15.
-        EnemyOneHealth.value -= AllyOneAttackValue
+    if (AllyTwoAttackTarget == "EnemyOne") {
+        AllyTwoAttackType = "AttackEnemyOne"
+        AllyTwoAttackValue =  Math.floor((EnemyOneHealth.value / 5)) // 20%, not 15.
+        EnemyOneHealth.value -= AllyTwoAttackValue
     }
-    if (AllyOneAttackTarget == "EnemyTwo") {
-        AllyOneAttackType = "AttackEnemyTwo"
-        AllyOneAttackValue =  Math.floor((EnemyTwoHealth.value / 5))
-        EnemyTwoHealth.value -= AllyOneAttackValue
+    if (AllyTwoAttackTarget == "EnemyTwo") {
+        AllyTwoAttackType = "AttackEnemyTwo"
+        AllyTwoAttackValue =  Math.floor((EnemyTwoHealth.value / 5))
+        EnemyTwoHealth.value -= AllyTwoAttackValue
     }
 }
 
-function ChompOne() {
+function ChompTwo() {
     AllyAttackNumber += 1
-    if (AllyOneAttackTarget == "EnemyOne") {
-        AllyOneAttackType = "AttackEnemyOne"
-        AllyOneAttackValue =  Math.floor((EnemyOneHealth.max / 10))
-        EnemyOneHealth.value -= AllyOneAttackValue
+    if (AllyTwoAttackTarget == "EnemyOne") {
+        AllyTwoAttackType = "AttackEnemyOne"
+        AllyTwoAttackValue =  Math.floor((EnemyOneHealth.max / 10))
+        EnemyOneHealth.value -= AllyTwoAttackValue
     }
-    if (AllyOneAttackTarget == "EnemyTwo") {
-        AllyOneAttackType = "AttackEnemyTwo"
-        AllyOneAttackValue = Math.floor((EnemyTwoHealth.value / 10))
-        EnemyTwoHealth.value -= AllyOneAttackValue
+    if (AllyTwoAttackTarget == "EnemyTwo") {
+        AllyTwoAttackType = "AttackEnemyTwo"
+        AllyTwoAttackValue = Math.floor((EnemyTwoHealth.value / 10))
+        EnemyTwoHealth.value -= AllyTwoAttackValue
     }
 }
 
 
-function ChewOne() {
+function ChewTwo() {
     AllyAttackNumber += 1
-    if (AllyOneAttackTarget == "EnemyOne") {
-        AllyOneAttackType = "AttackEnemyOne"
-        AllyOneAttackValue =  Math.floor((AllyOneHealth.value / 5))
-        EnemyOneHealth.value -= AllyOneAttackValue
+    if (AllyTwoAttackTarget == "EnemyOne") {
+        AllyTwoAttackType = "AttackEnemyOne"
+        AllyTwoAttackValue =  Math.floor((AllyTwoHealth.value / 5))
+        EnemyOneHealth.value -= AllyTwoAttackValue
     }
-    if (AllyOneAttackTarget == "EnemyTwo") {
-        AllyOneAttackType = "AttackEnemyTwo"
-        AllyOneAttackValue =  Math.floor((AllyOneHealth.value / 5))
-        EnemyTwoHealth.value -= AllyOneAttackValue
+    if (AllyTwoAttackTarget == "EnemyTwo") {
+        AllyTwoAttackType = "AttackEnemyTwo"
+        AllyTwoAttackValue =  Math.floor((AllyTwoHealth.value / 5))
+        EnemyTwoHealth.value -= AllyTwoAttackValue
     }
 }
 
-function SquareAttackOne() { // cant do any moves that have lasting effects becasue I dont want to deal with it mannn
+function SquareAttackTwo() { // cant do any moves that have lasting effects becasue I dont want to deal with it mannn
     AllyAttackNumber += 1
-    AllyOneAttackValue = Math.floor(Math.random() * (16-1)+1)
-    if (AllyOneAttackValue == 1) {// Heavenly Strike
-        HeavenlyStrikeOne()
+    AllyTwoAttackValue = Math.floor(Math.random() * (16-1)+1)
+    if (AllyTwoAttackValue == 1) {// Heavenly Strike
+        HeavenlyStrikeTwo()
     }
     else if (AllyOneAttackValue == 2) { // 
-        JudgementOne()
+        JudgementTwo()
     }
     else if (AllyOneAttackValue == 3) { // 
-        HealingPrayerOne()
+        HealingPrayerTwo()
     }
     else if (AllyOneAttackValue == 4) { // 
-        BadTimeOne()
+        BadTimeTwo()
     }
     else if (AllyOneAttackValue == 5) { // 
-        HourOne()
+        HourTwo()
     }
     else if (AllyOneAttackValue == 6) { // 
-        RewindOne()
+        RewindTwo()
     }
     else if (AllyOneAttackValue == 7) { // 
-        SpearOne()
+        SpearTwo()
     }
     else if (AllyOneAttackValue == 8) { // 
-        BoatAttackOne()
+        BoatAttackTwo()
     }
     else if (AllyOneAttackValue == 9) { // 
-        FishOne()
+        FishTwo()
     }
     else if (AllyOneAttackValue == 10) { // 
-        HookOne()
+        HookTwo()
     }
     else if (AllyOneAttackValue == 11) { // 
-        ClampOne()
+        ClampTwo()
     }
     else if (AllyOneAttackValue == 12) { // 
-        ChompOne()
+        ChompTwo()
     }
-    else if (AllyOneAttackValue == 13) { //
-        AllyOneAttackType = "AttackBoth" 
-        AllyOneAttackValue = 10
-        EnemyOneHealth.value -= AllyOneAttackValue
-        EnemyTwoAttack.value -= AllyOneAttackValue
+    else if (AllyTwoAttackValue == 13) { //
+        AllyTwoAttackType = "AttackBoth" 
+        AllyTwoAttackValue = 10
+        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyTwoAttack.value -= AllyTwoAttackValue
     }
-    else if (AllyOneAttackValue == 14) { // 
-        AllyOneAttackType = "AttackBoth"
-        AllyOneAttackValue = 100
-        EnemyOneHealth.value -= AllyOneAttackValue
-        EnemyTwoAttack.value -= AllyOneAttackValue
+    else if (AllyTwoAttackValue == 14) { // 
+        AllyTwoAttackType = "AttackBoth"
+        AllyTwoAttackValue = 100
+        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyTwoAttack.value -= AllyTwoAttackValue
     }
-    else if (AllyOneAttackValue == 15) { //  SNOWGRAVE BABYYY
-        AllyOneAttackValue = 99999999999999
-        if(AllyOneAttackTarget == "EnemyOne") {
-            AllyOneAttackType = "AttackEnemyOne"
-            EnemyOneHealth -= AllyOneAttackValue
+    else if (AllyTwoAttackValue == 15) { //  SNOWGRAVE BABYYY
+        AllyTwoAttackValue = 99999999999999
+        if(AllyTwoAttackTarget == "EnemyOne") {
+            AllyTwoAttackType = "AttackEnemyOne"
+            EnemyOneHealth -= AllyTwoAttackValue
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
-        if(AllyOneAttackTarget == "EnemyOne") {
-            AllyOneAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth -= AllyOneAttackValue
+        if(AllyTwoAttackTarget == "EnemyOne") {
+            AllyTwoAttackType = "AttackEnemyTwo"
+            EnemyTwoHealth -= AllyTwoAttackValue
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
     };
 }
-
-function AllyOneMoveEnacter() {
-        if(AllyOne == "AngelCat") {
-            if(AllyOneAttackSelected == "One") {
-                HeavenlyStrikeOne()
-                AllyOneAttackUsed = "Heavenly Strike"
+// RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE RESUME HERE
+function AllyTwoMoveEnacter() {
+        if(AllyTwo == "AngelCat") {
+            if(AllyTwoAttackSelected == "One") {
+                HeavenlyStrikeTwo()
+                AllyTwoAttackUsed = "Heavenly Strike"
             }
-            if(AllyOneAttackSelected == "Two") {
-                JudgementOne()
-                AllyOneAttackUsed = "Judgement"
+            if(AllyTwoAttackSelected == "Two") {
+                JudgementTwo()
+                AllyTwoAttackUsed = "Judgement"
             }
-            if(AllyOneAttackSelected == "Three") {
-                HealingPrayerOne()
-                AllyOneAttackUsed = "Healing Prayer"
-            }
-        }
-        if(AllyOne == "Clock") {
-            if(AllyOneAttackSelected == "One") {
-                BadTimeOne()
-                AllyOneAttackUsed = "Bad Time"
-            }
-            if(AllyOneAttackSelected == "Two") {
-                HourOne()
-                AllyOneAttackUsed = "Hour"
-            }
-            if(AllyOneAttackSelected == "Three") {
-                RewindOne()
-                AllyOneAttackUsed = "Rewind"
+            if(AllyTwoAttackSelected == "Three") {
+                HealingPrayerTwo()
+                AllyTwoAttackUsed = "Healing Prayer"
             }
         }
-        if(AllyOne == "Slugcat") {
-            if(AllyOneAttackSelected == "One") {
-                SpearOne()
-                AllyOneAttackUsed = "Spear"
+        if(AllyTwo == "Clock") {
+            if(AllyTwoAttackSelected == "One") {
+                BadTimeTwo()
+                AllyTwoAttackUsed = "Bad Time"
             }
-            if(AllyOneAttackSelected == "Two") {
-                TheMarkOne()
-                AllyOneAttackUsed = "The Mark"
+            if(AllyTwoAttackSelected == "Two") {
+                HourTwo()
+                AllyTwoAttackUsed = "Hour"
             }
-            if(AllyOneAttackSelected == "Three") {
-                TheRotOne()
-                AllyOneAttackUsed = "The Rot"
-            }
-        }
-        if(AllyOne == "Square") {
-            if(AllyOneAttackSelected == "One") {
-                SquareAttackOne()
-                AllyOneAttackUsed = "Square"
-            }
-            if(AllyOneAttackSelected == "Two") {
-                SquareAttackOne()
-                AllyOneAttackUsed = "Square"
-            }
-            if(AllyOneAttackSelected == "Three") {
-                SquareAttackOne()
-                AllyOneAttackUsed = "Square"
+            if(AllyTwoAttackSelected == "Three") {
+                RewindTwo()
+                AllyTwoAttackUsed = "Rewind"
             }
         }
-        if(AllyOne == "Boat") {
-            if(AllyOneAttackSelected == "One") {
-                BoatAttackOne()
-                AllyOneAttackUsed = "Boat"
-                console.log("A1 Attack mult = " + AllyOneAttackMultiplier)
+        if(AllyTwo == "Slugcat") {
+            if(AllyTwoAttackSelected == "One") {
+                SpearTwo()
+                AllyTwoAttackUsed = "Spear"
             }
-            if(AllyOneAttackSelected == "Two") {
-                FishOne()
-                AllyOneAttackUsed = "Fish"
+            if(AllyTwoAttackSelected == "Two") {
+                TheMarkTwo()
+                AllyTwoAttackUsed = "The Mark"
             }
-            if(AllyOneAttackSelected == "Three") {
-                HookOne()
-                AllyOneAttackUsed = "Hook"
+            if(AllyTwoAttackSelected == "Three") {
+                TheRotTwo()
+                AllyTwoAttackUsed = "The Rot"
             }
         }
-        if(AllyOne == "Flibbit") {
-            if(AllyOneAttackSelected == "One") {
-                ClampOne()
-                AllyOneAttackUsed = "Clamp"
+        if(AllyTwo == "Square") {
+            if(AllyTwoAttackSelected == "One") {
+                SquareAttackTwo()
+                AllyTwoAttackUsed = "Square"
             }
-            if(AllyOneAttackSelected == "Two") {
-                ChompOne()
-                AllyOneAttackUsed = "Chomp"
+            if(AllyTwoAttackSelected == "Two") {
+                SquareAttackTwo()
+                AllyTwoAttackUsed = "Square"
             }
-            if(AllyOneAttackSelected == "Three") {
-                ChewOne()
-                AllyOneAttackUsed = "Chew"
+            if(AllyTwoAttackSelected == "Three") {
+                SquareAttackTwo()
+                AllyTwoAttackUsed = "Square"
+            }
+        }
+        if(AllyTwo == "Boat") {
+            if(AllyTwoAttackSelected == "One") {
+                BoatAttackTwo()
+                AllyTwoAttackUsed = "Boat"
+            }
+            if(AllyTwoAttackSelected == "Two") {
+                FishTwo()
+                AllyTwoAttackUsed = "Fish"
+            }
+            if(AllyTwoAttackSelected == "Three") {
+                HookTwo()
+                AllyTwoAttackUsed = "Hook"
+            }
+        }
+        if(AllyTwo == "Flibbit") {
+            if(AllyTwoAttackSelected == "One") {
+                ClampTwo()
+                AllyTwoAttackUsed = "Clamp"
+            }
+            if(AllyTwoAttackSelected == "Two") {
+                ChompTwo()
+                AllyTwoAttackUsed = "Chomp"
+            }
+            if(AllyTwoAttackSelected == "Three") {
+                ChewTwo()
+                AllyTwoAttackUsed = "Chew"
             }
     }
-    console.log("AllyOneAttacked, used " + AllyOneAttackUsed)
-    document.getElementById("AllyOneAttackOne").disabled = false;
-    document.getElementById("AllyOneAttackTwo").disabled = false;
-    document.getElementById("AllyOneAttackThree").disabled = false;
-    document.getElementById("TargetEnemyTwoAllyOne").disabled = false;
-    document.getElementById("TargetEnemyOneAllyOne").disabled = false;
-    console.log("AllyOneAttackValue: " + AllyOneAttackValue)
-    console.log("AllyOneAttackTarget = " + AllyOneAttackTarget)
-    AllyOneTextUpdater() 
+    console.log("AllyTwoAttacked, used " + AllyTwoAttackUsed)
+    document.getElementById("AllyTwoAttackOne").disabled = false;
+    document.getElementById("AllyTwoAttackTwo").disabled = false;
+    document.getElementById("AllyTwoAttackThree").disabled = false;
+    document.getElementById("TargetEnemyTwoAllyTwo").disabled = false;
+    document.getElementById("TargetEnemyOneAllyTwo").disabled = false;
+    console.log("AllyTwoAttackValue: " + AllyTwoAttackValue)
+    console.log("AllyTwoAttackTarget = " + AllyTwoAttackTarget)
+    AllyTwoTextUpdater() 
 }
 
-function AllyOneTextUpdater() {
-    if(AllyOneAttackType == "AttackEnemyOne") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne
+function AllyTwoTextUpdater() {
+    if(AllyTwoAttackType == "AttackEnemyOne") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyOne
 
     }
-    if(AllyOneAttackType == "AttackEnemyTwo") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyTwo
+    if(AllyTwoAttackType == "AttackEnemyTwo") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyTwo
     }
-    if(AllyOneAttackType == "AttackBoth") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + " and " + EnemyTwo
+    if(AllyTwoAttackType == "AttackBoth") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyOne + " and " + EnemyTwo
     }
-    if(AllyOneAttackType == "AttackEnemyOneSlow") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + " and slowing down both enemies for 20 seconds"
+    if(AllyTwoAttackType == "AttackEnemyOneSlow") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyOne + " and slowing down both enemies for 20 seconds"
     }
-    if(AllyOneAttackType == "AttackEnemyTwoSlow") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyTwo + " and slowing down both enemies for 20 seconds"
+    if(AllyTwoAttackType == "AttackEnemyTwoSlow") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyTwo + " and slowing down both enemies for 20 seconds"
     }
-    if(AllyOneAttackType == "HealEnemyOne") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + EnemyOne
+    if(AllyTwoAttackType == "HealEnemyOne") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", healing " + AllyTwoAttackValue + " health for " + EnemyOne
     }
-    if(AllyOneAttackType == "HealEnemyTwo") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + EnemyTwo
+    if(AllyTwoAttackType == "HealEnemyTwo") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", healing " + AllyTwoAttackValue + " health for " + EnemyTwo
     }
-    if(AllyOneAttackType == "AttackEnemyOneRot") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + "and poisoning itself!"
+    if(AllyTwoAttackType == "AttackEnemyOneRot") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyOne + "and poisoning itself!"
     }
-    if(AllyOneAttackType == "AttackEnemyTwoRot") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyTwo + "and poisoning itself!"
+    if(AllyTwoAttackType == "AttackEnemyTwoRot") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyTwo + "and poisoning itself!"
     }
-    if(AllyOneAttackType == "SelfAttackBoost") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + "increasing it's attack for 20 seconds!"
+    if(AllyTwoAttackType == "SelfAttackBoost") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + "increasing it's attack for 20 seconds!"
     }
-    if(AllyOneAttackType == "AttackBothHealSelf") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + " and " + EnemyTwo + ", and healed itself for " + AllyOneHealValue
+    if(AllyTwoAttackType == "AttackBothHealSelf") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", dealing " + AllyTwoAttackValue + " damage to " + EnemyOne + " and " + EnemyTwo + ", and healed itself for " + AllyTwoHealValue
     }
-    if(AllyOneAttackType == "HealAllies") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + AllyOne + " and " + AllyTwo
+    if(AllyTwoAttackType == "HealAllies") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", healing " + AllyTwoAttackValue + " health for " + AllyOne + " and " + AllyTwo
     }
 }
