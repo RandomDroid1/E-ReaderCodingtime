@@ -18,7 +18,7 @@ UP NEXT: FIX EVERYTHING. FLIBBIT/SLUG COMBO FAILED, NO HEALTH WORKED. DEBUG MENU
 What to do:
 
 balance /:
-Make game over work properly
+Make game over work properly (done?)
 Give Evil Hand Man his defense bypass lmao, hes being cheated!
 Make it so healing cannot heal dead enemies, easy to do by setting max to like 0 or smth smth smth
 Make the mark not useless lmao, since  sluggy boy has no attacks
@@ -26,20 +26,20 @@ Make the mark not useless lmao, since  sluggy boy has no attacks
 
 
 TEMP REMOVED FROM TURNCALLER:
-setTimeout(AllyTwoAttackMeterUpdate, 1000)
-setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 
+setTimeout(EnemyOneAttackMeterUpdate, 1000)
+    setTimeout(AllyOneAttackMeterUpdate, 1000)
 
 
 
 
 Character Checklist:
     AngelCat as Ally One: FUNCTIONAL 
-    AngelCat as Ally Two: Untested
+    AngelCat as Ally Two: FUNCTIONAL
     Clock as Ally One: FUNCTIONAL
-    Clock as Ally Two: Untested
+    Clock as Ally Two: FUNCTIONAL
     SlugCat as Ally One: FUNCTIONAL
-    SlugCat as Ally Two: Untested
+    SlugCat as Ally Two: FUNCTIONAL
     Square as Ally One: Untested
     Square as Ally Two: Untested
     Boat as Ally One: FUNCTIONAL
@@ -47,11 +47,11 @@ Character Checklist:
     Flibbit as Ally One: FUNCTIONAL
     Flibbit as Ally Two: Untested
     DevilCat as Enemy One: FUNCTIONAL
-    DevilCat as Enemy Two: Untested
+    DevilCat as Enemy Two: FUNCTIONAL
     Car as Enemy One: FUNCTIONAL
-    Car as Enemy Two: Untested
-    Origami as Enemy One: Untested
-    Origami as Enemy Two: Untested
+    Car as Enemy Two: FUNCTIONAL
+    Origami as Enemy One: FUNCTIONAL
+    Origami as Enemy Two: FUNCTIONAL
     DNA as Enemy One: Untested
     DNA as Enemy Two: Untested
     HandMan as Enemy One: Untested

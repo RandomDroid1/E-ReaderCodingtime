@@ -70,7 +70,7 @@ var AllyOneAttackMultiplier = 1
 var AllyTwoAttackMultiplier = 1
 
 var TheMarkCounterVariable = 20
-var TheRotCounterVariable = 10
+var TheRotCounterVariable = 5
 var TheMarkInterval = "none"
 var TheRotInterval = "none"
 var MarkAlreadyActive = false
@@ -335,7 +335,7 @@ function TheMarkOneCancel() {
 
 function TheRotOne() {
     AllyAttackNumber +=1
-    AllyOneAttackValue = (Math.floor(Math.random() * (126-90)+90))*AllyOneAttackMultiplier
+    AllyOneAttackValue = Math.floor(350*AllyOneAttackMultiplier)
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOneRot"
         EnemyOneHealth.value -= 350
@@ -349,20 +349,20 @@ function TheRotOne() {
     RotAlreadyActive = true
     }
     if(RotAlreadyActive == true) {
-        TheRotCounterVariable += 5
+        TheRotCounterVariable += 4
     }
 }
 
 function TheRotOneCounter() {
     TheRotCounterVariable -= 1
-    AllyOneHealth.value -= 50
+    AllyOneHealth.value -= 75
     TheRotOneCancel()
 }
 
 function TheRotOneCancel() {
     if (TheRotCounterVariable == 0) {
         clearInterval(TheRotInterval)
-        TheRotCounterVariable = 10
+        TheRotCounterVariable = 5
         RotAlreadyActive = false
     }
 }
@@ -851,7 +851,7 @@ function RewindTwo() {
 
 function SpearTwo() {
     AllyAttackNumber += 1
-    AllyTwoAttackValue = (Math.floor(Math.random()*(5-1)+1))* AllyTwoAttackMultiplier
+    AllyTwoAttackValue = (Math.floor(Math.random()*(5-1)+1))
     if (AllyTwoAttackValue == 4) {
         if (AllyTwoAttackTarget == "EnemyOne") {
             AllyTwoAttackType = "AttackEnemyOne"
@@ -894,34 +894,34 @@ function TheMarkTwoCancel() {
 
 function TheRotTwo() {
     AllyAttackNumber +=1
-    AllyTwoAttackValue = (Math.floor(Math.random() * (126-90)+90))*AllyTwoAttackMultiplier
+    AllyTwoAttackValue = Math.floor(300*AllyTwoAttackMultiplier)
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOneRot"
-        EnemyOneHealth.value -= 350
+        EnemyOneHealth.value -= AllyTwoAttackValue
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwoRot"
-        EnemyTwoHealth.value -= 350
+        EnemyTwoHealth.value -= AllyTwoAttackValue
     }
     if(RotAlreadyActive == false) {
     TheRotInterval = setInterval(TheRotTwoCounter, 1000)
     RotAlreadyActive = true
     }
     if(RotAlreadyActive == true) {
-        TheRotCounterVariable += 5
+        TheRotCounterVariable += 4
     }
 }
 
 function TheRotTwoCounter() {
     TheRotCounterVariable -= 1
-    AllyTwoHealth.value -= 50
+    AllyTwoHealth.value -= 75
     TheRotTwoCancel()
 }
 
 function TheRotTwoCancel() {
     if (TheRotCounterVariable == 0) {
         clearInterval(TheRotInterval)
-        TheRotCounterVariable = 10
+        TheRotCounterVariable = 5
         RotAlreadyActive = false
     }
 }
@@ -1407,8 +1407,8 @@ function AllyTwoLockInButton() {
 
 function TurnCaller() {
     VariableUpdater()
-    setTimeout(EnemyOneAttackMeterUpdate, 1000)
-    setTimeout(AllyOneAttackMeterUpdate, 1000)
+    setTimeout(AllyTwoAttackMeterUpdate, 1000)
+    setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 }
 
 function AllyOneAttackMeterUpdate() {
@@ -2698,12 +2698,14 @@ function OverdriveTwo() {
     EnemyTwoAttackNumber += 1;
     EnemyTwoAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
     EnemyTwoSelfDamage = Math.floor(Math.random() * (51-1) + 1);
+    EnemyTwoAttackTarget = "Overdrive"
 }
 
 function PitStopTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber += 1;
     EnemyTwoHealValue = Math.floor(Math.random() * (156-30)+30)
+    EnemyTwoAttackTarget = "TeamHeal"
 }
 
 function FoldTwo() {
