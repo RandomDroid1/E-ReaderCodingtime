@@ -12,19 +12,20 @@ balance /:
 Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
 
 
+HANDMAN ALLY ONE GRAB: UNTESTED
+HANDMAN ALLY ONE DOMAIN: UNTESTED
+HANDMAIN ALLY ONE REDUCE: UNTESTED
+HANDMAN ALLY TWO GRAB: UNTESTED
+HANDMAN ALLY TWO DOMAIN: UNTESTED
+HANDMAIN ALLY TWO REDUCE: UNTESTED
 
 
 
+Reduces Ally speed and attack for 20 second
 
+Sacrifice 50 health for defense for both enemies
 
-
-
-
-
-
-what if i just... removed square. I don't like him very much
-
-
+Low damage that also attacks target's max health
 
 
 
@@ -46,8 +47,8 @@ Character Checklist: // this is lowkey pmo so bad dude I hate square man why did
     SlugCat as Ally Two: FUNCTIONAL
     Square as Ally One: FAILED // Worked inconsistently. It's going to be annoying to troubleshoot
     Square as Ally Two: Untested
-    Boat as Ally One: FUNCTIONAL (HOOK STATUS UNKNOWN)
-    Boat as Ally Two: FUNCTIONAL (HOOK END NONFUNCTIONAL)
+    Boat as Ally One: FUNCTIONAL
+    Boat as Ally Two: FUNCTIONAL 
     Flibbit as Ally One: FUNCTIONAL
     Flibbit as Ally Two: FUNCTIONAL
     DevilCat as Enemy One: FUNCTIONAL

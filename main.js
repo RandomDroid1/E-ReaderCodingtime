@@ -100,6 +100,13 @@ var EnemyOneVirusTarget = "none"
 var EnemyTwoVirusTarget = "none"
 
 var AllyOneAttackTarget = "none"
+
+var ReduceCounterVariable = 10
+var DomainCounterVariable = 10
+var ReduceIntervalVariable = "none"
+var DomainIntervalVariable = "none"
+
+
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -313,7 +320,7 @@ function SpearOne() {
 function TheMarkOne() {
     AllyOneAttackType = "SelfAttackBoost"
     AllyAttackNumber +=1
-    AllyOneAttackMultiplier = 1.5
+    AllyOneAttackMultiplier += .5
     if(MarkAlreadyActive == false) {
     TheMarkInterval = setInterval(TheMarkOneCounter, 1000)
     MarkAlreadyActive = true
@@ -331,7 +338,7 @@ function TheMarkOneCancel() {
         clearInterval(TheMarkInterval)
         TheMarkCounterVariable = 20
         MarkAlreadyActive = false
-        AllyOneAttackMultiplier = 1
+        AllyOneAttackMultiplier -= .5
     }
 }
 
@@ -490,7 +497,6 @@ function HookOne() {
         }
     }
 }
-// RESUME HERE FOR ADDING NEW STUFF FR FR FR FR FR
 function HookOneCounter() {
     HookCounterVariable -= 1
     HookOneCancel()
@@ -873,7 +879,7 @@ function SpearTwo() {
 function TheMarkTwo() {
     AllyTwoAttackType = "SelfAttackBoost"
     AllyAttackNumber +=1
-    AllyTwoAttackMultiplier = 1.5
+    AllyTwoAttackMultiplier  += .5
     if(MarkAlreadyActive == false) {
     TheMarkInterval = setInterval(TheMarkTwoCounter, 1000)
     MarkAlreadyActive = true
@@ -891,7 +897,7 @@ function TheMarkTwoCancel() {
         clearInterval(TheMarkInterval)
         TheMarkCounterVariable = 20
         MarkAlreadyActive = false
-        AllyTwoAttackMultiplier = 1
+        AllyTwoAttackMultiplier -= .5
     }
 }
 
@@ -1417,7 +1423,7 @@ function AllyTwoLockInButton() {
 
 function TurnCaller() {
     VariableUpdater()
-    setTimeout(AllyTwoAttackMeterUpdate, 1000)
+    setTimeout(EnemyOneAttackMeterUpdate, 1000)
 }
 
 function AllyOneAttackMeterUpdate() {
@@ -1546,10 +1552,22 @@ function EnemyOneAttacker() {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing sustained damage to " + AllyTwo
         }
         if (EnemyOneAttackTarget == "Missed") {
-            document.getElementById("EnemyTwoAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + " and missed!"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + " and missed!"
         }
         if (EnemyOneAttackTarget == "Snowgrave") {
-            document.getElementById("EnemyTwoAttackLog").innerText = EnemyOne + " Proceeded."
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Proceeded."
+        }
+        if (EnemyOneAttackTarget == "Reduce") {
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Reduce, reducing the allies speed and attack!"
+        }
+        if (EnemyOneAttackTarget == "Domain") {
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
+        }
+        if (EnemyOneAttackTarget == "GrabOne") {
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + EnemyOneAttackValue/2 + " of " + AllyOne + "'s health"
+        }
+        if (EnemyOneAttackTarget == "GrabTwo") {
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + EnemyOneAttackValue/2 + " of " + AllyTwo + "'s health"
         }
         EnemyOneAttackValue = 0
         EnemyOneSelfDamage = 0
@@ -1639,6 +1657,18 @@ function EnemyTwoAttacker() {
         }
         if (EnemyTwoAttackTarget == "Missed") {
             document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + " and missed!"
+        }
+        if (EnemyTwoAttackTarget == "Reduce") {
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Reduce, reducing the allies speed and attack!"
+        }
+        if (EnemyTwoAttackTarget == "Domain") {
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyTwo + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
+        }
+        if (EnemyTwoAttackTarget == "GrabOne") {
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttack + "damage, and erasing " + EnemyTwoAttack/2 + " of " + AllyOne + "'s health"
+        }
+        if (EnemyTwoAttackTarget == "GrabTwo") {
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttack + "damage, and erasing " + EnemyTwoAttack/2 + " of " + AllyTwo + "'s health"
         }
         EnemyTwoAttackValue = 0
         EnemyTwoSelfDamage = 0
@@ -2383,30 +2413,64 @@ function BindOne() {
 function GrabOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    AllySpeed = "Reduced"
-    AllyAttackDebuff += -15
+    EnemyOneAttackValue = Math.floor(Math.random() * (61-40) + 40)
+    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // selects target
+    if (EnemyOneAttackTarget == 1) {
+        EnemyOneAttackTarget = "GrabOne"
+        AllyOneHealth.value -= EnemyTwoAttackValue
+        AllyOneHealth.max -= EnemyTwoAttackValue / 2
+    }
+    else {
+        EnemyOneAttackTarget = "GrabTwo"
+        AllyTwoHealth.value -= EnemyTwoAttackValue
+        AllyTwoHealth.max -= EnemyTwoAttackValue / 2
+    }
 }
 
-function DomainOne() { //   Locks a move or smth
+function DomainOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackTarget = Math.floor(Math.random()* (5-1)+1) // Above 1 hits
-    if (EnemyOneAttackTarget >= 1) {
-        EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // Chooses 1-2 to decide which player to target
-        EnemyOneMoveLock = Math.floor(Math.random() * (4-1)+1) // Chooses 1-3 to decide what move to lock
-    }
-
+    EnemyOneHealth.value -= 50;
+    EnemyOneDefense += 15
+    EnemyTwoDefense += 15
+    EnemyOneAttackType = "Domain"
 }
 
 function ReduceOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneAttackValue = Math.floor(Math.random() * (61-40) + 40)
-    EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // One, or two
-    if (EnemyOneAttackTarget == 1) {
-        EnemyOneAttackTarget = "AllyOne"}
-        else {EnemyOneAttackTarget = "AllyTwo"}
+    EnemyTwoAttackTarget = "Reduce"
+    AllyOneAttackMeterHTML.max = 150
+    AllyTwoAttackMeterHTML.max = 150
+    AllyOneAttackMultiplier -= -.5
+    AllyTwoAttackMultiplier -= -.5
+    ReduceIntervalVariable = setInterval(ReduceOneCounter, 1000)
+    if (ReduceCounterVariable != 10) {
+        ReduceCounterVariable += 10
+    }
+    else {
+        ReduceOneCounter()
+        ReduceIntervalVariable
+    }
 }
+function ReduceOneCounter() {
+    if (ReduceCounterVariable != 0) {
+        ReduceCounterVariable -= 1
+    }
+    ReduceOneCounterVariableCancel()
+}
+function ReduceOneCounterVariableCancel() {
+    if (ReduceCounterVariable == 0) {
+        ReduceCounterVariable = 10
+        clearInterval(ReduceInterbalVariable)
+        AllyOneAttackMultiplier += -.5
+        AllyTwoAttackMultiplier += -.5
+        AllyOneAttackMeterHTML.max = 100
+        AllyTwoAttackMeterHTML.max = 100
+    }
+}
+
+
 
 function GlobOne() {
     VariableUpdater()
@@ -2858,30 +2922,63 @@ function BindTwo() {
 function GrabTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    AllySpeed = "Reduced"
-    AllyAttackDebuff += -15
+    EnemyTwoAttackValue = Math.floor(Math.random() * (61-40) + 40)
+    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // selects target
+    if (EnemyTwoAttackTarget == 1) {
+        EnemyTwoAttackTarget = "GrabOne"
+        AllyOneHealth.value -= EnemyTwoAttackValue
+        AllyOneHealth.max -= EnemyTwoAttackValue / 2
+    }
+    else {
+        EnemyTwoAttackTarget = "GrabTwo"
+        AllyTwoHealth.value -= EnemyTwoAttackValue
+        AllyTwoHealth.max -= EnemyTwoAttackValue / 2
+    }
 }
 
-function DomainTwo() { //   Locks a move or smth
+function DomainTwo() {
     VariableUpdater()
-    EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackTarget = Math.floor(Math.random()* (5-1)+1) // Above 1 hits
-    if (EnemyTwoAttackTarget >= 1) {
-        EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // Chooses 1-2 to decide which player to target
-        EnemyTwoMoveLock = Math.floor(Math.random() * (4-1)+1) // Chooses 1-3 to decide what move to lock
-    }
-
+    EnemyOneAttackNumber +=1;
+    EnemyOneHealth.value -= 50;
+    EnemyOneDefense += 15
+    EnemyTwoDefense += 15
+    EnemyOneAttackType = "Domain"
 }
 
 function ReduceTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoAttackValue = Math.floor(Math.random() * (61-40) + 40)
-    EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // Two, or two
-    if (EnemyTwoAttackTarget == 1) {
-        EnemyTwoAttackTarget = "AllyTwo"}
-        else {EnemyTwoAttackTarget = "AllyTwo"}
+    EnemyTwoAttackTarget = "Reduce"
+    AllyOneAttackMeterHTML.max = 150
+    AllyTwoAttackMeterHTML.max = 150
+    AllyOneAttackMultiplier -= -.5
+    AllyTwoAttackMultiplier -= -.5
+    ReduceIntervalVariable = setInterval(ReduceTwoCounter, 1000)
+    if (ReduceCounterVariable != 10) {
+        ReduceCounterVariable += 10
+    }
+    else {
+        ReduceTwoCounter()
+        ReduceIntervalVariable
+    }
 }
+function ReduceTwoCounter() {
+    if (ReduceCounterVariable != 0) {
+        ReduceCounterVariable -= 1
+    }
+    ReduceTwoCounterVariableCancel()
+}
+function ReduceTwoCounterVariableCancel() {
+    if (ReduceCounterVariable == 0) {
+        ReduceCounterVariable = 10
+        clearInterval(ReduceInterbalVariable)
+        AllyOneAttackMultiplier += -.5
+        AllyTwoAttackMultiplier += -.5
+        AllyOneAttackMeterHTML.max = 100
+        AllyTwoAttackMeterHTML.max = 100
+    }
+}
+
 
 function GlobTwo() {
     VariableUpdater()
@@ -3183,10 +3280,10 @@ function HandManHeadshot() {
     document.getElementById("HandManHeadshotImage").src = "HandManHeadshotSelected.png";
     document.getElementById("CharacterName").innerText = "Evil"
     document.getElementById("Tagline").innerText = "I don't even know man"
-    document.getElementById("AttackOne").innerText = "Grab"
+    document.getElementById("AttackOne").innerText = "Reduce"
     document.getElementById("AttackOneText").innerText = "Reduces Ally speed and \n attack for 20 seconds"
     document.getElementById("AttackTwo").innerText = "Domain"
-    document.getElementById("AttackTwoText").innerText="Locks a random move for \na random ally"
-    document.getElementById("AttackThree").innerText="Reduce"
-    document.getElementById("AttackThreeText").innerText="Medium damage that bypasses \ndefense"
+    document.getElementById("AttackTwoText").innerText="Sacrifice 50 health for \n defense for both enemies"
+    document.getElementById("AttackThree").innerText="Grab"
+    document.getElementById("AttackThreeText").innerText="Low damage that also attacks \ntarget's max health"
 }    
