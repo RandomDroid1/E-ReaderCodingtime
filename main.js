@@ -210,11 +210,11 @@ function HeavenlyStrikeOne() {
     AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40) // Slightly higher max than demonic strike w/ a larger range?
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyTwoDefense
     }
 }
 
@@ -222,8 +222,8 @@ function JudgementOne() {
     AllyOneAttackType = "AttackBoth"
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (76-30)+30)
-    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
-    EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
+    EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyTwoDefense
 }
 
 function HealingPrayerOne() {
@@ -231,8 +231,8 @@ function HealingPrayerOne() {
     console.log("HealUsed")
     AllyAttackNumber += 1;
     AllyOneAttackValue = Math.floor(Math.random() * (76-25)+25)
-    AllyOneHealth.value += AllyOneAttackValue
-    AllyTwoHealth.value += AllyOneAttackValue
+    AllyOneHealth.value += AllyOneAttackValue - EnemyOneDefense
+    AllyTwoHealth.value += AllyOneAttackValue - EnemyTwoDefense
 }
 
 function BadTimeOne() {
@@ -240,11 +240,11 @@ function BadTimeOne() {
     AllyOneAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyAttackNumber*10)
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyTwoDefense
     }
 }
 
@@ -264,11 +264,11 @@ function HourOne() {
     }
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyTwoDefense
     }
 }
 
@@ -279,16 +279,16 @@ function RewindOne() {
         AllyOneHealValue = Math.floor(Math.random() * (101-65)+65)
         AllyOneAttackValue = (Math.floor(Math.random() * (51-25)+25)) * AllyOneAttackMultiplier 
         AllyOneHealth.value += AllyOneHealValue
-        EnemyOneHealth.value -= AllyOneAttackValue
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
+        EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
     }
     if (AllyOneHealth.value >= 250) {
         AllyOneAttackType = "AttackBothHealSelf"
         AllyOneHealValue = Math.floor(Math.random() * (51-10)+10)
         AllyOneAttackValue = (Math.floor(Math.random() * (51-25)+25)) * AllyOneAttackMultiplier 
         AllyOneHealth.value += AllyOneHealValue
-        EnemyOneHealth.value -= AllyOneAttackValue
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
+        EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
     }
 }
 
@@ -340,11 +340,11 @@ function TheRotOne() {
     AllyOneAttackValue = Math.floor(350*AllyOneAttackMultiplier)
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOneRot"
-        EnemyOneHealth.value -= 350
+        EnemyOneHealth.value -= 350 - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwoRot"
-        EnemyTwoHealth.value -= 350
+        EnemyTwoHealth.value -= 350 - EnemyTwoDefense
     }
     if(RotAlreadyActive == false) {
     TheRotInterval = setInterval(TheRotOneCounter, 1000)
@@ -357,7 +357,7 @@ function TheRotOne() {
 
 function TheRotOneCounter() {
     TheRotCounterVariable -= 1
-    AllyOneHealth.value -= 75
+    AllyOneHealth.value -= 75 - EnemyOneDefense
     TheRotOneCancel()
 }
 
@@ -374,11 +374,11 @@ function BoatAttackOne() {
     AllyOneAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyOneAttackMultiplier
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
         }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
     }
 }
 
@@ -429,21 +429,21 @@ function FishOne() { // theres probably a smarter way to write this with like va
     if(FishStatus == "Attack") {
         if(AllyOneAttackTarget == "EnemyOne") {
             AllyOneAttackType = "AttackEnemyOne"
-            EnemyOneHealth.value -= AllyOneAttackValue
+            EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
         }
         if(AllyOneAttackTarget == "EnemyTwo") {
             AllyOneAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth.value -= AllyOneAttackValue
+            EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
         }
     }
     if(FishStatus == "Heal") {
         if(AllyOneAttackTarget == "EnemyOne") {
             AllyOneAttackType = "HealEnemyOne"
-            EnemyOneHealth.value += AllyOneAttackValue
+            EnemyOneHealth.value += AllyOneAttackValue - EnemyOneDefense
         }
         if(AllyOneAttackTarget == "EnemyTwo") {
             AllyOneAttackType = "HealEnemyTwo"
-            EnemyTwoHealth.value += AllyOneAttackValue
+            EnemyTwoHealth.value += AllyOneAttackValue - EnemyTwoDefense
         }
     }
 }
@@ -457,11 +457,11 @@ function HookOne() {
         AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50) * AllyOneAttackMultiplier
         if(AllyOneAttackTarget == "EnemyOne") {
             AllyOneAttackType = "AttackEnemyOne"
-            EnemyOneHealth.value -= AllyOneAttackValue
+            EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
         }
         if(AllyOneAttackTarget == "EnemyTwo") {
             AllyOneAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth.value -= AllyOneAttackValue
+            EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
         }
     }
     else if (AllyOneAttackValue == 2) {
@@ -469,11 +469,11 @@ function HookOne() {
         AllyOneAttackValue = Math.floor(Math.random() * (100-50)+50) * AllyOneAttackMultiplier
         if(AllyOneAttackTarget == "EnemyOne") {
             AllyOneAttackType = "AttackEnemyOneSlow"
-            EnemyOneHealth.value -= AllyOneAttackValue
+            EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
         }
         if(AllyOneAttackTarget == "EnemyTwo") {
             AllyOneAttackType = "AttackEnemyTwoSlow"
-            EnemyTwoHealth.value -= AllyOneAttackValue
+            EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
         }
         console.log("Hook = " + HookAlreadyActive)
         if(HookAlreadyActive == false) {
@@ -501,8 +501,8 @@ function HookOneCancel() {
         console.log("HOOK END")
         clearInterval(HookInterval)
         HookCounterVariable = 15
-        EnemyOneAttackMeter.max = 100
-        EnemyTwoAttackMeter.max = 100
+        EnemyOneAttackMeterHTML.max = 100
+        EnemyTwoAttackMeterHTML.max = 100
         HookAlreadyActive = false
     }
 }
@@ -512,12 +512,12 @@ function ClampOne() {
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
         AllyOneAttackValue =  Math.floor((EnemyOneHealth.value / 5)) // 20%, not 15.
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
         AllyOneAttackValue =  Math.floor((EnemyTwoHealth.value / 5))
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
     }
 }
 
@@ -526,12 +526,12 @@ function ChompOne() {
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
         AllyOneAttackValue =  Math.floor((EnemyOneHealth.max / 10))
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
         AllyOneAttackValue = Math.floor((EnemyTwoHealth.value / 10))
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
     }
 }
 
@@ -541,12 +541,12 @@ function ChewOne() {
     if (AllyOneAttackTarget == "EnemyOne") {
         AllyOneAttackType = "AttackEnemyOne"
         AllyOneAttackValue =  Math.floor((AllyOneHealth.value / 5))
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
     }
     if (AllyOneAttackTarget == "EnemyTwo") {
         AllyOneAttackType = "AttackEnemyTwo"
         AllyOneAttackValue =  Math.floor((AllyOneHealth.value / 5))
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
     }
 }
 
@@ -593,25 +593,25 @@ function SquareAttackOne() { // cant do any moves that have lasting effects beca
     else if (AllyOneAttackValue == 13) { //
         AllyOneAttackType = "AttackBoth" 
         AllyOneAttackValue = 10
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
         EnemyTwoAttack.value -= AllyOneAttackValue
     }
     else if (AllyOneAttackValue == 14) { // 
         AllyOneAttackType = "AttackBoth"
         AllyOneAttackValue = 100
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
         EnemyTwoAttack.value -= AllyOneAttackValue
     }
     else if (AllyOneAttackValue == 15) { //  SNOWGRAVE BABYYY
-        AllyOneAttackValue = 99999999999999
+        AllyOneAttackValue = 11111111111111111
         if(AllyOneAttackTarget == "EnemyOne") {
-            AllyOneAttackType = "AttackEnemyOne"
-            EnemyOneHealth.value -= AllyOneAttackValue
+            AllyOneAttackType = "Snowgrave"
+            EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
         if(AllyOneAttackTarget == "EnemyOne") {
-            AllyOneAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth.value -= AllyOneAttackValue
+            AllyOneAttackType = "Snowgrave"
+            EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
     };
@@ -770,11 +770,11 @@ function HeavenlyStrikeTwo() {
     AllyTwoAttackValue = Math.floor(Math.random() * (151-40)+1) // Slightly higher max than demonic strike w/ a larger range?
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+        EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyTwoDefense
     }
 }
 
@@ -782,8 +782,8 @@ function JudgementTwo() {
     AllyTwoAttackType = "AttackBoth"
     AllyAttackNumber += 1;
     AllyTwoAttackValue = Math.floor(Math.random() * (51-25)+1)
-    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
-    EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier)
+    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
+    EnemyTwoHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyTwoDefense
 }
 
 function HealingPrayerTwo() {
@@ -800,11 +800,11 @@ function BadTimeTwo() {
     AllyTwoAttackValue = (Math.floor(Math.random()*(21-15)+15)) + (AllyAttackNumber*10)
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier)
+        EnemyOneHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier) - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier)
+        EnemyTwoHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier) - EnemyTwoDefense
     }
 }
 
@@ -824,11 +824,11 @@ function HourTwo() {
     }
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier)
+        EnemyOneHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier) - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier)
+        EnemyTwoHealth.value -= (AllyTwoAttackValue * AllyTwoAttackMultiplier) - EnemyTwoDefense
     }
 }
 
@@ -839,16 +839,16 @@ function RewindTwo() {
         AllyTwoHealValue = Math.floor(Math.random() * (101-65)+65)
         AllyTwoAttackValue = (Math.floor(Math.random() * (51-25)+25)) * AllyTwoAttackMultiplier 
         AllyTwoHealth.value += AllyTwoHealValue
-        EnemyOneHealth.value -= AllyTwoAttackValue
-        EnemyTwoHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
     if (AllyTwoHealth.value >= 250) {
         AllyTwoAttackType = "AttackBothHealSelf"
         AllyTwoHealValue = Math.floor(Math.random() * (51-10)+10)
         AllyTwoAttackValue = (Math.floor(Math.random() * (51-25)+25)) * AllyTwoAttackMultiplier 
         AllyTwoHealth.value += AllyTwoHealValue
-        EnemyOneHealth.value -= AllyTwoAttackValue
-        EnemyTwoHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
 }
 
@@ -900,11 +900,11 @@ function TheRotTwo() {
     AllyTwoAttackValue = Math.floor(300*AllyTwoAttackMultiplier)
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOneRot"
-        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwoRot"
-        EnemyTwoHealth.value -= AllyTwoAttackValue
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
     if(RotAlreadyActive == false) {
     TheRotInterval = setInterval(TheRotTwoCounter, 1000)
@@ -930,15 +930,16 @@ function TheRotTwoCancel() {
 }
 
 function BoatAttackTwo() {
+    console.log("Boat Attack Used!!!")
     AllyAttackNumber += 1
     AllyTwoAttackValue = (Math.floor(Math.random() * (111-50)+50)) * AllyTwoAttackMultiplier
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= AllyOneAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
         }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
-        EnemyTwoHealth.value -= AllyOneAttackValue
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
 }
 
@@ -947,7 +948,7 @@ function FishTwo() { // theres probably a smarter way to write this with like va
     AllyTwoAttackValue = (Math.floor(Math.random() * (11-1)+1)) // decides what subsection of random to put it in
     if (AllyTwoAttackValue == 1) { // Highest one, 500-300 damage
         FishStatus = "Attack"
-        AllyOneAttackValue = (Math.floor(Math.random() * (501-300)+300)) * AllyTwoAttackMultiplier
+        AllyTwoAttackValue = (Math.floor(Math.random() * (501-300)+300)) * AllyTwoAttackMultiplier
     }
     else if (AllyTwoAttackValue == 2) { //2nd best, 400-250 damage
         FishStatus = "Attack"
@@ -989,21 +990,21 @@ function FishTwo() { // theres probably a smarter way to write this with like va
     if(FishStatus == "Attack") {
         if(AllyTwoAttackTarget == "EnemyOne") {
             AllyTwoAttackType = "AttackEnemyOne"
-            EnemyOneHealth.value -= AllyTwoAttackValue
+            EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
         }
         if(AllyTwoAttackTarget == "EnemyTwo") {
             AllyTwoAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth.value -= AllyTwoAttackValue
+            EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
         }
     }
     if(FishStatus == "Heal") {
         if(AllyTwoAttackTarget == "EnemyOne") {
             AllyTwoAttackType = "HealEnemyOne"
-            EnemyOneHealth.value += AllyTwoAttackValue
+            EnemyOneHealth.value += AllyTwoAttackValue - EnemyOneDefense
         }
         if(AllyTwoAttackTarget == "EnemyTwo") {
             AllyTwoAttackType = "HealEnemyTwo"
-            EnemyTwoHealth.value += AllyTwoAttackValue
+            EnemyTwoHealth.value += AllyTwoAttackValue - EnemyTwoDefense
         }
     }
 }
@@ -1015,22 +1016,22 @@ function HookTwo() {
         AllyTwoAttackValue = Math.floor(Math.random() * (100-50)+50) * AllyTwoAttackMultiplier
         if(AllyTwoAttackTarget == "EnemyOne") {
             AllyTwoAttackType = "AttackEnemyOne"
-            EnemyOneHealth.value -= AllyTwoAttackValue
+            EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
         }
         if(AllyTwoAttackTarget == "EnemyTwo") {
             AllyTwoAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth.value -= AllyTwoAttackValue
+            EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
         }
     }
     else if (AllyTwoAttackValue == 2) {
         AllyTwoAttackValue = Math.floor(Math.random() * (100-50)+50) * AllyTwoAttackMultiplier
         if(AllyTwoAttackTarget == "EnemyOne") {
             AllyTwoAttackType = "AttackEnemyOneSlow"
-            EnemyOneHealth.value -= AllyTwoAttackValue
+            EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
         }
         if(AllyTwoAttackTarget == "EnemyTwo") {
             AllyTwoAttackType = "AttackEnemyTwoSlow"
-            EnemyTwoHealth.value -= AllyTwoAttackValue
+            EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
         }
         console.log("Hook = " + HookAlreadyActive)
         if(HookAlreadyActive == false) {
@@ -1055,8 +1056,8 @@ function HookTwoCancel() {
         console.log("HOOK END")
         clearInterval(HookInterval)
         HookCounterVariable = 15
-        EnemyOneAttackMeter.max = 100
-        EnemyTwoAttackMeter.max = 100
+        EnemyOneAttackMeterHTML.max = 100
+        EnemyTwoAttackMeterHTML.max = 100
         HookAlreadyActive = false
     }
 }
@@ -1066,12 +1067,12 @@ function ClampTwo() {
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
         AllyTwoAttackValue =  Math.floor((EnemyOneHealth.value / 5)) // 20%, not 15.
-        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
         AllyTwoAttackValue =  Math.floor((EnemyTwoHealth.value / 5))
-        EnemyTwoHealth.value -= AllyTwoAttackValue
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
 }
 
@@ -1080,12 +1081,12 @@ function ChompTwo() {
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
         AllyTwoAttackValue =  Math.floor((EnemyOneHealth.max / 10))
-        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
         AllyTwoAttackValue = Math.floor((EnemyTwoHealth.value / 10))
-        EnemyTwoHealth.value -= AllyTwoAttackValue
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
 }
 
@@ -1095,12 +1096,12 @@ function ChewTwo() {
     if (AllyTwoAttackTarget == "EnemyOne") {
         AllyTwoAttackType = "AttackEnemyOne"
         AllyTwoAttackValue =  Math.floor((AllyTwoHealth.value / 5))
-        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
     }
     if (AllyTwoAttackTarget == "EnemyTwo") {
         AllyTwoAttackType = "AttackEnemyTwo"
         AllyTwoAttackValue =  Math.floor((AllyTwoHealth.value / 5))
-        EnemyTwoHealth.value -= AllyTwoAttackValue
+        EnemyTwoHealth.value -= AllyTwoAttackValue - EnemyTwoDefense
     }
 }
 
@@ -1111,62 +1112,65 @@ function SquareAttackTwo() { // cant do any moves that have lasting effects beca
     if (AllyTwoAttackValue == 1) {// Heavenly Strike
         HeavenlyStrikeTwo()
     }
-    else if (AllyOneAttackValue == 2) { // 
+    else if (AllyTwoAttackValue == 2) { // 
         JudgementTwo()
     }
-    else if (AllyOneAttackValue == 3) { // 
+    else if (AllyTwoAttackValue == 3) { // 
         HealingPrayerTwo()
     }
-    else if (AllyOneAttackValue == 4) { // 
+    else if (AllyTwoAttackValue == 4) { // 
         BadTimeTwo()
     }
-    else if (AllyOneAttackValue == 5) { // 
+    else if (AllyTwoAttackValue == 5) { // 
         HourTwo()
     }
-    else if (AllyOneAttackValue == 6) { // 
+    else if (AllyTwoAttackValue == 6) { // 
         RewindTwo()
     }
-    else if (AllyOneAttackValue == 7) { // 
+    else if (AllyTwoAttackValue == 7) { // 
         SpearTwo()
     }
-    else if (AllyOneAttackValue == 8) { // 
+    else if (AllyTwoAttackValue == 8) { // 
         BoatAttackTwo()
     }
-    else if (AllyOneAttackValue == 9) { // 
+    else if (AllyTwoAttackValue == 9) { // 
         FishTwo()
     }
-    else if (AllyOneAttackValue == 10) { // 
+    else if (AllyTwoAttackValue == 10) { // 
         HookTwo()
     }
-    else if (AllyOneAttackValue == 11) { // 
+    else if (AllyTwoAttackValue == 11) { // 
         ClampTwo()
     }
-    else if (AllyOneAttackValue == 12) { // 
+    else if (AllyTwoAttackValue == 12) { // 
         ChompTwo()
     }
     else if (AllyTwoAttackValue == 13) { //
         AllyTwoAttackType = "AttackBoth" 
         AllyTwoAttackValue = 10
-        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
         EnemyTwoAttack.value -= AllyTwoAttackValue
     }
     else if (AllyTwoAttackValue == 14) { // 
         AllyTwoAttackType = "AttackBoth"
         AllyTwoAttackValue = 100
-        EnemyOneHealth.value -= AllyTwoAttackValue
+        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
         EnemyTwoAttack.value -= AllyTwoAttackValue
     }
     else if (AllyTwoAttackValue == 15) { //  SNOWGRAVE BABYYY
-        AllyTwoAttackValue = 99999999999999
-        if(AllyTwoAttackTarget == "EnemyOne") {
-            AllyTwoAttackType = "AttackEnemyOne"
-            EnemyOneHealth -= AllyTwoAttackValue
+        AllyTwoAttackValue = 2222222
+        console.log("SNOWGRAVE USED!")
+        if(AllyTwoAttackTarget = "EnemyOne") {
+            console.log("SNOWGRAVE USED ON ENEMY ONE!")
+            AllyTwoAttackType = "Snowgrave"
+            EnemyOneHealth.value -= AllyTwoAttackValue
             document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
         }
-        if(AllyTwoAttackTarget == "EnemyOne") {
-            AllyTwoAttackType = "AttackEnemyTwo"
-            EnemyTwoHealth -= AllyTwoAttackValue
-            document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
+        if(AllyTwoAttackTarget == "EnemyTwo") {
+            console.log("SNOWGRAVE USED ON ENEMY Two!")
+            AllyTwoAttackType = "Snowgrave"
+            EnemyTwoHealth.value -= AllyTwoAttackValue
+            document.getElementById("SnowgraveEnemyTwo").src="Snowgrave.png"
         }
     };
 }
@@ -1304,6 +1308,9 @@ function AllyTwoTextUpdater() {
     if(AllyTwoAttackType == "HealAllies") {
         document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " Used " + AllyTwoAttackUsed + ", healing " + AllyTwoAttackValue + " health for " + AllyOne + " and " + AllyTwo
     }
+    if(AllyTwoAttackType == "Snowgrave") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " proceeded."
+    }
 }
 
 
@@ -1410,8 +1417,7 @@ function AllyTwoLockInButton() {
 
 function TurnCaller() {
     VariableUpdater()
-    setTimeout(EnemyOneAttackMeterUpdate, 1000)
-    setTimeout(AllyOneAttackMeterUpdate, 1000)
+    setTimeout(AllyTwoAttackMeterUpdate, 1000)
 }
 
 function AllyOneAttackMeterUpdate() {
@@ -1539,6 +1545,12 @@ function EnemyOneAttacker() {
         if (EnemyOneAttackTarget == "VirusAllyTwo") {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing sustained damage to " + AllyTwo
         }
+        if (EnemyOneAttackTarget == "Missed") {
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + " and missed!"
+        }
+        if (EnemyOneAttackTarget == "Snowgrave") {
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyOne + " Proceeded."
+        }
         EnemyOneAttackValue = 0
         EnemyOneSelfDamage = 0
         EnemyOneHealValue = 0
@@ -1572,6 +1584,7 @@ function EnemyTwoAttackMeterReset() {
     }
 }
 function EnemyTwoAttacker() {
+    console.log("EnemyTwoTarget = " + EnemyTwoAttackTarget)
     if (AllyOneHealth.value <= 0) {
             EnemyTwoAttackTarget = "AllyTwo"
             console.log("Enemy Two Attack Target reassigned to Ally Two")
@@ -1614,6 +1627,7 @@ function EnemyTwoAttacker() {
             document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " defended it's team!"
         }
         if (EnemyTwoAttackTarget == "AttackSelf") {
+            console.log("EnemyTwoAttackSelfUsed")
             EnemyTwoHealth.value -= EnemyTwoSelfDamage
             document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n dealing " + EnemyTwoSelfDamage + " damage to itself "
         }
@@ -1622,6 +1636,9 @@ function EnemyTwoAttacker() {
         }
         if (EnemyTwoAttackTarget == "VirusAllyTwo") {
             document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + ",\n dealing sustained damage to " + AllyTwo
+        }
+        if (EnemyTwoAttackTarget == "Missed") {
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " Used " + EnemyTwoAttack + " and missed!"
         }
         EnemyTwoAttackValue = 0
         EnemyTwoSelfDamage = 0
@@ -1782,12 +1799,12 @@ function EnemyOneVirusDamageSlotOneDamager() {
     EnemyOneVirusSlotOneCounter += 1;
     
     if(EnemyOneVirusSlotOneTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 10
+        AllyOneHealth.value -= 20
         console.log("VirusAttackedAllyOne")
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
     }
     if(EnemyOneVirusSlotOneTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 10
+        AllyTwoHealth.value -= 20
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
@@ -1837,12 +1854,12 @@ function EnemyOneVirusDamageSlotTwoDamager() {
     EnemyOneVirusSlotTwoCounter += 1;
     console.log("VIRUS SLOT 2 STARTED")
     if(EnemyOneVirusSlotTwoTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 10
+        AllyOneHealth.value -= 20
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
         console.log("VirusAttackedAllyOne")
     }
     if(EnemyOneVirusSlotTwoTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 10
+        AllyTwoHealth.value -= 20
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
@@ -1858,47 +1875,44 @@ function EnemyOneVirusDamageSlotTwoDamager() {
 
 // enemy two// 
 
-function EnemyTwoVirusDamageSlotOne() {
-    console.log("VIRUS SLOT 1 STARTED")
+function EnemyTwoVirusDamageSlotOne() { // figured out this could have been accomplished with a variable way later on but like whatevverrrr mannnn
+    console.log("VIRUS SLOT 1 STARTED, attacking " + EnemyTwoAttackTarget)
     if(EnemyTwoVirusSlotOne == "Taken") {
+        console.log("Virus Slot rejected")
         EnemyTwoVirusDamageSlotTwo()
     }
     if(EnemyTwoVirusSlotOne == "Free") {
-        if(EnemyTwoVirusTarget == "AllyOne") {
+        console.log("Virus Slot one used and taken")
+        if(EnemyTwoAttackTarget == "AllyOne") {
+            console.log("Virus Slot one used on Ally One")
             EnemyTwoVirusSlotOneTargetLock = "AllyOne";
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
         }
-        if(EnemyTwoVirusTarget == "AllyTwo") {
+        if(EnemyTwoAttackTarget == "AllyTwo") {
+            console.log("Virus Slot one used on ally two")
             EnemyTwoVirusSlotOneTargetLock = "AllyTwo"; // I HATE INTERVALS WE HATE INTERVALS (it didnt work once so now I am refusing to use it on this part even though it would work better probably)
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+            
         }
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
 }
 }
 
 function EnemyTwoVirusDamageSlotOneDamager() {
     EnemyTwoVirusSlotOneCounter += 1;
-    
+    console.log("EnemyTwoVirusDamager Used")
     if(EnemyTwoVirusSlotOneTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 10
+        AllyOneHealth.value -= 20
         console.log("VirusAttackedAllyOne")
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
     }
     if(EnemyTwoVirusSlotOneTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 10
+        AllyTwoHealth.value -= 20
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
@@ -1915,32 +1929,25 @@ function EnemyTwoVirusDamageSlotOneDamager() {
 
 function EnemyTwoVirusDamageSlotTwo() {
     console.log("Virus2Used")
-    if(EnemyTwoeVirusSlotTwo == "Taken") {
-        EnemyTwoVirusDamageSlotTwo()
+    if(EnemyTwoVirusSlotTwo == "Taken") {
+        EnemyTwoVirusDamageSlotOne()
     }
     if(EnemyTwoVirusSlotTwo == "Free") {
-        if(EnemyTwoVirusTarget == "AllyOne") {
+        if(EnemyTwoAttackTarget == "AllyOne") {
             EnemyTwoVirusSlotTwoTargetLock = "AllyOne";
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+            
         }
-        if(EnemyTwoVirusTarget == "AllyTwo") {
+        if(EnemyTwoAttackTarget == "AllyTwo") {
             EnemyTwoVirusSlotTwoTargetLock = "AllyTwo";
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
         }
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 1000);
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 2000);
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 3000);
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 4000);
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 5000);
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 6000);
+        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 7000);
+        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
 }
 }
 
@@ -1948,12 +1955,12 @@ function EnemyTwoVirusDamageSlotTwoDamager() {
     EnemyTwoVirusSlotTwoCounter += 1;
     console.log("VIRUS SLOT 2 STARTED")
     if(EnemyTwoVirusSlotTwoTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 10
+        AllyOneHealth.value -= 20
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
         console.log("VirusAttackedAllyOne")
     }
     if(EnemyTwoVirusSlotTwoTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 10
+        AllyTwoHealth.value -= 20
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
@@ -2796,7 +2803,7 @@ function PaperAirplaneTwo() {
     FoldCounter += 2;
 }
 function VirusTwo() { // this could have issues if it stacks? Just make it not stack lmao
-    EnemyOneAttackType = "Virus"
+    EnemyTwoAttackType = "Virus"
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
     EnemyTwoVirusValue = Math.floor(Math.random() * (20-10)+10) //  multiple times
@@ -2831,6 +2838,7 @@ function BindTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
     EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1)
+    console.log("Bind Target = " + EnemyTwoAttackTarget)
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1)
         EnemyTwoAttackValue = 999999999
@@ -2841,7 +2849,7 @@ function BindTwo() {
             EnemyTwoAttackTarget = "AllyOne"
         }
     }
-    else {
+    if(EnemyTwoAttackTarget == 2) {
         EnemyTwoSelfDamage = 9999999999
         EnemyTwoAttackTarget = "AttackSelf"
     }

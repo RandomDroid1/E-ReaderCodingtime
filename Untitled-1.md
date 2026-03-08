@@ -1,25 +1,31 @@
 
-Needed To do after:
-Make multiple player characters you can select from w/ different move sets
-turn it horizontal mode.
-Make it so you can see what the moves do before acting
-
-Stretch goals:
-
-Different Health stats for different characters
+UP NEXT: Ensure defense works for enemies. I've added EnemyOneDefense and EnemyTwoDefense to the appropriate places.
 
 
-UP NEXT: FIX EVERYTHING. FLIBBIT/SLUG COMBO FAILED, NO HEALTH WORKED. DEBUG MENU TO MANUALLY PRINT SOME STATS. MAKE THE GAME OVER FUNCTION
+What to do: 
 
-
-What to do:
-
-balance /:
-Make game over work properly (done?)
-Give Evil Hand Man his defense bypass lmao, hes being cheated!
+Polish Game over
+Alter handmans defense bypass to be defense and damage, really good defense
 Make it so healing cannot heal dead enemies, easy to do by setting max to like 0 or smth smth smth
-Make the mark not useless lmao, since  sluggy boy has no attacks
+Make the mark increase attack for both enemies, relatively easy
+balance /:
 Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
+
+
+
+
+
+
+
+
+
+
+
+
+what if i just... removed square. I don't like him very much
+
+
+
 
 
 TEMP REMOVED FROM TURNCALLER:
@@ -38,12 +44,12 @@ Character Checklist: // this is lowkey pmo so bad dude I hate square man why did
     Clock as Ally Two: FUNCTIONAL
     SlugCat as Ally One: FUNCTIONAL
     SlugCat as Ally Two: FUNCTIONAL
-    Square as Ally One: Untested
+    Square as Ally One: FAILED // Worked inconsistently. It's going to be annoying to troubleshoot
     Square as Ally Two: Untested
-    Boat as Ally One: FUNCTIONAL
-    Boat as Ally Two: Untested
+    Boat as Ally One: FUNCTIONAL (HOOK STATUS UNKNOWN)
+    Boat as Ally Two: FUNCTIONAL (HOOK END NONFUNCTIONAL)
     Flibbit as Ally One: FUNCTIONAL
-    Flibbit as Ally Two: Untested
+    Flibbit as Ally Two: FUNCTIONAL
     DevilCat as Enemy One: FUNCTIONAL
     DevilCat as Enemy Two: FUNCTIONAL
     Car as Enemy One: FUNCTIONAL
@@ -51,7 +57,7 @@ Character Checklist: // this is lowkey pmo so bad dude I hate square man why did
     Origami as Enemy One: FUNCTIONAL
     Origami as Enemy Two: FUNCTIONAL
     DNA as Enemy One: FUNCTIONAL (TEST AGAIN SOON)
-    DNA as Enemy Two: Untested
+    DNA as Enemy Two: FUNCTIONAL (TEST AGAIN SOON)
     HandMan as Enemy One: Untested
     HandMan as Enemy Two: Untested
     Blob as Enemy One: Untested
