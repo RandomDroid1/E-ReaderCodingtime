@@ -12,22 +12,6 @@ balance /:
 Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
 
 
-HANDMAN ALLY ONE GRAB: UNTESTED
-HANDMAN ALLY ONE DOMAIN: UNTESTED
-HANDMAIN ALLY ONE REDUCE: UNTESTED
-HANDMAN ALLY TWO GRAB: UNTESTED
-HANDMAN ALLY TWO DOMAIN: UNTESTED
-HANDMAIN ALLY TWO REDUCE: UNTESTED
-
-
-
-Reduces Ally speed and attack for 20 second
-
-Sacrifice 50 health for defense for both enemies
-
-Low damage that also attacks target's max health
-
-
 
 TEMP REMOVED FROM TURNCALLER:
 
@@ -59,8 +43,8 @@ Character Checklist: // this is lowkey pmo so bad dude I hate square man why did
     Origami as Enemy Two: FUNCTIONAL
     DNA as Enemy One: FUNCTIONAL (TEST AGAIN SOON)
     DNA as Enemy Two: FUNCTIONAL (TEST AGAIN SOON)
-    HandMan as Enemy One: Untested
-    HandMan as Enemy Two: Untested
-    Blob as Enemy One: Untested
-    Blob as Enemy Two: Untested
+    HandMan as Enemy One: FUNCTIONAL
+    HandMan as Enemy Two: FUNCTIONAL
+    Blob as Enemy One: FUNCTIONAL
+    Blob as Enemy Two: FUNCTIONAL
 

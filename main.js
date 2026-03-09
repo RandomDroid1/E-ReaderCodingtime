@@ -56,6 +56,9 @@ var EnemyTwoAttackValue = 0
 var AllyOneAttackValue = 0
 var AllyTwoAttackValue = 0
 
+var EnemyOneHealValue = 0
+var EnemyTwoHealValue = 0
+
 var EnemyOneFireCounter = 0
 var EnemyTwoFireCounter = 0
 
@@ -1423,7 +1426,7 @@ function AllyTwoLockInButton() {
 
 function TurnCaller() {
     VariableUpdater()
-    setTimeout(EnemyOneAttackMeterUpdate, 1000)
+    setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 }
 
 function AllyOneAttackMeterUpdate() {
@@ -1502,11 +1505,11 @@ function EnemyOneAttackMeterReset() {
 
 function EnemyOneAttacker() {
         console.log("EnemyOneAttacked, Used " + EnemyOneAttack)
-        if (AllyOneHealth.value <= 0) {
+        if (AllyOneHealth.value <= 0 && EnemyOneTarget == "AllyOne") {
             EnemyOneAttackTarget = "AllyTwo"
             console.log("Enemy One Attack Target reassigned to Ally Two")
         }
-        if (AllyTwoHealth.value <= 0) {
+        if (AllyTwoHealth.value <= 0 && EnemyOneTarget == "AllyTwo") {
             EnemyOneAttackTarget = "AllyOne"
             console.log("Enemy One Attack Target reassigned to Ally One")
         }
@@ -1564,10 +1567,10 @@ function EnemyOneAttacker() {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
         }
         if (EnemyOneAttackTarget == "GrabOne") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + EnemyOneAttackValue/2 + " of " + AllyOne + "'s health"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyOne + "'s health"
         }
         if (EnemyOneAttackTarget == "GrabTwo") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + EnemyOneAttackValue/2 + " of " + AllyTwo + "'s health"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyTwo + "'s health"
         }
         EnemyOneAttackValue = 0
         EnemyOneSelfDamage = 0
@@ -1665,10 +1668,10 @@ function EnemyTwoAttacker() {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyTwo + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
         }
         if (EnemyTwoAttackTarget == "GrabOne") {
-            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttack + "damage, and erasing " + EnemyTwoAttack/2 + " of " + AllyOne + "'s health"
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyOne + "'s health"
         }
         if (EnemyTwoAttackTarget == "GrabTwo") {
-            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttack + "damage, and erasing " + EnemyTwoAttack/2 + " of " + AllyTwo + "'s health"
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyTwo + "'s health"
         }
         EnemyTwoAttackValue = 0
         EnemyTwoSelfDamage = 0
@@ -2174,18 +2177,18 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
         }
     }
     if (EnemyOne == "HandMan") {
-        EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1) // 2/10 chance for  Grab, 2/10 for domain, 6/10 for reduce
+        EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
         if (EnemyOneAttackSelection <= 2) {
-            EnemyOneAttack = "Grab"
-            GrabOne()
+            EnemyOneAttack = "Reduce"
+            ReduceOne()
         }
-        if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 5) {
+        if (EnemyOneAttackSelection >= 3 && EnemyOneAttackSelection <= 4) {
             EnemyOneAttack = "Domain"
             DomainOne()
         }
-        if (EnemyOneAttackSelection >= 6) {
-            EnemyOneAttack = "Reduce"
-            ReduceOne()
+        if (EnemyOneAttackSelection >= 5) {
+            EnemyOneAttack = "Grab"
+            GrabOne()
         }
     }
 
@@ -2193,30 +2196,30 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
         EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
             if (EnemyOneHealth.value <= 50 || EnemyTwoHealth.value <= 50) { // Under half, 40% chance for reform, 40% chance for glob, 20% chance for randomize
                 if (EnemyOneAttackSelection <= 4) {
-                    EnemyOneAttack = "Glob"
-                    PitStopOne()
+                    EnemyOneAttack = "Reform"
+                    ReformOne()
                 }
                 if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 4) {
-                    EnemyOneAttack = "Ram"
-                    RamOne()
+                    EnemyOneAttack = "Glob"
+                    GlobOne()
                 }
                 if (EnemyOneAttackSelection >= 9) {
                     EnemyOneAttack = "Randomize"
-                    OverdriveOne()
+                    RandomizeOne()
                 }
             }
             else { // Above Half , 2/10 reform, 2/10 glob, 6/10 randomize
                 if (EnemyOneAttackSelection <= 2) {
-                    EnemyOneAttack = "PitStop"
-                    PitStopOne()
+                    EnemyOneAttack = "Reform"
+                    ReformOne()
                 }
                 if (EnemyOneAttackSelection <= 4 && EnemyOneAttackSelection >= 3) {
-                    EnemyOneAttack = "Ram"
-                    RamOne()
+                    EnemyOneAttack = "Glob"
+                    GlobOne()
                 }
                 if (EnemyOneAttackSelection >= 5) {
-                    EnemyOneAttack = "Overdrive"
-                    OverdriveOne()
+                    EnemyOneAttack = "Randomize"
+                    RandomizeOne()
                 }
             }
     }
@@ -2418,12 +2421,12 @@ function GrabOne() {
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "GrabOne"
         AllyOneHealth.value -= EnemyTwoAttackValue
-        AllyOneHealth.max -= EnemyTwoAttackValue / 2
+        AllyOneHealth.max -= Math.floor(EnemyTwoAttackValue - 30)
     }
-    else {
+    if (EnemyOneAttackTarget == 2) {
         EnemyOneAttackTarget = "GrabTwo"
         AllyTwoHealth.value -= EnemyTwoAttackValue
-        AllyTwoHealth.max -= EnemyTwoAttackValue / 2
+        AllyTwoHealth.max -= Math.floor(EnemyTwoAttackValue - 30)
     }
 }
 
@@ -2433,13 +2436,13 @@ function DomainOne() {
     EnemyOneHealth.value -= 50;
     EnemyOneDefense += 15
     EnemyTwoDefense += 15
-    EnemyOneAttackType = "Domain"
+    EnemyOneAttackTarget = "Domain"
 }
 
 function ReduceOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyTwoAttackTarget = "Reduce"
+    EnemyOneAttackTarget = "Reduce"
     AllyOneAttackMeterHTML.max = 150
     AllyTwoAttackMeterHTML.max = 150
     AllyOneAttackMultiplier -= -.5
@@ -2462,7 +2465,7 @@ function ReduceOneCounter() {
 function ReduceOneCounterVariableCancel() {
     if (ReduceCounterVariable == 0) {
         ReduceCounterVariable = 10
-        clearInterval(ReduceInterbalVariable)
+        clearInterval(ReduceIntervalVariable)
         AllyOneAttackMultiplier += -.5
         AllyTwoAttackMultiplier += -.5
         AllyOneAttackMeterHTML.max = 100
@@ -2475,72 +2478,70 @@ function ReduceOneCounterVariableCancel() {
 function GlobOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
-    EnemyOneDefense += 20
-    EnemyTwoDefense += 20
-    EnemyTwoAttackTarget = "Defense"
+    EnemyOneDefense += 5
+    EnemyTwoDefense += 5
+    EnemyOneAttackTarget = "Defense"
 }
 
 function ReformOne() {
-    EnemyTwoAttackTarget = "TeamHeal"
     VariableUpdater()
+    EnemyOneAttackTarget = "TeamHeal"
     EnemyOneAttackNumber += 1;
-    EnemyOneHealValue = Math.floor(Math.random() * (40-30))
+    EnemyOneHealValue = Math.floor(Math.random() * (80-30)+30)
 }
 
 function RandomizeOne() {
     EnemyOneAttackNumber +=1;
-    EnemyRandomizeSelection = Math.floor(Math.random() * (18-1) + 1)  // 1-17
-    if (EnemyRandomizeSelection == 1) {
-        DemonicStrikeOne()
+    EnemyRandomizeSelection = Math.floor(Math.random() * (12-1)+1)
+    if(EnemyRandomizeSelection == 1) {
+        EnemyOneAttackValue = 11
+        EnemyOneAttackTarget = "AllyOne"
     }
-    if (EnemyRandomizeSelection == 2) {
-        DamningOne()
+    if(EnemyRandomizeSelection == 2) {
+        AllyOneAttackMultiplier += 1
+        document.getElementById("EnemyOneAttackLog").innerText = "Blob permanently increased Ally One's attack greatly!"
+        EnemyOneAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 3) {
-        FireBlastOne()
+    if(EnemyRandomizeSelection == 3) {
+        AllyOneAttackMultiplier -= .5
+        document.getElementById("EnemyOneAttackLog").innerText = "Blob permanently decreased Ally One's attack!"
+        EnemyOneAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 4) {
-        RamOne()
+    if(EnemyRandomizeSelection == 4) {
+        AllyTwoAttackMultiplier += 1
+        document.getElementById("EnemyOneAttackLog").innerText = "Blob permanently increased Ally Two's attack greatly!"
+        EnemyOneAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 5) {
-        OverdriveOne()
+    if(EnemyRandomizeSelection == 5) {
+        AllyTwoAttackMultiplier -= .5
+        document.getElementById("EnemyOneAttackLog").innerText = "Blob permanently decreased Ally Two's attack!"
+        EnemyOneAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 6) {
-        PitStopOne()
+    if(EnemyRandomizeSelection == 6) {
+        EnemyOneAttackTarget = "Both"
+        EnemyOneAttackValue = Math.floor(Math.random() * 10+((EnemyOneAttackNumber+1)*6))
+        
     }
-    if (EnemyRandomizeSelection == 7) {
-        FoldOne()
+    if(EnemyRandomizeSelection == 7) {
+        EnemyOneAttackValue = 57
+        EnemyOneAttackTarget = "Both"
     }
-    if (EnemyRandomizeSelection == 8) {
-        PeckOne()
+    if(EnemyRandomizeSelection == 8) {
+        EnemyOneSelfDamage = 57
+        EnemyOneAttackTarget = "AttackSelf"
     }
-    if (EnemyRandomizeSelection == 9) {
-        PaperAirplaneOne()
+    if(EnemyRandomizeSelection == 9) {
+        EnemyOneAttackTarget = "Missed"
     }
-    if (EnemyRandomizeSelection == 10) {
-        VirusOne()
+    if(EnemyRandomizeSelection == 10) {
+        EnemyOneAttackTarget = "AllyOne"
+        EnemyOneAttackValue = Math.floor(Math.random() * 5*(EnemyOneAttackNumber*10))
     }
-    if (EnemyRandomizeSelection == 11) {
-        ACGTOne()
+    if(EnemyRandomizeSelection == 11) {
+        EnemyOneAttackTarget = "AllyTwo"
+        EnemyOneAttackValue = Math.floor(Math.random() * 5*(EnemyOneAttackNumber*10))
     }
-    if (EnemyRandomizeSelection == 12) {
-        BindOne()
-    }
-    if (EnemyRandomizeSelection == 13) {
-        GrabOne()
-    }
-    if (EnemyRandomizeSelection == 14) {
-        DomainOne()
-    }
-    if (EnemyRandomizeSelection == 15) {
-        ReduceOne()
-    }
-    if (EnemyRandomizeSelection == 16) {
-        GlobOne()
-    }
-    if (EnemyRandomizeSelection == 17) {
-        ReformOne()
-    }
+
 
 }
 
@@ -2682,16 +2683,16 @@ function EnemyTwoAttackSelector() { // I would like to mention that I think brea
     if (EnemyTwo == "HandMan") {
         EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1) // 2/10 chance for  Grab, 2/10 for domain, 6/10 for reduce
         if (EnemyTwoAttackSelection <= 2) {
-            EnemyTwoAttack = "Grab"
-            GrabTwo()
+            EnemyTwoAttack = "Reduce"
+            ReduceTwo()
         }
-        if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 5) {
+        if (EnemyTwoAttackSelection >= 3 && EnemyTwoAttackSelection <= 4) {
             EnemyTwoAttack = "Domain"
             DomainTwo()
         }
-        if (EnemyTwoAttackSelection >= 6) {
-            EnemyTwoAttack = "Reduce"
-            ReduceTwo()
+        if (EnemyTwoAttackSelection >= 5) {
+            EnemyTwoAttack = "Grab"
+            GrabTwo()
         }
     }
 
@@ -2699,30 +2700,30 @@ function EnemyTwoAttackSelector() { // I would like to mention that I think brea
         EnemyTwoAttackSelection = Math.floor(Math.random() * (11-1) + 1)
             if (EnemyOneHealth.value <= 50 || EnemyTwoHealth.value <= 50) { // Under half, 40% chance for reform, 40% chance for glob, 20% chance for randomize
                 if (EnemyTwoAttackSelection <= 4) {
-                    EnemyTwoAttack = "Glob"
-                    PitStopTwo()
+                    EnemyTwoAttack = "Reform"
+                    ReformTwo()
                 }
                 if (EnemyTwoAttackSelection <= 8 && EnemyTwoAttackSelection >= 4) {
-                    EnemyTwoAttack = "Ram"
-                    RamTwo()
+                    EnemyTwoAttack = "Glob"
+                    GlobTwo()
                 }
                 if (EnemyTwoAttackSelection >= 9) {
                     EnemyTwoAttack = "Randomize"
-                    OverdriveTwo()
+                    RandomizeTwo()
                 }
             }
             else { // Above Half , 2/10 reform, 2/10 glob, 6/10 randomize
                 if (EnemyTwoAttackSelection <= 2) {
-                    EnemyTwoAttack = "PitStop"
-                    PitStopTwo()
+                    EnemyTwoAttack = "Reform"
+                    ReformTwo()
                 }
                 if (EnemyTwoAttackSelection <= 4 && EnemyTwoAttackSelection >= 3) {
-                    EnemyTwoAttack = "Ram"
-                    RamTwo()
+                    EnemyTwoAttack = "Glob"
+                    GlobTwo()
                 }
                 if (EnemyTwoAttackSelection >= 5) {
-                    EnemyTwoAttack = "Overdrive"
-                    OverdriveTwo()
+                    EnemyTwoAttack = "Randomize"
+                    RandomizeTwo()
                 }
             }
     }
@@ -2927,12 +2928,12 @@ function GrabTwo() {
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = "GrabOne"
         AllyOneHealth.value -= EnemyTwoAttackValue
-        AllyOneHealth.max -= EnemyTwoAttackValue / 2
+        AllyOneHealth.max -= Math.floor(EnemyTwoAttackValue - 30)
     }
     else {
         EnemyTwoAttackTarget = "GrabTwo"
         AllyTwoHealth.value -= EnemyTwoAttackValue
-        AllyTwoHealth.max -= EnemyTwoAttackValue / 2
+        AllyTwoHealth.max -= Math.floor(EnemyTwoAttackValue - 30)
     }
 }
 
@@ -2971,7 +2972,7 @@ function ReduceTwoCounter() {
 function ReduceTwoCounterVariableCancel() {
     if (ReduceCounterVariable == 0) {
         ReduceCounterVariable = 10
-        clearInterval(ReduceInterbalVariable)
+        clearInterval(ReduceIntervalVariable)
         AllyOneAttackMultiplier += -.5
         AllyTwoAttackMultiplier += -.5
         AllyOneAttackMeterHTML.max = 100
@@ -2983,72 +2984,70 @@ function ReduceTwoCounterVariableCancel() {
 function GlobTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
-    EnemyTwoDefense += 20
-    EnemyTwoDefense += 20
+    EnemyTwoDefense += 5
+    EnemyTwoDefense += 5
     EnemyTwoAttackTarget = "Defense"
 }
 
 function ReformTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber += 1;
-    EnemyTwoHealValue = Math.floor(Math.random() * (40-30))
+    EnemyTwoHealValue = Math.floor(Math.random() * (80-30)+30)
     EnemyTwoAttackTarget = "TeamHeal"
 }
 
 function RandomizeTwo() {
     EnemyTwoAttackNumber +=1;
-    EnemyRandomizeSelection = Math.floor(Math.random() * (18-1) + 1)  // 1-17
-    if (EnemyRandomizeSelection == 1) {
-        DemonicStrikeTwo()
+    EnemyRandomizeSelection = Math.floor(Math.random() * (12-1)+1)
+    if(EnemyRandomizeSelection == 1) {
+        EnemyTwoAttackValue = 11
+        EnemyTwoAttackTarget = "AllyOne"
     }
-    if (EnemyRandomizeSelection == 2) {
-        DamningTwo()
+    if(EnemyRandomizeSelection == 2) {
+        AllyOneAttackMultiplier += 1
+        document.getElementById("EnemyTwoAttackLog").innerText = "Blob permanently increased Ally One's attack greatly!"
+        EnemyTwoAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 3) {
-        FireBlastTwo()
+    if(EnemyRandomizeSelection == 3) {
+        AllyOneAttackMultiplier -= .5
+        document.getElementById("EnemyTwoAttackLog").innerText = "Blob permanently decreased Ally One's attack!"
+        EnemyTwoAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 4) {
-        RamTwo()
+    if(EnemyRandomizeSelection == 4) {
+        AllyTwoAttackMultiplier += 1
+        document.getElementById("EnemyTwoAttackLog").innerText = "Blob permanently increased Ally Two's attack greatly!"
+        EnemyTwoAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 5) {
-        OverdriveTwo()
+    if(EnemyRandomizeSelection == 5) {
+        AllyTwoAttackMultiplier -= .5
+        document.getElementById("EnemyTwoAttackLog").innerText = "Blob permanently decreased Ally Two's attack!"
+        EnemyTwoAttackTarget = ""
     }
-    if (EnemyRandomizeSelection == 6) {
-        PitStopTwo()
+    if(EnemyRandomizeSelection == 6) {
+        EnemyTwoAttackTarget = "Both"
+        EnemyTwoAttackValue = Math.floor(Math.random() * 10+((EnemyTwoAttackNumber+1)*6))
+        
     }
-    if (EnemyRandomizeSelection == 7) {
-        FoldTwo()
+    if(EnemyRandomizeSelection == 7) {
+        EnemyTwoAttackValue = 57
+        EnemyTwoAttackTarget = "Both"
     }
-    if (EnemyRandomizeSelection == 8) {
-        PeckTwo()
+    if(EnemyRandomizeSelection == 8) {
+        EnemyTwoSelfDamage = 57
+        EnemyTwoAttackTarget = "AttackSelf"
     }
-    if (EnemyRandomizeSelection == 9) {
-        PaperAirplaneTwo()
+    if(EnemyRandomizeSelection == 9) {
+        EnemyTwoAttackTarget = "Missed"
     }
-    if (EnemyRandomizeSelection == 10) {
-        VirusTwo()
+    if(EnemyRandomizeSelection == 10) {
+        EnemyTwoAttackTarget = "AllyOne"
+        EnemyTwoAttackValue = Math.floor(Math.random() * 5*(EnemyTwoAttackNumber*10))
     }
-    if (EnemyRandomizeSelection == 11) {
-        ACGTTwo()
+    if(EnemyRandomizeSelection == 11) {
+        EnemyTwoAttackTarget = "AllyTwo"
+        EnemyTwoAttackValue = Math.floor(Math.random() * 5*(EnemyTwoAttackNumber*10))
     }
-    if (EnemyRandomizeSelection == 12) {
-        BindTwo()
-    }
-    if (EnemyRandomizeSelection == 13) {
-        GrabTwo()
-    }
-    if (EnemyRandomizeSelection == 14) {
-        DomainTwo()
-    }
-    if (EnemyRandomizeSelection == 15) {
-        ReduceTwo()
-    }
-    if (EnemyRandomizeSelection == 16) {
-        GlobTwo()
-    }
-    if (EnemyRandomizeSelection == 17) {
-        ReformTwo()
-    }
+
 
 }
 
@@ -3079,6 +3078,7 @@ function UnselectAll() {
 }
 
 function SelectionButton() {
+    console.log("SelectionButtonHit")
     if (FactionSelected == "Ally") {
         if (AllyOneSelected == false) {
             document.getElementById("AllySelectionPortraitOne").src = CharacterSelected+"HeadshotUnselected.png"
@@ -3094,7 +3094,9 @@ function SelectionButton() {
         }
     }
     if (FactionSelected == "Enemy") {
+        console.log("EnemySelectionUsed")
         if (EnemyOneSelected == false) {
+            console.log("EnemyOneSeelctedWentThrough")
             document.getElementById("EnemySelectionPortraitOne").src = CharacterSelected+"HeadshotUnselected.png"
             EnemyOneSelected = true
             EnemyOne = CharacterSelected
@@ -3125,16 +3127,16 @@ function AngelCatHeadshot() {
 function BlobHeadshot() {
     UnselectAll()
     CharacterSelected = "Blob";
-    FactionSelected == "Enemy";
+    FactionSelected = "Enemy";
     document.getElementById("BlobHeadshotImage").src = "BlobHeadshotSelected.png";
     document.getElementById("CharacterName").innerText = "Amorphous Blob"
     document.getElementById("Tagline").innerText = "Gleep Glorp Zeep Zip"
     document.getElementById("AttackOne").innerText = "Glob"
-    document.getElementById("AttackOneText").innerText = "Extra defense to both enemies \n for three turns!"
+    document.getElementById("AttackOneText").innerText = "A small amount of permanent \ndefense for both enemies"
     document.getElementById("AttackTwo").innerText = "Reform"
     document.getElementById("AttackTwoText").innerText="Medium healing for both \nenemies!"
     document.getElementById("AttackThree").innerText="Randomize"
-    document.getElementById("AttackThreeText").innerText="Picks a random move from \nanyone and uses it!"
+    document.getElementById("AttackThreeText").innerText="Pulls from a list of \nrandom moves, does a lot!"
 }    
 
 function ClockHeadshot() {
