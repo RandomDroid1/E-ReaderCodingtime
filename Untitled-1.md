@@ -1,16 +1,16 @@
 
-UP NEXT: Ensure defense works for enemies. I've added EnemyOneDefense and EnemyTwoDefense to the appropriate places.
+UP NEXT: Ensure the ally labels work
 
 
 What to do: 
-
 Polish Game over
-Alter handmans defense bypass to be defense and damage, really good defense
 Make it so healing cannot heal dead enemies, easy to do by setting max to like 0 or smth smth smth
-Make the mark increase attack for both enemies, relatively easy
-balance /:
 Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
+Tutorial Page
+Balanceeee
 
+Stretch Goals: 
+Add a small campaign/challenge mode.
 
 
 TEMP REMOVED FROM TURNCALLER:
@@ -22,15 +22,22 @@ setTimeout(EnemyOneAttackMeterUpdate, 1000)
 
 
 
-Character Checklist: // this is lowkey pmo so bad dude I hate square man why did I ever think he was a good idea
+
+
+
+
+
+
+
+Character Checklist:
     AngelCat as Ally One: FUNCTIONAL 
     AngelCat as Ally Two: FUNCTIONAL
     Clock as Ally One: FUNCTIONAL
     Clock as Ally Two: FUNCTIONAL
     SlugCat as Ally One: FUNCTIONAL
     SlugCat as Ally Two: FUNCTIONAL
-    Square as Ally One: FAILED // Worked inconsistently. It's going to be annoying to troubleshoot
-    Square as Ally Two: Untested
+    Square as Ally One: FUNCTIONAL
+    Square as Ally Two: FUNCTIONAL
     Boat as Ally One: FUNCTIONAL
     Boat as Ally Two: FUNCTIONAL 
     Flibbit as Ally One: FUNCTIONAL
@@ -48,3 +55,7 @@ Character Checklist: // this is lowkey pmo so bad dude I hate square man why did
     Blob as Enemy One: FUNCTIONAL
     Blob as Enemy Two: FUNCTIONAL
 
+This commit check:
+Fixed a bug where handman wouldnt retarget if one ally was dead
+fixed up the grab text
+Dead characters should be unable to heal

@@ -109,6 +109,15 @@ var DomainCounterVariable = 10
 var ReduceIntervalVariable = "none"
 var DomainIntervalVariable = "none"
 
+var AllyOneDead = false
+var AllyTwoDead = false
+var EnemyOneDead = false
+var EnemyTwoDead = false
+
+var SpeedMode = "Slow"
+
+
+
 
 if (AllyOne == undefined) {
 var AllyOne = "none";
@@ -195,15 +204,19 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
         setTimeout(CheckHealth,100)
     } 
     if (AllyOneHealth.value <= 0) {
+        AllyOneHealth.max = 0
         GameOver()
     } 
     if (EnemyOneHealth.value <= 0) {
+        EnemyOneHealth.max = 0
         GameOver()
     }
     if (AllyTwoHealth.value <= 0) {
+        AllyTwoHealth.max = 0
         GameOver()
     } 
     if (EnemyOneHealth.value <= 0) {
+        EnemyTwoHealth.max = 0
         GameOver()
     }
 }
@@ -561,7 +574,7 @@ function ChewOne() {
 
 function SquareAttackOne() { // cant do any moves that have lasting effects becasue I dont want to deal with it mannn
     AllyAttackNumber += 1
-    AllyOneAttackValue = Math.floor(Math.random() * (16-1)+1)
+    AllyOneAttackValue = Math.floor(Math.random() * (13-1)+1)
     console.log("Square Attack Selecton = " + AllyOneAttackValue)
     if (AllyOneAttackValue == 1) {// Heavenly Strike
         HeavenlyStrikeOne()
@@ -599,31 +612,6 @@ function SquareAttackOne() { // cant do any moves that have lasting effects beca
     else if (AllyOneAttackValue == 12) { // 
         ChompOne()
     }
-    else if (AllyOneAttackValue == 13) { //
-        AllyOneAttackType = "AttackBoth" 
-        AllyOneAttackValue = 10
-        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
-        EnemyTwoAttack.value -= AllyOneAttackValue
-    }
-    else if (AllyOneAttackValue == 14) { // 
-        AllyOneAttackType = "AttackBoth"
-        AllyOneAttackValue = 100
-        EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
-        EnemyTwoAttack.value -= AllyOneAttackValue
-    }
-    else if (AllyOneAttackValue == 15) { //  SNOWGRAVE BABYYY
-        AllyOneAttackValue = 11111111111111111
-        if(AllyOneAttackTarget == "EnemyOne") {
-            AllyOneAttackType = "Snowgrave"
-            EnemyOneHealth.value -= AllyOneAttackValue - EnemyOneDefense
-            document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
-        }
-        if(AllyOneAttackTarget == "EnemyOne") {
-            AllyOneAttackType = "Snowgrave"
-            EnemyTwoHealth.value -= AllyOneAttackValue - EnemyTwoDefense
-            document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
-        }
-    };
 }
 
 function AllyOneMoveEnacter() {
@@ -1116,7 +1104,7 @@ function ChewTwo() {
 
 function SquareAttackTwo() { // cant do any moves that have lasting effects becasue I dont want to deal with it mannn
     AllyAttackNumber += 1
-    AllyTwoAttackValue = Math.floor(Math.random() * (16-1)+1)
+    AllyTwoAttackValue = Math.floor(Math.random() * (13-1)+1)
     console.log("Square Attack Selecton = " + AllyTwoAttackValue)
     if (AllyTwoAttackValue == 1) {// Heavenly Strike
         HeavenlyStrikeTwo()
@@ -1154,34 +1142,6 @@ function SquareAttackTwo() { // cant do any moves that have lasting effects beca
     else if (AllyTwoAttackValue == 12) { // 
         ChompTwo()
     }
-    else if (AllyTwoAttackValue == 13) { //
-        AllyTwoAttackType = "AttackBoth" 
-        AllyTwoAttackValue = 10
-        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
-        EnemyTwoAttack.value -= AllyTwoAttackValue
-    }
-    else if (AllyTwoAttackValue == 14) { // 
-        AllyTwoAttackType = "AttackBoth"
-        AllyTwoAttackValue = 100
-        EnemyOneHealth.value -= AllyTwoAttackValue - EnemyOneDefense
-        EnemyTwoAttack.value -= AllyTwoAttackValue
-    }
-    else if (AllyTwoAttackValue == 15) { //  SNOWGRAVE BABYYY
-        AllyTwoAttackValue = 2222222
-        console.log("SNOWGRAVE USED!")
-        if(AllyTwoAttackTarget = "EnemyOne") {
-            console.log("SNOWGRAVE USED ON ENEMY ONE!")
-            AllyTwoAttackType = "Snowgrave"
-            EnemyOneHealth.value -= AllyTwoAttackValue
-            document.getElementById("SnowgraveEnemyOne").src="Snowgrave.png"
-        }
-        if(AllyTwoAttackTarget == "EnemyTwo") {
-            console.log("SNOWGRAVE USED ON ENEMY Two!")
-            AllyTwoAttackType = "Snowgrave"
-            EnemyTwoHealth.value -= AllyTwoAttackValue
-            document.getElementById("SnowgraveEnemyTwo").src="Snowgrave.png"
-        }
-    };
 }
 function AllyTwoMoveEnacter() {
         if(AllyTwo == "AngelCat") {
@@ -1426,6 +1386,9 @@ function AllyTwoLockInButton() {
 
 function TurnCaller() {
     VariableUpdater()
+    setTimeout(EnemyOneAttackMeterUpdate, 1000)
+    setTimeout(AllyOneAttackMeterUpdate, 1000)
+    setTimeout(AllyTwoAttackMeterUpdate, 1000)
     setTimeout(EnemyTwoAttackMeterUpdate, 1000)
 }
 
@@ -1505,11 +1468,11 @@ function EnemyOneAttackMeterReset() {
 
 function EnemyOneAttacker() {
         console.log("EnemyOneAttacked, Used " + EnemyOneAttack)
-        if (AllyOneHealth.value <= 0 && EnemyOneTarget == "AllyOne") {
+        if (AllyOneHealth.value <= 0 && EnemyOneAttackTarget == "AllyOne") {
             EnemyOneAttackTarget = "AllyTwo"
             console.log("Enemy One Attack Target reassigned to Ally Two")
         }
-        if (AllyTwoHealth.value <= 0 && EnemyOneTarget == "AllyTwo") {
+        if (AllyTwoHealth.value <= 0 && EnemyOneAttackTarget == "AllyTwo") {
             EnemyOneAttackTarget = "AllyOne"
             console.log("Enemy One Attack Target reassigned to Ally One")
         }
@@ -1567,10 +1530,10 @@ function EnemyOneAttacker() {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
         }
         if (EnemyOneAttackTarget == "GrabOne") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyOne + "'s health"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyOne + "'s max health"
         }
         if (EnemyOneAttackTarget == "GrabTwo") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + "damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyTwo + "'s health"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyTwo + "'s max health"
         }
         EnemyOneAttackValue = 0
         EnemyOneSelfDamage = 0
@@ -1668,10 +1631,10 @@ function EnemyTwoAttacker() {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyTwo + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
         }
         if (EnemyTwoAttackTarget == "GrabOne") {
-            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyOne + "'s health"
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyOne + "'s max health"
         }
         if (EnemyTwoAttackTarget == "GrabTwo") {
-            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyTwo + "'s health"
+            document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyTwo + "'s max health"
         }
         EnemyTwoAttackValue = 0
         EnemyTwoSelfDamage = 0
@@ -1692,6 +1655,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         AllyOneAttackOneText = "Heavenly Strike"
         AllyOneAttackTwoText = "Judgement"
         AllyOneAttackThreeText = "Healing Prayer"
+        document.getElementById("AllyOneLabel").innerHTML = "AngelCat"
         document.getElementById("AllyOneAttackOne").innerHTML = "Heavenly Strike"
         document.getElementById("AllyOneAttackTwo").innerHTML = "Judgement"
         document.getElementById("AllyOneAttackThree").innerHTML = "Healing Prayer"
@@ -1700,6 +1664,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         AllyOneAttackOneText = "Bad Time"
         AllyOneAttackTwoText = "Hour"
         AllyOneAttackThreeText = "Rewind"
+        document.getElementById("AllyOneLabel").innerHTML = "Clock"
         document.getElementById("AllyOneAttackOne").innerHTML = "Bad Time"
         document.getElementById("AllyOneAttackTwo").innerHTML = "Hour"
         document.getElementById("AllyOneAttackThree").innerHTML = "Rewind"
@@ -1708,6 +1673,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         AllyOneAttackOneText = "Spear"
         AllyOneAttackTwoText = "The Mark"
         AllyOneAttackThreeText = "The Rot"
+        document.getElementById("AllyOneLabel").innerHTML = "SlugCat"
         document.getElementById("AllyOneAttackOne").innerHTML = "Spear"
         document.getElementById("AllyOneAttackTwo").innerHTML = "The Mark"
         document.getElementById("AllyOneAttackThree").innerHTML = "The Rot"
@@ -1716,6 +1682,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         AllyOneAttackOneText = "Square"
         AllyOneAttackTwoText = "Square"
         AllyOneAttackThreeText = "Square"
+        document.getElementById("AllyOneLabel").innerHTML = "Square"
         document.getElementById("AllyOneAttackOne").innerHTML = "Square"
         document.getElementById("AllyOneAttackTwo").innerHTML = "Square"
         document.getElementById("AllyOneAttackThree").innerHTML = "Square"
@@ -1724,6 +1691,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         AllyOneAttackOneText = "Boat"
         AllyOneAttackTwoText = "Fish"
         AllyOneAttackThreeText = "Hook"
+        document.getElementById("AllyOneLabel").innerHTML = "Boat"
         document.getElementById("AllyOneAttackOne").innerHTML = "Boat"
         document.getElementById("AllyOneAttackTwo").innerHTML = "Fish"
         document.getElementById("AllyOneAttackThree").innerHTML = "Hook"
@@ -1732,6 +1700,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         AllyOneAttackOneText = "Clamp"
         AllyOneAttackTwoText = "Chomp"
         AllyOneAttackThreeText = "Chew"
+        document.getElementById("AllyOneLabel").innerHTML = "Flibbit"
         document.getElementById("AllyOneAttackOne").innerHTML = "Clamp"
         document.getElementById("AllyOneAttackTwo").innerHTML = "Chomp"
         document.getElementById("AllyOneAttackThree").innerHTML = "Chew"
@@ -1739,6 +1708,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
 }
 function AllyTwoMoveList() {
     if(AllyTwo == "AngelCat") {
+        document.getElementById("AllyTwoLabel").innerHTML = "AngelCat"
         AllyTwoAttackOneText = "Heavenly Strike"
         AllyTwoAttackTwoText = "Judgement"
         AllyTwoAttackThreeText = "Healing Prayer"
@@ -1750,6 +1720,7 @@ function AllyTwoMoveList() {
         AllyTwoAttackOneText = "Bad Time"
         AllyTwoAttackTwoText = "Hour"
         AllyTwoAttackThreeText = "Rewind"
+        document.getElementById("AllyTwoLabel").innerHTML = "Clock"
         document.getElementById("AllyTwoAttackOne").innerHTML = "Bad Time"
         document.getElementById("AllyTwoAttackTwo").innerHTML = "Hour"
         document.getElementById("AllyTwoAttackThree").innerHTML = "Rewind"
@@ -1758,6 +1729,7 @@ function AllyTwoMoveList() {
         AllyTwoAttackOneText = "Spear"
         AllyTwoAttackTwoText = "The Mark"
         AllyTwoAttackThreeText = "The Rot"
+        document.getElementById("AllyTwoLabel").innerHTML = "SlugCat"
         document.getElementById("AllyTwoAttackOne").innerHTML = "Spear"
         document.getElementById("AllyTwoAttackTwo").innerHTML = "The Mark"
         document.getElementById("AllyTwoAttackThree").innerHTML = "The Rot"
@@ -1766,6 +1738,7 @@ function AllyTwoMoveList() {
         AllyTwoAttackOneText = "Square"
         AllyTwoAttackTwoText = "Square"
         AllyTwoAttackThreeText = "Square"
+        document.getElementById("AllyTwoLabel").innerHTML = "Square"
         document.getElementById("AllyTwoAttackOne").innerHTML = "Square"
         document.getElementById("AllyTwoAttackTwo").innerHTML = "Square"
         document.getElementById("AllyTwoAttackThree").innerHTML = "Square"
@@ -1774,6 +1747,7 @@ function AllyTwoMoveList() {
         AllyTwoAttackOneText = "Boat"
         AllyTwoAttackTwoText = "Fish"
         AllyTwoAttackThreeText = "Hook"
+        document.getElementById("AllyTwoLabel").innerHTML = "Boat"
         document.getElementById("AllyTwoAttackOne").innerHTML = "Boat"
         document.getElementById("AllyTwoAttackTwo").innerHTML = "Fish"
         document.getElementById("AllyTwoAttackThree").innerHTML = "Hook"
@@ -1782,6 +1756,7 @@ function AllyTwoMoveList() {
         AllyTwoAttackOneText = "Clamp"
         AllyTwoAttackTwoText = "Chomp"
         AllyTwoAttackThreeText = "Chew"
+        document.getElementById("AllyTwoLabel").innerHTML = "Flibbit"
         document.getElementById("AllyTwoAttackOne").innerHTML = "Clamp"
         document.getElementById("AllyTwoAttackTwo").innerHTML = "Chomp"
         document.getElementById("AllyTwoAttackThree").innerHTML = "Chew"
@@ -2418,6 +2393,12 @@ function GrabOne() {
     EnemyOneAttackNumber +=1;
     EnemyOneAttackValue = Math.floor(Math.random() * (61-40) + 40)
     EnemyOneAttackTarget = Math.floor(Math.random()* (3-1)+1) // selects target
+    if (AllyOneHealth.value <= 0) {
+        EnemyOneAttackTarget = 2
+    }
+    if (AllyTwoHealth.value >= 0) {
+        EnemyOneAttackTarget = 1
+    }
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "GrabOne"
         AllyOneHealth.value -= EnemyTwoAttackValue
@@ -2925,6 +2906,12 @@ function GrabTwo() {
     EnemyTwoAttackNumber +=1;
     EnemyTwoAttackValue = Math.floor(Math.random() * (61-40) + 40)
     EnemyTwoAttackTarget = Math.floor(Math.random()* (3-1)+1) // selects target
+    if (AllyOneHealth.value <= 0) {
+        EnemyTwoAttackTarget = 2
+    }
+    if (AllyTwoHealth.value >= 0) {
+        EnemyTwoAttackTarget = 1
+    }
     if (EnemyTwoAttackTarget == 1) {
         EnemyTwoAttackTarget = "GrabOne"
         AllyOneHealth.value -= EnemyTwoAttackValue
@@ -3050,6 +3037,64 @@ function RandomizeTwo() {
 
 
 }
+// ########################## //
+// ########################## //
+// ####### SpeedModes ####### //
+// ########################## //
+// ########################## //
+
+function ButtonVisualReset() {
+    document.getElementById("SnailModeButton").style.borderWidth = "1px"
+    document.getElementById("SlowModeButton").style.borderWidth = "1px"
+    document.getElementById("StandardModeButton").style.borderWidth = "1px"
+    document.getElementById("SpeedyModeButton").style.borderWidth = "1px"
+    document.getElementById("SwiftModeButton").style.borderWidth = "1px"
+}
+
+function SnailModeToggle() {
+    ButtonVisualReset()
+    SpeedMode = "Snail"
+    document.getElementById("SnailModeButton").style.borderWidth = "3px"
+}
+
+function SlowModeToggle() {
+    ButtonVisualReset()
+    SpeedMode = "Slow"
+    document.getElementById("SlowModeButton").style.borderWidth = "3px"
+}
+
+function StandardModeToggle() {
+    ButtonVisualReset()
+    SpeedMode = "Standard"
+    document.getElementById("StandardModeButton").style.borderWidth = "3px"
+}
+
+function SpeedyModeToggle() {
+    ButtonVisualReset()
+    SpeedMode = "Speedy"
+    document.getElementById("SpeedyModeButton").style.borderWidth = "3px"
+}
+
+function SwiftModeToggle() {
+    ButtonVisualReset()
+    SpeedMode = "Swift"
+    document.getElementById("SwiftModeButton").style.borderWidth = "3px"
+}
+
+// now is time to connect to the start button & make variabrles for the timed things that change to make them scale with da new stuff. (including any sustained damage needs to be lowered/boosted)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ############################# //
