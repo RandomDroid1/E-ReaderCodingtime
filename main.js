@@ -67,7 +67,7 @@ var AllyOneAttackOneText = "none"
 var AllyOneAttackOneText = "none"
 var AllyTwoAttackOneText = "none"
 var AllyTwoAttackOneText = "none"
-var AllyTwoAttackOneText = "none"
+var AllyTwoAttackOneText = "none" // what is going on here?
 
 var AllyOneAttackMultiplier = 1
 var AllyTwoAttackMultiplier = 1
@@ -109,22 +109,87 @@ var DomainCounterVariable = 10
 var ReduceIntervalVariable = "none"
 var DomainIntervalVariable = "none"
 
+var VirusIntervalVariable = "none"
+
 var AllyOneDead = false
 var AllyTwoDead = false
 var EnemyOneDead = false
 var EnemyTwoDead = false
 
-var SpeedMode = "Slow"
+var EnemySlowAmount = 0
 
+var TheMarkInitial = 0 // how many seconds hook lasts
+var TheMarkIncrease = 0 // how much to increase hook by if its used twice
 
+var HookCounterIncrease = 0 // how much to increase hook by if its used twice
+var HookCounterInitial = 0 // how many seconds hook lasts
 
+var VirusDamage = 0 // how much damage the virus does per second
+var VirusThreshold = 0 // how many seconds it takes for the virus to wear off
+
+var EnemyOneFireAttackValue = 0
+var FireIntervalVariable = 0
+var FireThreshold = 0
+
+var EnemySlowAmount = 0 // How much to slow enemies by, such as in moves like hook. Adds directly to attack meter max
+
+var ReduceInitialAmount = 0
+var ReduceIncreaseAmount = 0
 
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
 var EnemyOne = "none";
 var EnemyTwo = "none";
+var SpeedMode = "Slow"
 console.log("NoneRan")
+}
+
+// ############################## // 
+// ############################## // 
+// ####### SPEED SETTINGS ####### // 
+// ############################## // 
+// ############################## // 
+
+function SpeedSettings() {// I could probably do this with math but i dont wanna
+    console.log(SpeedMode)
+    if (SpeedMode = "Snail") {
+        
+    }
+    if (SpeedMode == "Slow") {
+        AllyOneAttackMeterHTML.max = 200 // 8 seconds
+        AllyTwoAttackMeterHTML.max = 200 
+        EnemyOneAttackMeterHTML.max = 200 
+        EnemyTwoAttackMeterHTML.max = 200 
+        EnemySlowAmount = 125
+        TheMarkInitial = 40
+        TheMarkIncrease = 30
+        HookCounterInitial = 30
+        HookCounterIncrease = 20
+        VirusDamage = 5
+        VirusThreshold = 16
+        EnemyOneFireAttackValue = 5
+        FireIntervalThreshold = 8
+        ReduceInitialAmount = 30
+        ReduceIncreaseAmount = 15
+    }
+    if (SpeedMode == "Standard") { // complete
+        AllyOneAttackMeterHTML.max = 100 // 4 seconds
+        AllyTwoAttackMeterHTML.max = 100 
+        EnemyOneAttackMeterHTML.max = 100 
+        EnemyTwoAttackMeterHTML.max = 100 
+        EnemySlowAmount = 75
+        TheMarkInitial = 20 
+        TheMarkIncrease = 15
+        HookCounterInitial = 15
+        HookCounterIncrease = 10
+        VirusDamage = 15
+        VirusThreshold = 8
+        EnemyOneFireAttackValue = 10
+        FireIntervalThreshold = 4
+        ReduceInitialAmount = 15
+        ReduceIncreaseAmount = 10
+    }
 }
 
 function VariableUpdater() {
@@ -150,11 +215,13 @@ function GameIsOverCheck() {
 }
 // ####### START & consistent Checks ####### //
 function StartGame() {
+
     if (AllyTwoSelected == true && EnemyTwoSelected == true){
     localStorage.setItem("AllyOneStorage",AllyOne);
     localStorage.setItem("AllyTwoStorage",AllyTwo);
     localStorage.setItem("EnemyOneStorage",EnemyOne);
     localStorage.setItem("EnemyTwoStorage",EnemyTwo);
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
     location.assign("FightScreen.html")}
 }
 
@@ -172,14 +239,18 @@ function StartButton() { // Starts the enemies attack when clicked
     AllyTwo = localStorage.getItem("AllyTwoStorage")
     EnemyOne = localStorage.getItem("EnemyOneStorage")
     EnemyTwo = localStorage.getItem("EnemyTwoStorage")
+    SpeedMode = localStorage.getItem("SpeedModeStorage")
+    console.log("GAME SPEED = " + SpeedMode)
     console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("AllyTwoImage").src = AllyTwo+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
     document.getElementById("EnemyTwoImage").src = EnemyTwo+".png"
+    SpeedSettings()
     TurnCaller()
     AllyOneMoveList()
     AllyTwoMoveList()
+    
 }
 
 function GameOver() {
@@ -205,6 +276,7 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
     } 
     if (AllyOneHealth.value <= 0) {
         AllyOneHealth.max = 0
+        AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
         GameOver()
     } 
     if (EnemyOneHealth.value <= 0) {
@@ -342,7 +414,7 @@ function TheMarkOne() {
     MarkAlreadyActive = true
     }
     if(MarkAlreadyActive == true) {
-        TheMarkCounterVariable = 20 // should it reset, or add?
+        TheMarkCounterVariable += TheMarkIncrease
     }
 }
 function TheMarkOneCounter() {
@@ -352,7 +424,7 @@ function TheMarkOneCounter() {
 function TheMarkOneCancel() {
     if (TheMarkCounterVariable == 0) {
         clearInterval(TheMarkInterval)
-        TheMarkCounterVariable = 20
+        TheMarkCounterVariable = TheMarkInitial
         MarkAlreadyActive = false
         AllyOneAttackMultiplier -= .5
     }
@@ -503,13 +575,13 @@ function HookOne() {
             HookInterval = setInterval(HookOneCounter, 1000)
             HookAlreadyActive = true
             console.log("EnemyTwoAttackMaxPre = " + EnemyOneAttackMeterHTML.max)
-            EnemyOneAttackMeterHTML.max = 175
-            EnemyTwoAttackMeterHTML.max = 175
+            EnemyOneAttackMeterHTML.max += EnemySlowAmount
+            EnemyTwoAttackMeterHTML.max += EnemySlowAmount
             console.log("EnemyTwoAttackMaxPost = " + EnemyOneAttackMeterHTML.max)
             HookInterval
         }
         if(HookAlreadyActive == true) {
-            HookCounterVariable += 5
+            HookCounterVariable += HookCounterIncrease
         }
     }
 }
@@ -522,9 +594,9 @@ function HookOneCancel() {
     if (HookCounterVariable == 0) {
         console.log("HOOK END")
         clearInterval(HookInterval)
-        HookCounterVariable = 15
-        EnemyOneAttackMeterHTML.max = 100
-        EnemyTwoAttackMeterHTML.max = 100
+        HookCounterVariable = HookCounterInitial
+        EnemyOneAttackMeterHTML.max -= EnemySlowAmount
+        EnemyTwoAttackMeterHTML.max -= EnemySlowAmount
         HookAlreadyActive = false
     }
 }
@@ -876,7 +948,7 @@ function TheMarkTwo() {
     MarkAlreadyActive = true
     }
     if(MarkAlreadyActive == true) {
-        TheMarkCounterVariable = 20 // should it reset, or add?
+        TheMarkCounterVariable += TheMarkIncrease
     }
 }
 function TheMarkTwoCounter() {
@@ -886,7 +958,7 @@ function TheMarkTwoCounter() {
 function TheMarkTwoCancel() {
     if (TheMarkCounterVariable == 0) {
         clearInterval(TheMarkInterval)
-        TheMarkCounterVariable = 20
+        TheMarkCounterVariable = TheMarkInitial
         MarkAlreadyActive = false
         AllyTwoAttackMultiplier -= .5
     }
@@ -1034,12 +1106,12 @@ function HookTwo() {
         if(HookAlreadyActive == false) {
             HookInterval = setInterval(HookTwoCounter, 1000)
             HookAlreadyActive = true
-            EnemyOneAttackMeterHTML.max = 175
-            EnemyTwoAttackMeterHTML.max = 175
+            EnemyOneAttackMeterHTML.max += EnemySlowAmount
+            EnemyTwoAttackMeterHTML.max += EnemySlowAmount
             HookInterval
         }
         if(HookAlreadyActive == true) {
-            HookCounterVariable += 5
+            HookCounterVariable += HookCounterIncrease
         }
     }
 }
@@ -1052,9 +1124,9 @@ function HookTwoCancel() {
     if (HookCounterVariable == 0) {
         console.log("HOOK END")
         clearInterval(HookInterval)
-        HookCounterVariable = 15
-        EnemyOneAttackMeterHTML.max = 100
-        EnemyTwoAttackMeterHTML.max = 100
+        HookCounterVariable = HookCounterInitial
+        EnemyOneAttackMeterHTML.max -= EnemySlowAmount
+        EnemyTwoAttackMeterHTML.max -= EnemySlowAmount
         HookAlreadyActive = false
     }
 }
@@ -1535,6 +1607,9 @@ function EnemyOneAttacker() {
         if (EnemyOneAttackTarget == "GrabTwo") {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyTwo + "'s max health"
         }
+        if (EnemyOneAttackTarget == "PaperAirplane") {
+             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Paper Airplane, increasing Fold's damage!"
+        }
         EnemyOneAttackValue = 0
         EnemyOneSelfDamage = 0
         EnemyOneHealValue = 0
@@ -1635,6 +1710,9 @@ function EnemyTwoAttacker() {
         }
         if (EnemyTwoAttackTarget == "GrabTwo") {
             document.getElementById("EnemyTwoAttackLog").innerText = EnemyTwo + " used Grab, dealing " + EnemyTwoAttackValue + " damage, and erasing " + EnemyTwoAttackValue/2 + " of " + AllyTwo + "'s max health"
+        }
+        if (EnemyTwoAttackTarget == "PaperAirplane") {
+             document.getElementById("EnemyOneAttackLog").innerText = EnemyTwo + " used Paper Airplane, increasing Fold's damage!"
         }
         EnemyTwoAttackValue = 0
         EnemyTwoSelfDamage = 0
@@ -1780,25 +1858,11 @@ function EnemyOneVirusDamageSlotOne() {
     if(EnemyOneVirusSlotOne == "Free") {
         if(EnemyOneVirusTarget == "AllyOne") {
             EnemyOneVirusSlotOneTargetLock = "AllyOne";
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
+            VirusIntervalVariable = setInterval(EnemyOneVirusDamageSlotOneDamager, 1000)
         }
         if(EnemyOneVirusTarget == "AllyTwo") {
             EnemyOneVirusSlotOneTargetLock = "AllyTwo"; // I HATE INTERVALS WE HATE INTERVALS (it didnt work once so now I am refusing to use it on this part even though it would work better probably)
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 4000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 5000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 6000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7000);
-            setTimeout(EnemyOneVirusDamageSlotOneDamager, 7500);
+            VirusIntervalVariable = setInterval(EnemyOneVirusDamageSlotOneDamager, 1000)
         }
 }
 }
@@ -1807,16 +1871,17 @@ function EnemyOneVirusDamageSlotOneDamager() {
     EnemyOneVirusSlotOneCounter += 1;
     
     if(EnemyOneVirusSlotOneTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 20
+        AllyOneHealth.value -= VirusDamage
         console.log("VirusAttackedAllyOne")
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
     }
     if(EnemyOneVirusSlotOneTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 20
+        AllyTwoHealth.value -= VirusDamage
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
-    if(EnemyOneVirusSlotOneCounter == 8) {
+    if(EnemyOneVirusSlotOneCounter == VirusThreshold) {
+        clearInterval("VirusIntervalVariable")
         EnemyOneVirusSlotOneCounter = 0
         EnemyOneVirusSlotOne = "Free"
         EnemyOneVirusSlotOneTargetLock = "none"
@@ -1835,26 +1900,12 @@ function EnemyOneVirusDamageSlotTwo() {
     if(EnemyOneVirusSlotTwo == "Free") {
         if(EnemyOneVirusTarget == "AllyOne") {
             EnemyOneVirusSlotTwoTargetLock = "AllyOne";
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 4000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 5000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 6000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7500);
+            
         }
         if(EnemyOneVirusTarget == "AllyTwo") {
             EnemyOneVirusSlotTwoTargetLock = "AllyTwo";
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 1000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 2000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 3000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 4000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 5000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 6000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7000);
-            setTimeout(EnemyOneVirusDamageSlotTwoDamager, 7500);
         }
+        VirusIntervalVariable = setInterval(EnemyOneVirusDamageSlotTwoDamager, 1000)
 }
 }
 
@@ -1862,16 +1913,17 @@ function EnemyOneVirusDamageSlotTwoDamager() {
     EnemyOneVirusSlotTwoCounter += 1;
     console.log("VIRUS SLOT 2 STARTED")
     if(EnemyOneVirusSlotTwoTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 20
+        AllyOneHealth.value -= VirusDamage
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
         console.log("VirusAttackedAllyOne")
     }
     if(EnemyOneVirusSlotTwoTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 20
+        AllyTwoHealth.value -= VirusDamage
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
-    if(EnemyOneVirusSlotTwoCounter == 8) {
+    if(EnemyOneVirusSlotTwoCounter == VirusThreshold) {
+        clearInterval("VirusIntervalVariable")
         EnemyOneVirusSlotTwoCounter = 0
         EnemyOneVirusSlotTwo = "Free"
         EnemyOneVirusSlotTwoTargetLock = "none"
@@ -1900,14 +1952,7 @@ function EnemyTwoVirusDamageSlotOne() { // figured out this could have been acco
             EnemyTwoVirusSlotOneTargetLock = "AllyTwo"; // I HATE INTERVALS WE HATE INTERVALS (it didnt work once so now I am refusing to use it on this part even though it would work better probably)
             
         }
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 1000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 2000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 3000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 4000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 5000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 6000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+        VirusIntervalVariable = setInterval(EnemyTwoVirusDamageSlotOneDamager, 1000)
 }
 }
 
@@ -1915,16 +1960,17 @@ function EnemyTwoVirusDamageSlotOneDamager() {
     EnemyTwoVirusSlotOneCounter += 1;
     console.log("EnemyTwoVirusDamager Used")
     if(EnemyTwoVirusSlotOneTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 20
+        AllyOneHealth.value -= VirusDamage
         console.log("VirusAttackedAllyOne")
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
     }
     if(EnemyTwoVirusSlotOneTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 20
+        AllyTwoHealth.value -= VirusDamage
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
-    if(EnemyTwoVirusSlotOneCounter == 8) {
+    if(EnemyTwoVirusSlotOneCounter == VirusThreshold) {
+        clearInterval("VirusIntervalVariable")
         EnemyTwoVirusSlotOneCounter = 0
         EnemyTwoVirusSlotOne = "Free"
         EnemyTwoVirusSlotOneTargetLock = "none"
@@ -1948,14 +1994,7 @@ function EnemyTwoVirusDamageSlotTwo() {
         if(EnemyTwoAttackTarget == "AllyTwo") {
             EnemyTwoVirusSlotTwoTargetLock = "AllyTwo";
         }
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 1000);
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 2000);
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 3000);
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 4000);
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 5000);
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 6000);
-        setTimeout(EnemyTwoVirusDamageSlotTwoDamager, 7000);
-        setTimeout(EnemyTwoVirusDamageSlotOneDamager, 7500);
+        VirusIntervalVariable = setInterval(EnemyTwoVirusDamageSlotTwoDamager, 1000)
 }
 }
 
@@ -1963,16 +2002,17 @@ function EnemyTwoVirusDamageSlotTwoDamager() {
     EnemyTwoVirusSlotTwoCounter += 1;
     console.log("VIRUS SLOT 2 STARTED")
     if(EnemyTwoVirusSlotTwoTargetLock == "AllyOne") {
-        AllyOneHealth.value -= 20
+        AllyOneHealth.value -= VirusDamage
         document.getElementById("AllyOneVirusMarker").src = "VirusDamage.png"
         console.log("VirusAttackedAllyOne")
     }
     if(EnemyTwoVirusSlotTwoTargetLock == "AllyTwo") {
-        AllyTwoHealth.value -= 20
+        AllyTwoHealth.value -= VirusDamage
         console.log("VirusAttackedAllyTwo")
         document.getElementById("AllyTwoVirusMarker").src = "VirusDamage.png"
     }
-    if(EnemyTwoVirusSlotTwoCounter == 8) {
+    if(EnemyTwoVirusSlotTwoCounter == VirusThreshold) {
+        clearInterval("VirusIntervalVariable")
         EnemyTwoVirusSlotTwoCounter = 0
         EnemyTwoVirusSlotTwo = "Free"
         EnemyTwoVirusSlotTwoTargetLock = "none"
@@ -1995,7 +2035,7 @@ function EnemyOneFireDamager() {
         AllyOneHealth.value -= EnemyOneFireAttackValue
         AllyTwoHealth.value -= EnemyOneFireAttackValue
     }
-    if(EnemyOneFireCounter == 4) {
+    if(EnemyOneFireCounter == FireThreshold) {
         EnemyOneFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         document.getElementById("AllyTwoFireMarker").src = ""
@@ -2010,7 +2050,7 @@ function EnemyTwoFireDamager() {
         AllyOneHealth.value -= EnemyTwoFireAttackValue
         AllyTwoHealth.value -= EnemyTwoFireAttackValue
     }
-    if(EnemyTwoFireCounter == 4) {
+    if(EnemyTwoFireCounter == FireThreshold) {
         EnemyTwoFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         document.getElementById("AllyTwoFireMarker").src = ""
@@ -2252,10 +2292,8 @@ function FireBlastOne() {
     EnemyOneAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
     EnemyOneFireAttackValue = Math.floor(Math.random() * (20-10) + 10);
     EnemyOneAttackTarget = "Both"
-    setTimeout(EnemyOneFireDamager, 1000)
-    setTimeout(EnemyOneFireDamager, 2000)
-    setTimeout(EnemyOneFireDamager, 3000)
-    setTimeout(EnemyOneFireDamager, 3700)
+    FireIntervalVariable = setInterval(EnemyOneFireDamager, 1000)
+    FireIntervalVariable
 }
 
 function RamOne() {
@@ -2334,6 +2372,7 @@ function PeckOne() {
 
 function PaperAirplaneOne() {
     VariableUpdater()
+    EnemyOneAttackTarget = "PaperAirplane"
     EnemyOneAttackNumber += 1;
     FoldCounter += 2;
 }
@@ -2424,13 +2463,13 @@ function ReduceOne() {
     VariableUpdater()
     EnemyOneAttackNumber +=1;
     EnemyOneAttackTarget = "Reduce"
-    AllyOneAttackMeterHTML.max = 150
-    AllyTwoAttackMeterHTML.max = 150
+    AllyOneAttackMeterHTML.max += EnemySlowAmount
+    AllyTwoAttackMeterHTML.max += EnemySlowAmount
     AllyOneAttackMultiplier -= -.5
     AllyTwoAttackMultiplier -= -.5
     ReduceIntervalVariable = setInterval(ReduceOneCounter, 1000)
     if (ReduceCounterVariable != 10) {
-        ReduceCounterVariable += 10
+        ReduceCounterVariable += ReduceIncreaseAmount
     }
     else {
         ReduceOneCounter()
@@ -2445,12 +2484,12 @@ function ReduceOneCounter() {
 }
 function ReduceOneCounterVariableCancel() {
     if (ReduceCounterVariable == 0) {
-        ReduceCounterVariable = 10
+        ReduceCounterVariable = ReduceInitialAmount
         clearInterval(ReduceIntervalVariable)
         AllyOneAttackMultiplier += -.5
         AllyTwoAttackMultiplier += -.5
-        AllyOneAttackMeterHTML.max = 100
-        AllyTwoAttackMeterHTML.max = 100
+        AllyOneAttackMeterHTML.max -= EnemySlowAmount
+        AllyTwoAttackMeterHTML.max -= EnemySlowAmount
     }
 }
 
@@ -2762,10 +2801,8 @@ function FireBlastTwo() {
     EnemyTwoAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
     EnemyTwoFireAttackValue = Math.floor(Math.random() * (20-10) + 10);
     EnemyTwoAttackTarget = "Both"
-    setTimeout(EnemyOneFireDamager, 1000)
-    setTimeout(EnemyOneFireDamager, 2000)
-    setTimeout(EnemyOneFireDamager, 3000)
-    setTimeout(EnemyOneFireDamager, 3700)
+    FireIntervalVariable = setInterval(EnemyTwoFireDamager, 1000)
+    FireIntervalVariable
 }
 
 function RamTwo() {
@@ -2845,6 +2882,7 @@ function PeckTwo() {
 
 function PaperAirplaneTwo() {
     VariableUpdater()
+    EnemyOneAttackTarget = "PaperAirplane"
     EnemyTwoAttackNumber += 1;
     FoldCounter += 2;
 }
@@ -2937,13 +2975,13 @@ function ReduceTwo() {
     VariableUpdater()
     EnemyTwoAttackNumber +=1;
     EnemyTwoAttackTarget = "Reduce"
-    AllyOneAttackMeterHTML.max = 150
-    AllyTwoAttackMeterHTML.max = 150
+    AllyOneAttackMeterHTML.max += EnemySlowAmount
+    AllyTwoAttackMeterHTML.max += EnemySlowAmount
     AllyOneAttackMultiplier -= -.5
     AllyTwoAttackMultiplier -= -.5
     ReduceIntervalVariable = setInterval(ReduceTwoCounter, 1000)
     if (ReduceCounterVariable != 10) {
-        ReduceCounterVariable += 10
+        ReduceCounterVariable += ReduceIncreaseAmount
     }
     else {
         ReduceTwoCounter()
@@ -2958,12 +2996,12 @@ function ReduceTwoCounter() {
 }
 function ReduceTwoCounterVariableCancel() {
     if (ReduceCounterVariable == 0) {
-        ReduceCounterVariable = 10
+        ReduceCounterVariable = ReduceInitialAmount
         clearInterval(ReduceIntervalVariable)
         AllyOneAttackMultiplier += -.5
         AllyTwoAttackMultiplier += -.5
-        AllyOneAttackMeterHTML.max = 100
-        AllyTwoAttackMeterHTML.max = 100
+        AllyOneAttackMeterHTML.max -= EnemySlowAmount
+        AllyTwoAttackMeterHTML.max -= EnemySlowAmount
     }
 }
 
@@ -3209,7 +3247,7 @@ function SlugcatHeadshot() {
     document.getElementById("AttackOne").innerText = "Spear"
     document.getElementById("AttackOneText").innerText = "25% chance to instakill an \nenemy"
     document.getElementById("AttackTwo").innerText = "The Mark"
-    document.getElementById("AttackTwoText").innerText="Increased attack for 20 \nseconds"
+    document.getElementById("AttackTwoText").innerText="Increased attack for 5 \nturns"
     document.getElementById("AttackThree").innerText="The rot"
     document.getElementById("AttackThreeText").innerText="Inflict poison on self in \n return for high damage"
 }    
@@ -3328,7 +3366,7 @@ function HandManHeadshot() {
     document.getElementById("CharacterName").innerText = "Evil"
     document.getElementById("Tagline").innerText = "I don't even know man"
     document.getElementById("AttackOne").innerText = "Reduce"
-    document.getElementById("AttackOneText").innerText = "Reduces Ally speed and \n attack for 20 seconds"
+    document.getElementById("AttackOneText").innerText = "Reduces Ally speed and \n attack for 5 turns"
     document.getElementById("AttackTwo").innerText = "Domain"
     document.getElementById("AttackTwoText").innerText="Sacrifice 50 health for \n defense for both enemies"
     document.getElementById("AttackThree").innerText="Grab"

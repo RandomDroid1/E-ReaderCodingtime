@@ -1,10 +1,10 @@
 
-UP NEXT: Ensure the ally labels work
+UP NEXT: Polish Game Over
 
 
 What to do: 
-Polish Game over
-Make it so healing cannot heal dead enemies, easy to do by setting max to like 0 or smth smth smth
+
+Ensure No heal if dead works
 Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
 Tutorial Page
 Balanceeee
@@ -24,10 +24,14 @@ setTimeout(EnemyOneAttackMeterUpdate, 1000)
 
 
 
-
-
-
-
+Moves that involve speed:
+TheMark (uses seconds to count down how long)
+SquareAttack (unconfirmed, just checking)
+Hook (uses seconds to count down how long)
+Virus (uses seconds to count down how long)
+Reduce (uses seconds to count down how long)
+Randomize (unconfirmed, just checking)
+Fire blast? (i forgot about that one lmao)
 
 Character Checklist:
     AngelCat as Ally One: FUNCTIONAL 
@@ -56,6 +60,5 @@ Character Checklist:
     Blob as Enemy Two: FUNCTIONAL
 
 This commit check:
-Fixed a bug where handman wouldnt retarget if one ally was dead
-fixed up the grab text
-Dead characters should be unable to heal
+Polish Game over (Just a lil bit)
+Fixed paper airplane not having a proper text thing
