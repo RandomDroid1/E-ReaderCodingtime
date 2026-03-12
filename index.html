@@ -13,46 +13,25 @@
 <body>
 
 <div id="ScreenSize">
-  <h1> Kindle Battles</h1>
-  <Button id="SnailModeButton" onclick="SnailModeToggle()">Snail</Button>
-  <Button id="SlowModeButton" onclick="SlowModeToggle()">Slow</Button>
-  <Button id="StandardModeButton" onclick="StandardModeToggle()">Standard</Button>
-  <Button id="SpeedyModeButton" onclick="SpeedyModeToggle()">Speedy</Button>
-  <Button id="SwiftModeButton" onclick="SwiftModeToggle()">Swift</Button>
-    <button class="Button" onclick="AngelCatHeadshot()"><img src="AngelCatHeadshotUnselected.png" class="Headshot" id="AngelCatHeadshotImage"></button> 
-    <button class="Button" onclick="BlobHeadshot()" ><img src="BlobHeadshotUnselected.png" class="Headshot" id="BlobHeadshotImage"></button> 
-    <button class="Button" onclick="BoatHeadshot()"><img src="BoatHeadshotUnselected.png" class="Headshot" id="BoatHeadshotImage"></button> 
-    <button class="Button" onclick="CarHeadshot()"><img src="CarHeadshotUnselected.png" class="Headshot" id="CarHeadshotImage"></button> 
-    <button class="Button" onclick="ClockHeadshot()"><img src="ClockHeadshotUnselected.png" class="Headshot" id="ClockHeadshotImage"></button> 
-    <button class="Button" onclick="DevilCatHeadshot()"><img src="DevilCatHeadshotUnselected.png" class="Headshot" id="DevilCatHeadshotImage"></button> 
-    <button class="Button" onclick="DNAHeadshot()"><img src="DNAHeadshotUnselected.png" class="Headshot" id="DNAHeadshotImage"></button> 
-    <button class="Button" onclick="FlibbitHeadshot()"><img src="FlibbitHeadshotUnselected.png" class="Headshot" id="FlibbitHeadshotImage"></button> 
-    <button class="Button" onclick="HandManHeadshot()"><img src="HandManHeadshotUnselected.png" class="Headshot" id="HandManHeadshotImage"></button> 
-    <button class="Button" onclick="OrigamiHeadshot()"><img src="OrigamiHeadshotUnselected.png" class="Headshot" id="OrigamiHeadshotImage"></button> 
-    <button class="Button" onclick="SlugcatHeadshot()"><img src="SlugcatHeadshotUnselected.png" class="Headshot" id="SlugcatHeadshotImage"></button> 
-    <button class="Button" onclick="SquareHeadshot()"><img src="SquareHeadshotUnselected.png" class="Headshot" id="SquareHeadshotImage"></button> 
-    <p id="Enemy">Enemy Characters</p>
-    <p id="Ally">Ally Characters</p>
-    
-  <div id="SelectionMenu">
-    <h2 id="CharacterName">Character Name</h2>
-    <h3 id="Tagline">Super cool tagline for the character</h3>
-    <button id="AttackOne">Attack 1</button>
-    <p id="AttackOneText">Attack 1 text</p>
-    <button id="AttackTwo">Attack 2</button>
-    <p id="AttackTwoText">Attack 2 text</p>
-    <button id="AttackThree">Attack 3</button>
-    <p id="AttackThreeText">Attack 3 text</p>
-    <button id="SelectionConfirm" onclick="SelectionButton()">Select</button>
-    <img src="Question.png" id="AllySelectionPortraitOne">
-    <img src="Question.png" id="AllySelectionPortraitTwo">
-    <img src="Question.png" id="EnemySelectionPortraitOne">
-    <img src="Question.png" id="EnemySelectionPortraitTwo">
-    <p id="Enemy2">Enemies</p>
-    <p id="Ally2">Allies</p>
-    <button id="StartButton" onclick="StartGame()">Start</button>
-  </div>
-  
+  <h1 id="TutorialTitle"> Kindle Battles Tutorial</h1>
+
+  <a href="MainPage.html"><button>Test</button></a>
+
+  <h2 id="AttackMeterHeader">Attack Meters</h2>
+  <p id="AttackMeterText">The Attack Meters are fairly simple, they are the bars above each character, and they tick down 25 points each turn. How many seconds each turn takes
+    can be found in the speed modes section on page (PH). When they hit 0, the character attacks!
+  </p>
+
+  <h2 id="EnemyAttackHeader">Enemy Attacks</h2>
+  <p id="AttackMeterText">The Enemy Attacks happen automatically and target you, the player (except when the enemies are buffing themselves). They select from the 3 attacks the enemy has, which you can read over while
+      selecting them. They are all relatively straightforward
+    </p>
+
+    <h2 id="AllyAttackHeader">Ally Attacks</h2>
+    <p id="AttackMeterText">The Ally Attacks are up to you! Whenever you load in with your selected characters, you have 6 total attacks, 3 for each character. These attacks, once you've selected them, don't reset once you've attacked (So if you don't
+        change your attack from attack one to attack two, you will use the same move on the same enemy.). There is a lock in button, but you don't have to click it, it does disable the other buttons to prevent unintended misclicks. (PH if you hit the info button on the
+        top right, it replaces the attack names with a succict description of its effects)
+    </p>
 </div>
 </body>
 </html>

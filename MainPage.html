@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no"/>
+  <script src="file:///mnt/us/mesquito/polyfill.min.js"></script>
+  <script src="file:///mnt/us/mesquito/sdk.js">
+
+  </script>
+  <link href="./MainPage.css" rel="stylesheet">
+  <script src="./main.js"></script>
+  <title>Selection!</title>
+</head>
+<body>
+
+<div id="ScreenSize">
+  <h1> Kindle Battles</h1>
+  <Button id="SnailModeButton" onclick="SnailModeToggle()">Snail</Button>
+  <Button id="SlowModeButton" onclick="SlowModeToggle()">Slow</Button>
+  <Button id="StandardModeButton" onclick="StandardModeToggle()">Standard</Button>
+  <Button id="SpeedyModeButton" onclick="SpeedyModeToggle()">Speedy</Button>
+  <Button id="SwiftModeButton" onclick="SwiftModeToggle()">Swift</Button>
+    <button class="Button" onclick="AngelCatHeadshot()"><img src="AngelCatHeadshotUnselected.png" class="Headshot" id="AngelCatHeadshotImage"></button> 
+    <button class="Button" onclick="BlobHeadshot()" ><img src="BlobHeadshotUnselected.png" class="Headshot" id="BlobHeadshotImage"></button> 
+    <button class="Button" onclick="BoatHeadshot()"><img src="BoatHeadshotUnselected.png" class="Headshot" id="BoatHeadshotImage"></button> 
+    <button class="Button" onclick="CarHeadshot()"><img src="CarHeadshotUnselected.png" class="Headshot" id="CarHeadshotImage"></button> 
+    <button class="Button" onclick="ClockHeadshot()"><img src="ClockHeadshotUnselected.png" class="Headshot" id="ClockHeadshotImage"></button> 
+    <button class="Button" onclick="DevilCatHeadshot()"><img src="DevilCatHeadshotUnselected.png" class="Headshot" id="DevilCatHeadshotImage"></button> 
+    <button class="Button" onclick="DNAHeadshot()"><img src="DNAHeadshotUnselected.png" class="Headshot" id="DNAHeadshotImage"></button> 
+    <button class="Button" onclick="FlibbitHeadshot()"><img src="FlibbitHeadshotUnselected.png" class="Headshot" id="FlibbitHeadshotImage"></button> 
+    <button class="Button" onclick="HandManHeadshot()"><img src="HandManHeadshotUnselected.png" class="Headshot" id="HandManHeadshotImage"></button> 
+    <button class="Button" onclick="OrigamiHeadshot()"><img src="OrigamiHeadshotUnselected.png" class="Headshot" id="OrigamiHeadshotImage"></button> 
+    <button class="Button" onclick="SlugcatHeadshot()"><img src="SlugcatHeadshotUnselected.png" class="Headshot" id="SlugcatHeadshotImage"></button> 
+    <button class="Button" onclick="SquareHeadshot()"><img src="SquareHeadshotUnselected.png" class="Headshot" id="SquareHeadshotImage"></button> 
+    <p id="Enemy">Enemy Characters</p>
+    <p id="Ally">Ally Characters</p>
+    
+  <div id="SelectionMenu">
+    <h2 id="CharacterName">Character Name</h2>
+    <h3 id="Tagline">Super cool tagline for the character</h3>
+    <button id="AttackOne">Attack 1</button>
+    <p id="AttackOneText">Attack 1 text</p>
+    <button id="AttackTwo">Attack 2</button>
+    <p id="AttackTwoText">Attack 2 text</p>
+    <button id="AttackThree">Attack 3</button>
+    <p id="AttackThreeText">Attack 3 text</p>
+    <button id="SelectionConfirm" onclick="SelectionButton()">Select</button>
+    <img src="Question.png" id="AllySelectionPortraitOne">
+    <img src="Question.png" id="AllySelectionPortraitTwo">
+    <img src="Question.png" id="EnemySelectionPortraitOne">
+    <img src="Question.png" id="EnemySelectionPortraitTwo">
+    <p id="Enemy2">Enemies</p>
+    <p id="Ally2">Allies</p>
+    <button id="StartButton" onclick="StartGame()">Start</button>
+  </div>
+  
+</div>
+</body>
+</html>

@@ -136,6 +136,7 @@ var EnemySlowAmount = 0 // How much to slow enemies by, such as in moves like ho
 var ReduceInitialAmount = 0
 var ReduceIncreaseAmount = 0
 
+var ClockMultiplier = 0
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var AllyTwo = "none";
@@ -152,28 +153,45 @@ console.log("NoneRan")
 // ############################## // 
 
 function SpeedSettings() {// I could probably do this with math but i dont wanna
-    console.log(SpeedMode)
-    if (SpeedMode = "Snail") {
-        
-    }
-    if (SpeedMode == "Slow") {
+    console.log(SpeedMode + AllyOneAttackMeterHTML.max)
+    if(SpeedMode == "Snail") {
+        console.log("Snail Speed Activated")
         AllyOneAttackMeterHTML.max = 200 // 8 seconds
         AllyTwoAttackMeterHTML.max = 200 
         EnemyOneAttackMeterHTML.max = 200 
         EnemyTwoAttackMeterHTML.max = 200 
         EnemySlowAmount = 125
-        TheMarkInitial = 40
-        TheMarkIncrease = 30
-        HookCounterInitial = 30
-        HookCounterIncrease = 20
-        VirusDamage = 5
+        TheMarkInitial = 35
+        TheMarkIncrease = 20
+        HookCounterInitial = 15
+        HookCounterIncrease = 10
+        VirusDamage = 10
         VirusThreshold = 16
         EnemyOneFireAttackValue = 5
         FireIntervalThreshold = 8
-        ReduceInitialAmount = 30
-        ReduceIncreaseAmount = 15
+        ReduceInitialAmount = 25
+        ReduceIncreaseAmount = 10
     }
-    if (SpeedMode == "Standard") { // complete
+    if(SpeedMode == "Slow") {
+        console.log("Slow Speed Activated")
+        AllyOneAttackMeterHTML.max = 150 // 6 seconds
+        AllyTwoAttackMeterHTML.max = 150 
+        EnemyOneAttackMeterHTML.max = 150 
+        EnemyTwoAttackMeterHTML.max = 150 
+        EnemySlowAmount = 100
+        TheMarkInitial = 30
+        TheMarkIncrease = 20
+        HookCounterInitial = 10
+        HookCounterIncrease = 5
+        VirusDamage = 10
+        VirusThreshold = 12
+        EnemyOneFireAttackValue = 5
+        FireIntervalThreshold = 6
+        ReduceInitialAmount = 20
+        ReduceIncreaseAmount = 10
+    }
+    if(SpeedMode == "Standard") { // complete
+        console.log("Standard Speed Activated")
         AllyOneAttackMeterHTML.max = 100 // 4 seconds
         AllyTwoAttackMeterHTML.max = 100 
         EnemyOneAttackMeterHTML.max = 100 
@@ -189,6 +207,42 @@ function SpeedSettings() {// I could probably do this with math but i dont wanna
         FireIntervalThreshold = 4
         ReduceInitialAmount = 15
         ReduceIncreaseAmount = 10
+    }
+    if(SpeedMode == "Speedy") { // complete
+        console.log("Standard Speed Activated")
+        AllyOneAttackMeterHTML.max = 50 // 2 seconds
+        AllyTwoAttackMeterHTML.max = 50
+        EnemyOneAttackMeterHTML.max = 50 
+        EnemyTwoAttackMeterHTML.max = 50 
+        EnemySlowAmount = 25
+        TheMarkInitial = 10
+        TheMarkIncrease = 4
+        HookCounterInitial = 10
+        HookCounterIncrease = 4
+        VirusDamage = 25
+        VirusThreshold = 4
+        EnemyOneFireAttackValue = 15
+        FireIntervalThreshold = 2
+        ReduceInitialAmount = 10
+        ReduceIncreaseAmount = 5
+    }
+        if(SpeedMode == "Swift") { // complete
+        console.log("Standard Speed Activated")
+        AllyOneAttackMeterHTML.max = 25 // 1 seconds
+        AllyTwoAttackMeterHTML.max = 25
+        EnemyOneAttackMeterHTML.max = 25
+        EnemyTwoAttackMeterHTML.max = 25
+        EnemySlowAmount = 25
+        TheMarkInitial = 5 
+        TheMarkIncrease = 2
+        HookCounterInitial = 5
+        HookCounterIncrease = 2
+        VirusDamage = 20 
+        VirusThreshold = 4
+        EnemyOneFireAttackValue = 20
+        FireIntervalThreshold = 2
+        ReduceInitialAmount = 10
+        ReduceIncreaseAmount = 5
     }
 }
 
@@ -240,13 +294,14 @@ function StartButton() { // Starts the enemies attack when clicked
     EnemyOne = localStorage.getItem("EnemyOneStorage")
     EnemyTwo = localStorage.getItem("EnemyTwoStorage")
     SpeedMode = localStorage.getItem("SpeedModeStorage")
+    SpeedSettings()
     console.log("GAME SPEED = " + SpeedMode)
     console.log(AllyOne, AllyTwo, EnemyOne, EnemyTwo)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("AllyTwoImage").src = AllyTwo+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
     document.getElementById("EnemyTwoImage").src = EnemyTwo+".png"
-    SpeedSettings()
+    
     TurnCaller()
     AllyOneMoveList()
     AllyTwoMoveList()
@@ -275,20 +330,20 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
         setTimeout(CheckHealth,100)
     } 
     if (AllyOneHealth.value <= 0) {
-        AllyOneHealth.max = 0
+        AllyOneHealth.max = 999999999999999999999999999 // i mean it technically works to make health irrelevant but like its not a good solution at all
         AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
         GameOver()
     } 
     if (EnemyOneHealth.value <= 0) {
-        EnemyOneHealth.max = 0
+        EnemyOneHealth.max = 999999999999999999999999999
         GameOver()
     }
     if (AllyTwoHealth.value <= 0) {
-        AllyTwoHealth.max = 0
+        AllyTwoHealth.max = 999999999999999999999999999
         GameOver()
     } 
-    if (EnemyOneHealth.value <= 0) {
-        EnemyTwoHealth.max = 0
+    if (EnemyTwoHealth.value <= 0) {
+        EnemyTwoHealth.max = 999999999999999999999999999
         GameOver()
     }
 }

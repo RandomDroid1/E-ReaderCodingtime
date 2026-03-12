@@ -1,0 +1,279 @@
+html {
+  background-color: black;
+  
+}
+
+#ScreenSize {
+  position: absolute;
+  width: 600px;
+  height: 800px;
+  background-color: rgb(255, 251, 201);
+
+}
+
+h1 {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 50px;
+}
+
+#SnailModeButton {
+    position:absolute;
+    left: 300px;
+    top: 30px;
+}
+#SlowModeButton {
+    position:absolute;
+    left: 350px;
+    top: 30px;
+    border-width: 3px;
+}
+#StandardModeButton {
+    position:absolute;
+    left: 400px;
+    top: 30px;
+}
+#SpeedyModeButton {
+    position:absolute;
+    left: 475px;
+    top: 30px;
+}
+#SwiftModeButton {
+    position:absolute;
+    left: 540px;
+    top: 30px;
+}
+
+
+#CharacterName {
+    position: absolute;
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    left: 10px;
+    top: -10px;
+}
+
+#Tagline {
+    position: absolute;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    left: 10px;
+    top: 35px;
+}
+
+#AttackOne {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    left: 20px;
+    top: 90px;
+}
+
+#AttackTwo {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    left: 20px;
+    top: 140px;
+}
+
+#AttackThree {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    left: 20px;
+    top: 190px;
+}
+
+#AttackOneText {
+    position: absolute;
+    left: 180px;
+    top: 75px;
+}
+
+#AttackTwoText {
+    position: absolute;
+    left: 180px;
+    top: 125px;
+}
+
+#AttackThreeText {
+    position: absolute;
+    left: 180px;
+    top: 175px;
+}
+#SelectionConfirm {
+    position: absolute;
+    left: 20px;
+    top: 240px;
+    Width: 200px;
+    height: 50px;
+}
+
+#AllySelectionPortraitOne {
+    position: absolute;
+    right: 120px;
+    bottom: 140px;
+    width: 100px;
+}
+
+#AllySelectionPortraitTwo {
+    position: absolute;
+    right: 20px;
+    bottom: 140px;
+    width: 100px;
+}
+
+#EnemySelectionPortraitOne {
+    position: absolute;
+    right: 120px;
+    bottom: 10px;
+    width: 100px;
+}
+
+
+#EnemySelectionPortraitTwo {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    width: 100px;
+}
+
+#Enemy {
+    position: absolute;
+    right: 50px;
+    top: 55px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+#Ally {
+    position: absolute;
+    left: 60px;
+    top: 55px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+#Enemy2 {
+    position: absolute;
+    right: 80px;
+    bottom: 90px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+#Ally2 {
+    position: absolute;
+    right: 95px;
+    bottom: 220px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+#StartButton {
+    position: absolute;
+    width: 125px;
+    height: 30px;
+    bottom: 10px;
+    left: 240px;
+    background-color: white;
+}
+/* HEADSHOTS */
+
+.Headshot {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+}
+
+#AngelCatHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 100px;
+}
+
+#BlobHeadshotImage {
+    position: absolute;
+    right: 20px;
+    top: 350px;
+}
+
+#BoatHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 350px;
+}
+
+#ClockHeadshotImage {
+    position: absolute;
+    left: 145px;
+    top: 100px;
+}
+
+#DevilCatHeadshotImage {
+    position: absolute;
+    right: 145px;
+    top: 100px;
+}
+
+#CarHeadshotImage {
+    position: absolute;
+    right: 20px;
+    top: 100px
+}
+
+#OrigamiHeadshotImage {
+    position: absolute;
+    right: 145px;
+    top: 225px;
+}
+
+#DNAHeadshotImage {
+    position: absolute;
+    right: 20px;
+    top: 225px
+}
+
+#HandManHeadshotImage {
+    position: absolute;
+    right: 145px;
+    top: 350px;
+}
+
+#SlugcatHeadshotImage {
+    position: absolute;
+    left: 20px;
+    top: 225px;
+    
+}
+
+#FlibbitHeadshotImage {
+    position: absolute;
+    left: 145px;
+    top: 350px;
+}
+
+#SquareHeadshotImage {
+    position: absolute;
+    left: 145px;
+    top: 225px;
+}
+
+.Button {
+    width: 0px;
+    height: 0px;
+}
+
+#SelectionMenu {
+    position: absolute;
+    background-color: rgb(172, 172, 172);
+    left: 0px;
+    bottom: 0px;
+    width: 600px;
+    height: 300px;
+}
