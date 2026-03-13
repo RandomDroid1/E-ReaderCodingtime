@@ -51,6 +51,8 @@ var EnemyOneVirusSlotTwoTargetLock = "none";
 var EnemyTwoVirusSlotOneTargetLock = "none";
 var EnemyTwoVirusSlotTwoTargetLock = "none";
 
+var InformationShown = "false";
+
 var EnemyOneAttackValue = 0
 var EnemyTwoAttackValue = 0
 var AllyOneAttackValue = 0
@@ -306,6 +308,97 @@ function StartButton() { // Starts the enemies attack when clicked
     AllyOneMoveList()
     AllyTwoMoveList()
     
+}
+
+function InformationButton() { /// Can I just call ally move list if InfoShown is true?
+    if(InformationShown == "false") {
+        InformationShown = "true"
+        if(AllyOne == "AngelCat") {
+            document.getElementById("AllyOneAttackOne").innerHTML = "150-40 damage; one enemy"
+            document.getElementById("AllyOneAttackTwo").innerHTML = "75-25 damage; both enemies"
+            document.getElementById("AllyOneAttackThree").innerHTML = "75-25 healing; both allies"
+            document.getElementById("AllyOneAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackThree").style.fontSize = "small"
+        }
+        if(AllyOne == "Clock") {
+            document.getElementById("AllyOneAttackOne").innerHTML = "Damage of 20*TurnCount; one enemy"
+            document.getElementById("AllyOneAttackTwo").innerHTML = "15-350 damage, better odds based on turn; one enemy"
+            document.getElementById("AllyOneAttackThree").innerHTML = "101 to 10 healing, 50-25 damage; both enemies"
+            document.getElementById("AllyOneAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyOne == "Slugcat") {
+            document.getElementById("AllyOneAttackOne").innerHTML = "25% chance to instakill; one enemy"
+            document.getElementById("AllyOneAttackTwo").innerHTML = "1.5x attack for 5 turns"
+            document.getElementById("AllyOneAttackThree").innerHTML = "350 dmg to self, high dmg to; one enemy"
+            document.getElementById("AllyOneAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackTwo").style.fontSize = "small"
+            document.getElementById("AllyOneAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyOne=="Boat") {
+            document.getElementById("AllyOneAttackOne").innerHTML = "110-50 dmg; one enemy"
+            document.getElementById("AllyOneAttackTwo").innerHTML = "random damage or healing to enemy, from 0-500; one enemy"
+            document.getElementById("AllyOneAttackThree").innerHTML = "100-50 damage, 50% to slow enemies; one enemy"
+            document.getElementById("AllyOneAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyOne=="Flibbit") {
+            document.getElementById("AllyOneAttackOne").innerHTML = "15% of target enemy health in dmg; one enemy"
+            document.getElementById("AllyOneAttackTwo").innerHTML = "10% of an enemy's max health in damage; one enemy"
+            document.getElementById("AllyOneAttackThree").innerHTML = "20% of flibbit's health in damage; one enemy"
+            document.getElementById("AllyOneAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyOneAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyTwo == "AngelCat") {
+            document.getElementById("AllyTwoAttackOne").innerHTML = "150-40 damage; one enemy"
+            document.getElementById("AllyTwoAttackTwo").innerHTML = "75-25 damage; both enemies"
+            document.getElementById("AllyTwoAttackThree").innerHTML = "75-25 healing; both allies"
+            document.getElementById("AllyTwoAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackThree").style.fontSize = "small"
+        }
+        if(AllyTwo == "Clock") {
+            document.getElementById("AllyTwoAttackOne").innerHTML = "Damage of 20*TurnCount; one enemy"
+            document.getElementById("AllyTwoAttackTwo").innerHTML = "15-350 damage, better odds based on turn; one enemy"
+            document.getElementById("AllyTwoAttackThree").innerHTML = "101 to 10 healing, 50-25 damage; both enemies"
+            document.getElementById("AllyTwoAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyTwo == "Slugcat") {
+            document.getElementById("AllyTwoAttackOne").innerHTML = "25% chance to instakill; one enemy"
+            document.getElementById("AllyTwoAttackTwo").innerHTML = "1.5x attack for 5 turns"
+            document.getElementById("AllyTwoAttackThree").innerHTML = "350 dmg to self, high dmg to; one enemy"
+            document.getElementById("AllyTwoAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackTwo").style.fontSize = "small"
+            document.getElementById("AllyTwoAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyTwo=="Boat") {
+            document.getElementById("AllyTwoAttackOne").innerHTML = "110-50 dmg; one enemy"
+            document.getElementById("AllyTwoAttackTwo").innerHTML = "random damage or healing to enemy, from 0-500; one enemy"
+            document.getElementById("AllyTwoAttackThree").innerHTML = "100-50 damage, 50% to slow enemies; one enemy"
+            document.getElementById("AllyTwoAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackThree").style.fontSize = "x-small"
+        }
+        if(AllyTwo=="Flibbit") {
+            document.getElementById("AllyTwoAttackOne").innerHTML = "15% of target enemy health in dmg; one enemy"
+            document.getElementById("AllyTwoAttackTwo").innerHTML = "10% of an enemy's max health in damage; one enemy"
+            document.getElementById("AllyTwoAttackThree").innerHTML = "20% of flibbit's health in damage; one enemy"
+            document.getElementById("AllyTwoAttackOne").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackTwo").style.fontSize = "x-small"
+            document.getElementById("AllyTwoAttackThree").style.fontSize = "x-small"
+        }
+    }
+    else if(InformationShown == "true") {
+        InformationShown = "false"
+        AllyOneMoveList()
+        AllyTwoMoveList()
+    }
 }
 
 function GameOver() {
@@ -1784,6 +1877,9 @@ function EnemyTwoAttacker() {
 // ################################ // 
 
 function AllyOneMoveList() { // This is going to take so long oh my god what is a better way?
+    document.getElementById("AllyOneAttackOne").style.fontSize = "medium"
+    document.getElementById("AllyOneAttackTwo").style.fontSize = "medium"
+    document.getElementById("AllyOneAttackThree").style.fontSize = "medium"
     if(AllyOne == "AngelCat") {
         AllyOneAttackOneText = "Heavenly Strike"
         AllyOneAttackTwoText = "Judgement"
@@ -1792,6 +1888,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         document.getElementById("AllyOneAttackOne").innerHTML = "Heavenly Strike"
         document.getElementById("AllyOneAttackTwo").innerHTML = "Judgement"
         document.getElementById("AllyOneAttackThree").innerHTML = "Healing Prayer"
+        
     }
     if(AllyOne == "Clock") {
         AllyOneAttackOneText = "Bad Time"
@@ -1840,6 +1937,9 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
     }
 }
 function AllyTwoMoveList() {
+    document.getElementById("AllyOneAttackOne").style.fontSize = "medium"
+    document.getElementById("AllyOneAttackTwo").style.fontSize = "medium"
+    document.getElementById("AllyOneAttackThree").style.fontSize = "medium"
     if(AllyTwo == "AngelCat") {
         document.getElementById("AllyTwoLabel").innerHTML = "AngelCat"
         AllyTwoAttackOneText = "Heavenly Strike"

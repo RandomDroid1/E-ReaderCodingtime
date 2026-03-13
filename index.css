@@ -17,7 +17,27 @@ h1 {
 }
 
 #AttackMeterHeader {
-    position: absolute;
-    top: 50px;
-    left: 5px;
+    padding-top: 50px;
+    padding-left: 5px;
+}
+
+#AttackMeterText {
+    margin-top: -10px;
+    padding-left: 5px;
+}
+#EnemyAttackHeader {
+    margin-top: 10px;
+    padding-left: 5px
+}
+#EnemyAttackText {
+    margin-top: -10px;
+    padding-left: 5px;
+}
+#AllyAttackHeader {
+    margin-top: 10px;
+    padding-left: 5px
+}
+#AllyAttackText {
+    margin-top: -10px;
+    padding-left: 5px;
 }

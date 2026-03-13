@@ -182,6 +182,12 @@ button {
   left: 250px;
   font-size: larger;
 }
+
+#InfoButton {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
 /* Attack Logs */
 #EnemyOneAttackLog {
   position: absolute;
