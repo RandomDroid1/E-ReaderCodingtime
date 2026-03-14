@@ -43,21 +43,7 @@ var EnemyOneHealValue = 0
 
 var EnemyOneFireCounter = 0
 
-var AllyOneAttackOneText = "none"
-var AllyOneAttackOneText = "none"
-var AllyOneAttackOneText = "none"
-
-var AllyOneAttackMultiplier = 1
-
-var TheMarkCounterVariable = 20
-var TheRotCounterVariable = 5
-var TheMarkInterval = "none"
-var TheRotInterval = "none"
-var MarkAlreadyActive = false
-var RotAlreadyActive = false
-var HookInterval = "none"
-var HookAlreadyActive = false
-var HookCounterVariable = 15
+var DamningCounter = 0
 
 var FishStatus = "Attack"
 
@@ -101,10 +87,6 @@ var FireThreshold = 0
 
 var EnemySlowAmount = 0 // How much to slow enemies by, such as in moves like hook. Adds directly to attack meter max
 
-var ReduceInitialAmount = 0
-var ReduceIncreaseAmount = 0
-
-var ClockMultiplier = 0
 if (AllyOne == undefined) {
 var AllyOne = "none";
 var EnemyOne = "none";
@@ -152,6 +134,54 @@ function SpeedSettings() {// I could probably do this with math but i dont wanna
         ReduceInitialAmount = 20
         ReduceIncreaseAmount = 10
     }
+    if(SpeedMode == "Standard") { // complete
+        console.log("Standard Speed Activated")
+        AllyOneAttackMeterHTML.max = 100 // 4 seconds
+        EnemyOneAttackMeterHTML.max = 100 
+        EnemySlowAmount = 75
+        TheMarkInitial = 20 
+        TheMarkIncrease = 15
+        HookCounterInitial = 15
+        HookCounterIncrease = 10
+        VirusDamage = 15
+        VirusThreshold = 8
+        EnemyOneFireAttackValue = 10
+        FireIntervalThreshold = 4
+        ReduceInitialAmount = 15
+        ReduceIncreaseAmount = 10
+    }
+    if(SpeedMode == "Speedy") { // complete
+        console.log("Standard Speed Activated")
+        AllyOneAttackMeterHTML.max = 50 // 2 seconds
+        EnemyOneAttackMeterHTML.max = 50 
+        EnemySlowAmount = 25
+        TheMarkInitial = 10
+        TheMarkIncrease = 4
+        HookCounterInitial = 10
+        HookCounterIncrease = 4
+        VirusDamage = 25
+        VirusThreshold = 4
+        EnemyOneFireAttackValue = 15
+        FireIntervalThreshold = 2
+        ReduceInitialAmount = 10
+        ReduceIncreaseAmount = 5
+    }
+        if(SpeedMode == "Swift") { // complete
+        console.log("Standard Speed Activated")
+        AllyOneAttackMeterHTML.max = 25 // 1 seconds
+        EnemyOneAttackMeterHTML.max = 25
+        EnemySlowAmount = 25
+        TheMarkInitial = 5 
+        TheMarkIncrease = 2
+        HookCounterInitial = 5
+        HookCounterIncrease = 2
+        VirusDamage = 20 
+        VirusThreshold = 4
+        EnemyOneFireAttackValue = 20
+        FireIntervalThreshold = 2
+        ReduceInitialAmount = 10
+        ReduceIncreaseAmount = 5
+    }
 }
 
 function VariableUpdater() {
@@ -173,10 +203,13 @@ function GameIsOverCheck() {
     console.log(AllyOneAttackType)
 }
 // ####### START & consistent Checks ####### //
-
+function StartGame() {
+    if (AllyOneSelected == true && EnemyOneSelected == true){
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
+    location.assign("FightScreen.html")}
+}
 
 function StartButton() { // Starts the enemies attack when clicked
-    SpeedMode = "Snail"
     VariableUpdater()
     console.log(AllyOne, EnemyOne)
     console.log("Started");
@@ -186,18 +219,20 @@ function StartButton() { // Starts the enemies attack when clicked
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
     AllyOne = "AngelCat"
     EnemyOne = "DevilCat"
+    SpeedMode = localStorage.getItem("SpeedModeStorage")
     SpeedSettings()
     console.log("GAME SPEED = " + SpeedMode)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
-    
     AllyOneMoveList()
     document.getElementById("StartButton").innerHTML = ""
     document.getElementById("StartButton").style.width = "1px"
     document.getElementById("StartButton").style.height = "1px"
-    ExtraTextFufiller()
-    TutorialTextOne()
+    TurnCaller()
+    EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max
+    AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
 }
+
 
 
 function GameOver() {
@@ -286,87 +321,6 @@ function ReturnModeSelectionButton() {
 function CampaignModeButton() {
     window.location.href = "CampaignBattleSelection.html"
 }
-// ############################# // 
-// ############################# // 
-// ####### TUTORIAL TEXT ####### // 
-// ############################# // 
-// ############################# // 
-function ColorFlash() {
-    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(252, 246, 171);")
-    setTimeout(ColorFlash1, 100)
-}
-function ColorFlash1() {
-    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(255, 223, 120)171);")
-    setTimeout(ColorFlash2, 100)
-}
-function ColorFlash2() {
-    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(219, 166, 123);")
-    setTimeout(ColorFlash3, 100)
-}
-function ColorFlash3() {
-    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(252, 224, 146);")
-    setTimeout(ColorFlash4, 100)
-}
-function ColorFlash4() {
-    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(236, 233, 184);")
-}
-
-function TurnCallerDelay() {
-    TurnCaller()
-}
-function TutorialTextOne() {
-    ColorFlash()
-    document.getElementById("TutorialBlurb").innerText = "Hello!! The game will fully start in 30 seconds, while you are here, make sure to take a look at the buttons down there, and what attacks they do. If you have time, the text above explains the moves your enemy has! "
-    setTimeout(TutorialTextTwo, 15000)
-}
-function TutorialTextTwo() {
-    ColorFlash()
-    document.getElementById("TutorialBlurb").innerText = "That flash happens when the text here updates, because no sound cues on an e-reader ): Also you can select an attack while you are waiting if you want. You still have 15 seconds"
-    setTimeout(TutorialTextThree, 20000)
-    setTimeout(TurnCallerDelay, 15000)
-    }
-
-function TutorialTextThree() {
-    ColorFlash()
-    if(AllyAttackNumber == 1) {
-        document.getElementById("TutorialBlurb").innerText = "Nice hit! He hit you back, but like you don't feel it so who cares." // is this game even fun it's just click buttons simulator
-        setTimeout(TutorialTextFinalMain, 10000)
-    }
-    if(AllyAttackNumber == 0) {
-        document.getElementById("TutorialBlurb").innerText = "Oh no! He hit you, that was really rude. If you want to fight back, you have to hit one of the 3 buttons near the bottom of the screen!"
-        setTimeout(TutorialTextFinalMain, 15000)
-    }
-}    
-
-function TutorialTextFinalMain() {
-    ColorFlash()
-    if(AllyAttackNumber != 0) {
-        document.getElementById("TutorialBlurb").innerText = "Looks like you got this fiend handled! I'm going to kick up the speed in 10 seconds, good luck?"
-        setTimeout(SpeedIncrease, 10000)}
-    if(AllyAttackNumber == 0 ) {
-        document.getElementById("TutorialBlurb").innerText = "Explode, I'm speeding the game up, bad luck"
-        setTimeout(SpeedIncrease, 10000)
-    }
-}
-
-function SpeedIncrease() {
-    ColorFlash()
-    document.getElementById("TutorialBlurb").innerText = ""
-    SpeedMode = "Slow"
-    console.log("SpeedChanged")
-    SpeedSettings()
-}
-function ExtraTextFufiller() {
-    document.getElementById("AttackOneExplanation").innerText = "Heavenly Strike: Deals 150-40 damage. It hits one enemy, which you would select here if there were two"
-    document.getElementById("AttackTwoExplanation").innerText = "Judgement: Damages Enemy(ies) for 75-30 damage. Not super good with only one enemy..."
-    document.getElementById("AttackThreeExplanation").innerText = "Healing prayer: Heals ally(ies) for 75-25 Hp. Fairly simple, good in a pinch."
-    document.getElementById("EnemyExplanation").innerText = "YOU ARE FIGHTING: Producer of chaos, deity of doom, DEVIL CAT!"
-    document.getElementById("EnemyAttackOneExplanation").innerText = "DevilCat Attack One: Demonic Strike; Deals 100-50 damage to an enemy"
-    document.getElementById("EnemyAttackTwoExplanation").innerText = "DevilCat Attack Two: Damning; Deal 50-25 damage to all Ally(ies)"
-    document.getElementById("EnemyAttackThreeExplanation").innerText = "DevilCat Attack Three: Fire Blast; Hits allies for ~30 damage once, and ~20 damage over a period of time"
-}
-
-
 
 // ################################ // 
 // ################################ // 
@@ -377,26 +331,37 @@ function ExtraTextFufiller() {
 function HeavenlyStrikeOne() {
     console.log("HeavenlyUsed")
     AllyAttackNumber += 1;
-    AllyOneAttackValue = AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40) // Slightly higher max than demonic strike w/ a larger range?
+    AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40) // Slightly higher max than demonic strike w/ a larger range?
     AllyOneAttackType = "AttackEnemyOne"
-    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
-    console.log((AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense)
+    EnemyOneHealth.value -= AllyOneAttackValue
+    document.getElementById("AllyOneAttackLog").innerText = "AngelCat used Heavenly Strike, drawing power from the Heavens to deal " + AllyOneAttackValue + " damage to DevilCat"
 }
 
 function JudgementOne() {
     AllyOneAttackType = "AttackEnemyOne"
     AllyAttackNumber += 1;
-    AllyOneAttackValue = Math.floor(Math.random() * (76-30)+30)
-    EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
+    AllyOneAttackValue = Math.floor((AllyOneHealth.max-AllyOneHealth.value)*.25)
+    EnemyOneHealth.value -= AllyOneAttackValue
+    document.getElementById("AllyOneAttackLog").innerText = "AngelCat used Judgement, dealing " + AllyOneAttackValue + " damage to DevilCat"
 }
 
 function HealingPrayerOne() {
     AllyOneAttackType = "HealAllies"
     console.log("HealUsed")
     AllyAttackNumber += 1;
-    AllyOneAttackValue = Math.floor(Math.random() * (76-25)+25)
-    AllyOneHealth.value += AllyOneAttackValue - EnemyOneDefense
+    if(AllyOneHealth.value >= 400){
+    AllyOneAttackValue = Math.floor(Math.random() * (151-1)+1)
+    }
+    if(AllyOneHealth.value <= 399 && AllyOneHealth.value >= 200){
+    AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40)
+    }
+    if(AllyOneHealth.value <= 199){
+        AllyOneAttackValue = Math.floor(Math.random() * (151-75)+75)
+    }
+    AllyOneHealth.value += AllyOneAttackValue
+    document.getElementById("AllyOneAttackLog").innerText = "AngelCat prayed for healing, and healed " + AllyOneAttackValue + " health!"
 }
+
 
 function AllyOneMoveEnacter() {
         if(AllyOne == "AngelCat") {
@@ -413,37 +378,8 @@ function AllyOneMoveEnacter() {
                 AllyOneAttackUsed = "Healing Prayer"
             }
         }
-    AllyOneTextUpdater()
 }
 
-function AllyOneTextUpdater() {
-    console.log("AllyOneTextUpdateRan" + AllyOneAttackType)
-    if(AllyOneAttackType == "AttackEnemyOne") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne
-        console.log("AllyOneAttackedEnemyOne")
-    }
-    if(AllyOneAttackType == "AttackEnemyOneSlow") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + " and slowing down both enemies for 20 seconds"
-    }
-    if(AllyOneAttackType == "HealEnemyOne") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + EnemyOne
-    }
-    if(AllyOneAttackType == "AttackEnemyOneRot") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + "and poisoning itself!"
-    }
-    if(AllyOneAttackType == "SelfAttackBoost") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + "increasing it's attack for 20 seconds!"
-    }
-    if(AllyOneAttackType == "AttackBothHealSelf") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + ", and healing itself for " + AllyOneHealValue
-    }
-    if(AllyOneAttackType == "HealAllies") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + AllyOne
-    }
-    if(AllyOneAttackType == "Missed") {
-        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " missed!"
-    }
-}
 
 
 
@@ -555,49 +491,10 @@ function EnemyOneAttackMeterReset() {
     } else {
         EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max;
         EnemyOneAttackSelector()
-        EnemyOneAttacker()
     }
     
 }
 
-function EnemyOneAttacker() {
-        console.log("EnemyOneAttacked, Used " + EnemyOneAttack)
-        if (EnemyOneAttackTarget == "AllyOne") {
-            AllyOneHealth.value -= (EnemyOneAttackValue - AllyOneDefense)
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneAttackValue + " Damage to " + AllyOne
-        }
-        if (EnemyOneAttackTarget == "SelfHeal") {
-            EnemyOneHealth.value += EnemyOneHealValue
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n healing " + EnemyOneHealValue + " health "
-        }
-        if (EnemyOneAttackTarget == "Overdrive") {
-            EnemyOneHealth.value -= EnemyOneSelfDamage
-            AllyOneHealth.value -= EnemyOneAttackValue
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneAttackValue + "damage to" + AllyOne + " and " + EnemyOneSelfDamage + " damage to self"
-        }
-        if (EnemyOneAttackTarget == "Defense") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " defended itself"
-        }
-        if (EnemyOneAttackTarget == "AttackSelf") {
-            EnemyOneHealth.value -= EnemyOneSelfDamage
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing " + EnemyOneSelfDamage + " damage to itself "
-        }
-        if (EnemyOneAttackTarget == "VirusAllyOne") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + ",\n dealing sustained damage to " + AllyOne
-        }
-        if (EnemyOneAttackTarget == "Missed") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " Used " + EnemyOneAttack + " and missed!"
-        }
-        if (EnemyOneAttackTarget == "Both"){ // Only fireblast uses this lmao
-            document.getElementById("EnemyOneAttackLog").innerText =  EnemyOne + " Used " + EnemyOneAttack + ",\n dealing sustained damage to " + AllyOne
-        }
-
-        EnemyOneAttackValue = 0
-        EnemyOneSelfDamage = 0
-        EnemyOneHealValue = 0
-        EnemyOneAttack = "none"
-
-}
 
 
 // ################################ // 
@@ -620,56 +517,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
         document.getElementById("AllyOneAttackThree").innerHTML = "Healing Prayer"
         
     }
-    if(AllyOne == "Clock") {
-        AllyOneAttackOneText = "Bad Time"
-        AllyOneAttackTwoText = "Hour"
-        AllyOneAttackThreeText = "Rewind"
-        document.getElementById("AllyOneLabel").innerHTML = "Clock"
-        document.getElementById("AllyOneAttackOne").innerHTML = "Bad Time"
-        document.getElementById("AllyOneAttackTwo").innerHTML = "Hour"
-        document.getElementById("AllyOneAttackThree").innerHTML = "Rewind"
-    }
-    if(AllyOne == "Slugcat") {
-        AllyOneAttackOneText = "Spear"
-        AllyOneAttackTwoText = "The Mark"
-        AllyOneAttackThreeText = "The Rot"
-        document.getElementById("AllyOneLabel").innerHTML = "SlugCat"
-        document.getElementById("AllyOneAttackOne").innerHTML = "Spear"
-        document.getElementById("AllyOneAttackTwo").innerHTML = "The Mark"
-        document.getElementById("AllyOneAttackThree").innerHTML = "The Rot"
-    }
-    if(AllyOne == "Square") {
-        AllyOneAttackOneText = "Square"
-        AllyOneAttackTwoText = "Square"
-        AllyOneAttackThreeText = "Square"
-        document.getElementById("AllyOneLabel").innerHTML = "Square"
-        document.getElementById("AllyOneAttackOne").innerHTML = "Square"
-        document.getElementById("AllyOneAttackTwo").innerHTML = "Square"
-        document.getElementById("AllyOneAttackThree").innerHTML = "Square"
-    }
-    if(AllyOne == "Boat") {
-        AllyOneAttackOneText = "Boat"
-        AllyOneAttackTwoText = "Fish"
-        AllyOneAttackThreeText = "Hook"
-        document.getElementById("AllyOneLabel").innerHTML = "Boat"
-        document.getElementById("AllyOneAttackOne").innerHTML = "Boat"
-        document.getElementById("AllyOneAttackTwo").innerHTML = "Fish"
-        document.getElementById("AllyOneAttackThree").innerHTML = "Hook"
-    }
-    if(AllyOne == "Flibbit") {
-        AllyOneAttackOneText = "Clamp"
-        AllyOneAttackTwoText = "Chomp"
-        AllyOneAttackThreeText = "Chew"
-        document.getElementById("AllyOneLabel").innerHTML = "Flibbit"
-        document.getElementById("AllyOneAttackOne").innerHTML = "Clamp"
-        document.getElementById("AllyOneAttackTwo").innerHTML = "Chomp"
-        document.getElementById("AllyOneAttackThree").innerHTML = "Chew"
-    }
 }
-
-
-
-
 
 
 
@@ -696,6 +544,7 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
                 DamningOne()
             }
             if (EnemyOneAttackSelection >= 9) {
+                console.log("FirBlastSelected")
                 EnemyOneAttack = "FireBlast"
                 FireBlastOne()
             }
@@ -716,23 +565,36 @@ function DemonicStrikeOne() {
 
     } else {
         EnemyOneAttackNumber += 1;
-        EnemyOneAttackValue = Math.floor(Math.random() * (101 - 50) + 50);
-        EnemyOneAttackTarget = "AllyOne"}
+        EnemyOneAttackValue = Math.floor(Math.random() * (101 - 70) + 70);
+        AllyOneHealth.value -= EnemyOneAttackValue
+        document.getElementById("EnemyOneAttackLog").innerText = "Devilcat strikes AngelCat with the power of Hell itself, dealing " + EnemyOneAttackValue + " damage!"
+    } 
 }
 
 function DamningOne() {
     EnemyOneAttackNumber += 1;
-    EnemyOneAttackValue = Math.floor(Math.random() * (51 - 25) + 25);
-    EnemyOneAttackTarget = "AllyOne"
+    EnemyOneAttackValue = Math.floor(Math.random() * (5-1)+1); // A one means failure
+    if(EnemyOneAttackValue == 1) {
+        document.getElementById("EnemyOneAttackLog").innerText = "Devilcat uses Damning, but it backfired! DevilCat takes 50 damage!"
+        EnemyOneHealth.value -= 50
+    }
+    if(EnemyOneAttackValue != 1) {
+        DamningCounter += 1
+        EnemyOneAttackValue = Math.floor((Math.random() * (75-25)+25) * (DamningCounter))
+        AllyOneHealth.value -= EnemyOneAttackValue
+        document.getElementById("EnemyOneAttackLog").innerText = "Devilcat uses Damning, and deals " + EnemyOneAttackValue + " damage to Angel Cat!"
+    }
 }
 
 function FireBlastOne() {
     VariableUpdater()
     EnemyOneAttackNumber += 1;
-    EnemyOneAttackValue = Math.floor(Math.random() * (31 - 25) + 25);
-    EnemyOneFireAttackValue = Math.floor(Math.random() * (20-10) + 10);
-    EnemyOneAttackTarget = "Both"
+    EnemyOneAttackValue = Math.floor(Math.random() * (60 - 40) + 40);
+    EnemyOneFireAttackValue = Math.floor(Math.random() * (35-25) + 25);
+    AllyOneHealth.value -= EnemyOneAttackValue
+    document.getElementById("EnemyOneAttackLog").innerText = "Devilcat uses Fire Blast, and deals an initial " + EnemyOneAttackValue + "damage, plus fire damage!"
     FireIntervalVariable = setInterval(EnemyOneFireDamager, 1000)
+    FireIntervalVariable
 }
 
 // ############################ //
@@ -741,10 +603,8 @@ function FireBlastOne() {
 // ############################ //
 // ############################ //
 function EnemyOneFireDamager() {
-    if(AllyOneHealth.value != 0 && EnemyOneHealth.value != 0){
-    if(EnemyOneAttackTarget == "Both") {
-        console.log("FireBlastUsed")
-        console.log("Threshold = " + FireThreshold + " Value = " + EnemyOneFireCounter)
+    
+    if(EnemyOneFireCounter != FireIntervalThreshold) {
         EnemyOneFireCounter += 1
         document.getElementById("AllyOneFireMarker").src = "FireDamage.png"
         AllyOneHealth.value -= EnemyOneFireAttackValue
@@ -753,5 +613,5 @@ function EnemyOneFireDamager() {
         EnemyOneFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         clearInterval(FireIntervalVariable)
-    }}
+    }
 }

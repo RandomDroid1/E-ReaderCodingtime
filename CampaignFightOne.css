@@ -1,0 +1,233 @@
+/*  */
+/* Core Stuff */
+html {
+  background-color: black;
+  
+}
+
+#ScreenSize {
+  position: absolute;
+  width: 600px;
+  height: 800px;
+  background-color: rgb(255, 251, 201);
+
+}
+
+/* Progress Bars One*/
+#AllyOneAttackMeterDiv {
+  position: absolute;
+  bottom: 440px;
+  right: 20px;
+}
+#EnemyOneAttackMeterDiv {
+  position: absolute;
+  bottom: 440px;
+  left: 20px;
+}
+#EnemyOneHealthDiv {
+  position: absolute;
+  bottom: 185px;
+  left: 20px;
+  
+}
+#EnemyOneHealth {
+  height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
+}
+#AllyOneHealthDiv {
+  position: absolute;
+  bottom: 185px;
+  right: 20px;
+}
+#AllyOneHealth {
+  height: 30px;
+  background-color: rgb(0, 255, 21);
+  color:red;
+}
+
+
+/* Images */
+#AllyOneImage {
+  position: absolute;
+  right: 50px;
+  bottom: 240px;
+  max-height:200px;
+  max-width: 150px;
+}
+#EnemyOneImage {
+  position: absolute;
+  left: 50px;
+  bottom: 240px;
+  max-height:200px;
+  max-width: 150px;
+}
+
+/* Menu */
+h1 {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 175px;
+}
+button {
+  border-radius: 50px;
+  margin-left: 200px;
+}
+
+#GameOver {
+  position: absolute;
+  top: -10px;
+  left: 80px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+#StartButton {
+  position: absolute;
+  background-color:rgb(255, 255, 255);
+  top: 35px;
+  left: -50px;
+  width: 300px;
+  font-size: larger;
+}
+
+#CoreMenu {
+  position: absolute;
+  background-color: lightgray;
+  width: 600px;
+  height: 200px;
+  Bottom: 0px;
+}
+
+
+
+#BackButton {
+  position: absolute;
+  background-color: rgb(177, 177, 177);
+  top: 25px;
+  left: 250px;
+  font-size: larger;
+}
+
+/* Attack Logs */
+#EnemyOneAttackLog {
+  position: absolute;
+  bottom: 375px;
+  left: 200px;
+  text-align: left;
+  max-width: 200px;
+}
+#AllyOneAttackLog {
+  position: absolute;
+  bottom: 220px;
+  right: 190px;
+  text-align: right;
+  max-width: 200px;
+}
+
+
+/* AttackMeu */
+
+#AllyOneLabel {
+  position: absolute;
+  top: -20px;
+  left: 5px;
+  font-size: x-large;
+  font-weight: 700;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#AllyOneAttackOne {
+  position: absolute;
+  width: 175px;
+  height: 40px;
+  top: 40px;
+  left: -190px;
+  font-size: larger;
+  font-weight: 300;
+}
+
+#AllyOneAttackTwo {
+  position: absolute;
+  width: 175px;
+  height: 40px;
+  top: 90px;
+  left: -190px;
+  font-size: larger;
+  font-weight: 300;
+}
+
+#AllyOneAttackThree {
+  position: absolute;
+  width: 175px;
+  height: 40px;
+  top: 140px;
+  left: -190px;
+  font-size: larger;
+  font-weight: 300;
+}
+
+
+
+
+
+#AttackOneExplanation {
+    position: absolute;
+    left: 200px;
+    top: 25px;
+}
+
+#AttackTwoExplanation {
+    position: absolute;
+    left: 200px;
+    top: 75px;
+}
+
+#AttackThreeExplanation {
+    position: absolute;
+    left: 200px;
+    top: 125px;
+}
+
+#EnemyExplanation {
+  position: absolute;
+  font-size: larger;
+  font-weight: bold;
+  left: 5px;
+  top: 60px;
+}
+#EnemyAttackOneExplanation {
+  position: absolute;
+  left: 5px;
+  top: 90px;
+}
+#EnemyAttackTwoExplanation {
+  position: absolute;
+  left: 5px;
+  top: 120px;
+}
+#EnemyAttackThreeExplanation {
+  position: absolute;
+  left: 5px;
+  top: 160px;
+}
+#TutorialBlurb {
+  position: absolute;
+  left: 10px;
+  padding-right: 10px;
+  font-size: large;
+}
+#ColorDivHTML {
+  position: absolute;
+  background-color: rgb(255, 251, 201);
+  bottom: 475px;
+  width: 600px;
+  height: 100px;
+}
+
+#AllyOneFireMarker {
+  position: absolute;
+  width: 50px;
+  bottom: 375px;
+  right: 150px;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no"/>
+  <script src="file:///mnt/us/mesquito/polyfill.min.js"></script>
+  <script src="file:///mnt/us/mesquito/sdk.js">
+
+  </script>
+  <link href="./CampaignFightOne.css" rel="stylesheet">
+  <script src="./CampaignFightOne.js"></script>
+  <title>Fight!</title>
+</head>
+<body>
+<div id="ScreenSize">
+  <button id="StartButton" onclick="StartButton()">Start</button>
+
+  <div id="EnemyOneHealthDiv">
+    <progress id="EnemyOneHealth" value="500" max="500">Enemy</progress>
+    <p></p>
+  </div>
+<br>
+  <div id="AllyOneHealthDiv">
+    <progress id="AllyOneHealth" value="500" max="500">Player</progress> 
+    <p></p>
+  </div>
+
+  <div id="AllyOneAttackMeterDiv">
+    <progress id="AllyOneAttackMeterHTML" value="100" max="100"></progress>
+  </div>
+
+  <div id="EnemyOneAttackMeterDiv">
+    <progress id="EnemyOneAttackMeterHTML" value="100" max="100"></progress>
+  </div>
+  <p id="EnemyExplanation">NOW FIGHTING: DEVIL CAT!</p>
+  <p id="EnemyAttackOneExplanation">DevilCat Attack One: <b>Demonic Strike</b>; Deals 100-70 damage to an enemy</p>
+  <p id="EnemyAttackTwoExplanation">DevilCat Attack Two: <b>Damning</b>; Deals damage that increases by how much this move has been successfully used in the past, has a chance to backfire</p>
+  <p id="EnemyAttackThreeExplanation">DevilCat Attack Three: <b>Fire Blast</b>; Hits allies for ~50 damage once, and ~30 damage over a period of time</p>
+  
+  <div id="ColorDivHTML"><p id="TutorialBlurb"></p></div>
+  <p id="GameOver"></p>
+  <div id="CoreMenu">
+    <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">Heavenly Strike</button>
+    <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">Judgement</button>
+    <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()">Healing Prayer</button>
+    <p id="AttackOneExplanation">Heavenly Strike: Deals 150-40 damage to DevilCat</p>
+    <p id="AttackTwoExplanation">Judgement: Damages Devilcat for a quarter of the health AngelCat is missing</p>
+    <p id="AttackThreeExplanation">Healing prayer: Heals AngelCat for 150-1 Hp. Fairly simple, good in a pinch. It has better odds when AngelCat is at lower health</p>
+    <p id="AllyOneLabel">AngelCat</p>
+  </div>
+  <img id="AllyOneImage" src="">
+  <img id="AllyTwoImage" src="">
+  <img id="EnemyOneImage" src="">
+  <img id="EnemyTwoImage" src="">
+  <p id="EnemyOneAttackLog"></p>
+  <p id="AllyOneAttackLog"></p>
+  <img id="AllyOneVirusMarker" src="">
+  <img id="AllyOneFireMarker" src="">
+  <img id="SnowgraveEnemyOne" src="">
+</div>
+  
+</body>
+</html>

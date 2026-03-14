@@ -249,6 +249,8 @@ function StartButton() { // Starts the enemies attack when clicked
     document.getElementById("StartButton").style.height = "1px"
     ExtraTextFufiller()
     TutorialTextOne()
+    EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max
+    AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
 }
 
 function InformationButton() { /// Can I just call ally move list if InfoShown is true?

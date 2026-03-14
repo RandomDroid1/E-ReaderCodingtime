@@ -1,0 +1,70 @@
+html {
+  background-color: black;
+}
+
+#ScreenSize {
+  position: absolute;
+  width: 600px;
+  height: 800px;
+  background-color: rgb(255, 251, 201);
+
+}
+
+#FightOneTitle {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 20px;
+  padding-right: 20px;
+  top: 40px;
+}
+
+#FightOneTextBlurb {
+  position: absolute;
+  font-size: large;
+  padding-right: 20px;
+  left: 30px;
+  top: 120px;
+}
+
+#CampaignFightOneButton {
+  border-width: 5px;
+  border-radius: 1px;
+  position:absolute;
+  left: 35px;
+  top: 205px;
+  font-size: large;
+}
+#BackButton {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  height: 30px;
+  width: 200px;
+}
+
+#SnailModeButton {
+    position:absolute;
+    left: 300px;
+    top: 30px;
+}
+#SlowModeButton {
+    position:absolute;
+    left: 350px;
+    top: 30px;
+    border-width: 3px;
+}
+#StandardModeButton {
+    position:absolute;
+    left: 400px;
+    top: 30px;
+}
+#SpeedyModeButton {
+    position:absolute;
+    left: 475px;
+    top: 30px;
+}
+#SwiftModeButton {
+    position:absolute;
+    left: 540px;
+    top: 30px;
+}
