@@ -549,6 +549,7 @@ function SpearOne() {
         }
     }
     else {
+        AllyOneAttackType = "Missed"
         AllyOneAttackValue = 0
     }
 }
@@ -1084,6 +1085,7 @@ function SpearTwo() {
     }
     else {
         AllyTwoAttackValue = 0
+        AllyTwoAttackType = "Missed"
     }
 }
 

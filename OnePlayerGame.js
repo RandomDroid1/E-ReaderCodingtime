@@ -17,7 +17,6 @@ var EnemyOneSelected = false;
 var EnemyOneSelfDamage = 0;
 
 var EnemyOneAttackTarget = "none"
-var AllyOneAttackTarget = "none"
 
 var FoldCounter = 0;
 var EnemyOneAttackNumberText = document.getElementById("EnemyOneAttackLog"); // what could this possbiley be for?
@@ -74,7 +73,6 @@ var AllyOneHealValue = 0
 
 var EnemyOneVirusTarget = "none"
 
-var AllyOneAttackTarget = "none"
 
 var ReduceCounterVariable = 10
 var DomainCounterVariable = 10
@@ -219,14 +217,12 @@ document.addEventListener('DOMContentLoaded', (event) => { // Just yoink a bit o
 });
 
 function GameIsOverCheck() {
-    console.log(GameIsOver)
+    AllyOneAttackType = "AttackEnemyOne"
+    console.log(AllyOneAttackType)
 }
 // ####### START & consistent Checks ####### //
 function StartGame() {
-
     if (AllyOneSelected == true && EnemyOneSelected == true){
-    localStorage.setItem("AllyOneStorage",AllyOne);
-    localStorage.setItem("EnemyOneStorage",EnemyOne);
     localStorage.setItem("SpeedModeStorage",SpeedMode);
     location.assign("FightScreen.html")}
 }
@@ -239,15 +235,13 @@ function StartButton() { // Starts the enemies attack when clicked
     console.log("AllyOneHealth = " + AllyOneHealth.value)
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
-    AllyOne = localStorage.getItem("AllyOneStorage")
-    EnemyOne = localStorage.getItem("EnemyOneStorage")
+    AllyOne = "Slugcat"
+    EnemyOne = "DevilCat"
     SpeedMode = localStorage.getItem("SpeedModeStorage")
     SpeedSettings()
     console.log("GAME SPEED = " + SpeedMode)
-    console.log(AllyOne, EnemyOne)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
-    
     TurnCaller()
     AllyOneMoveList()
     
@@ -413,9 +407,10 @@ function SpearOne() {
     AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))* AllyOneAttackMultiplier
     if (AllyOneAttackValue == 4) {
         AllyOneAttackType = "AttackEnemyOne"
-        EnemyOneHealth.value -= 999999
+        AllyOneAttackValue = 99999999999999
     }
     else {
+         AllyOneAttackType = "Missed"
         AllyOneAttackValue = 0
     }
 }
@@ -726,20 +721,15 @@ function AllyOneMoveEnacter() {
                 AllyOneAttackUsed = "Chew"
             }
     }
-    console.log("AllyOneAttacked, used " + AllyOneAttackUsed)
-    document.getElementById("AllyOneAttackOne").disabled = false;
-    document.getElementById("AllyOneAttackTwo").disabled = false;
-    document.getElementById("AllyOneAttackThree").disabled = false;
-    document.getElementById("TargetEnemyOneAllyOne").disabled = false;
-    console.log("AllyOneAttackValue: " + AllyOneAttackValue)
-    console.log("AllyOneAttackTarget = " + AllyOneAttackTarget)
-    AllyOneTextUpdater() 
+    console.log("TEST TEST TEST")
+    AllyOneTextUpdater()
 }
 
 function AllyOneTextUpdater() {
+    console.log("AllyOneTextUpdateRan" + AllyOneAttackType)
     if(AllyOneAttackType == "AttackEnemyOne") {
         document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne
-
+        console.log("AllyOneAttackedEnemyOne")
     }
     if(AllyOneAttackType == "AttackEnemyOneSlow") {
         document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne + " and slowing down both enemies for 20 seconds"
@@ -780,25 +770,21 @@ function AllyOneAttackButtonReset() {
 }
 function AllyOneAttackButtonOne() {
     AllyOneAttackButtonReset()
+    console.log("AttackOneSelected")
     AllyOneAttackSelected = "One"
     document.getElementById("AllyOneAttackOne").style.borderWidth = "5px"
 }
 function AllyOneAttackButtonTwo() {
     AllyOneAttackButtonReset()
     AllyOneAttackSelected = "Two"
+    console.log("AttackTwoSelected")
     document.getElementById("AllyOneAttackTwo").style.borderWidth = "5px"
 }
 function AllyOneAttackButtonThree() {
     AllyOneAttackButtonReset()
     AllyOneAttackSelected = "Three"
+    console.log("AttackThreeSelected")
     document.getElementById("AllyOneAttackThree").style.borderWidth = "5px"
-}
-function AllyOneLockInButton() {
-    AllyOneLocked = "true"
-    document.getElementById("AllyOneAttackOne").setAttribute('disabled','disabled')
-    document.getElementById("AllyOneAttackTwo").setAttribute('disabled','disabled')
-    document.getElementById("AllyOneAttackThree").setAttribute('disabled','disabled')
-
 }
 // ###################################### // 
 // ###################################### //

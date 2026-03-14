@@ -1,5 +1,5 @@
 
-UP NEXT: Polish Game Over
+UP NEXT:Add a tutorial 1 on 1 fight between angel and devil cat
 
 
 What to do: 
@@ -7,7 +7,8 @@ What to do:
 Ensure No heal if dead works (I think it does???)
 Tutorial Page more more more!!!
 Balanceeee
-Add a tutorial 1 on 1 fight between angel and devil cat
+
+ Polish Game Over
 
 Stretch Goals: 
 Add a small campaign/challenge mode.

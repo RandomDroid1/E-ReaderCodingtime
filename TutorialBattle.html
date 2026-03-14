@@ -6,8 +6,8 @@
   <script src="file:///mnt/us/mesquito/sdk.js">
 
   </script>
-  <link href="./main.css" rel="stylesheet">
-  <script src="./main.js"></script>
+  <link href="./TutorialBattle.css" rel="stylesheet">
+  <script src="./OnePlayerGame.js"></script>
   <title>Fight!</title>
 </head>
 <body>
@@ -33,38 +33,21 @@
     <progress id="EnemyOneAttackMeterHTML" value="100" max="100"></progress>
   </div>
   <p id="GameOver"></p>
-  <button id="InfoButton" onclick="InformationButton()">Info</button>
   <div id="CoreMenu">
     <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">(1)Attack One</button>
     <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">(1)Attack Two</button>
     <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()">(1)Attack Three</button>
-    <button id="AllyTwoAttackOne" onclick="AllyTwoAttackButtonOne()">(2)Attack One</button>
-    <button id="AllyTwoAttackTwo"onclick="AllyTwoAttackButtonTwo()">(2)Attack Two</button>
-    <button id="AllyTwoAttackThree" onclick="AllyTwoAttackButtonThree()">(2)Attack Three</button>
     <p id="AllyOneLabel">Ally1Label</p>
-    <p id="AllyTwoLabel">Ally2Label</p>
-    <button id="LockInAllyOne" onclick="AllyOneLockInButton()">Lock in</button>
-    <button id="LockInAllyTwo" onclick="AllyTwoLockInButton()">Lock in</button>
-    <button id="TargetEnemyOneAllyOne" onclick="TargetEnemyOneAllyOneButton()">Target Enemy One</button>
-    <button id="TargetEnemyTwoAllyOne" onclick="TargetEnemyTwoAllyOneButton()">Target Enemy Two</button>
-    <button id="TargetEnemyOneAllyTwo" onclick="TargetEnemyOneAllyTwoButton()">Target Enemy One</button>
-    <button id="TargetEnemyTwoAllyTwo" onclick="TargetEnemyTwoAllyTwoButton()">Target Enemy Two</button>
-    <div id="MenuDivider"></div>
   </div>
   <img id="AllyOneImage" src="">
   <img id="AllyTwoImage" src="">
   <img id="EnemyOneImage" src="">
   <img id="EnemyTwoImage" src="">
-  <p id="EnemyOneAttackLog"></p>
-  <p id="AllyOneAttackLog"></p>
-  <p id="EnemyTwoAttackLog"></p>
-  <p id="AllyTwoAttackLog"></p>
+  <p id="EnemyOneAttackLog">T</p>
+  <p id="AllyOneAttackLog">T</p>
   <img id="AllyOneVirusMarker" src="">
   <img id="AllyOneFireMarker" src="">
-  <img id="AllyTwoVirusMarker" src="">
-  <img id="AllyTwoFireMarker" src="">
   <img id="SnowgraveEnemyOne" src="">
-  <img id="SnowgraveEnemyTwo" src="">
 </div>
   
 </body>
