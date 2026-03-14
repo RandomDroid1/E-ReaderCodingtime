@@ -11,29 +11,97 @@ html {
 }
 
 #FightOneTitle {
-  position: absolute;
   font-family:Georgia, 'Times New Roman', Times, serif;
-  left: 20px;
+  padding-left: 20px;
   padding-right: 20px;
-  top: 40px;
+  padding-top: 40px;
 }
 
 #FightOneTextBlurb {
-  position: absolute;
   font-size: large;
   padding-right: 20px;
-  left: 30px;
-  top: 120px;
+  padding-left: 30px;
+  margin-top: -10px;
 }
 
 #CampaignFightOneButton {
   border-width: 5px;
   border-radius: 1px;
-  position:absolute;
-  left: 35px;
-  top: 205px;
+  margin-left: 35px;
   font-size: large;
 }
+
+
+#FightTwoTitle {
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+#FightTwoTextBlurb {
+  font-size: large;
+  margin-right: 20px;
+  margin-left: 30px;
+  margin-top: -10px;
+}
+
+#CampaignFightTwoButton {
+  border-width: 5px;
+  border-radius: 1px;
+  margin-left: 35px;
+  font-size: large;
+}
+
+
+#FightThreeTitle {
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+#FightThreeTextBlurb {
+  font-size: large;
+  margin-right: 20px;
+  margin-left: 30px;
+  margin-top: -10px;
+}
+
+#CampaignFightThreeButton {
+  border-width: 5px;
+  border-radius: 1px;
+  margin-left: 35px;
+  font-size: large;
+}
+
+
+#FightFourTitle {
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+#FightFourTextBlurb {
+  font-size: large;
+  margin-right: 20px;
+  margin-left: 30px;
+  margin-top: -10px;
+}
+
+#CampaignFightFourButton {
+  border-width: 5px;
+  border-radius: 1px;
+  margin-left: 35px;
+  font-size: large;
+}
+
+
+
+
+
+
 #BackButton {
   position: absolute;
   top: 5px;
@@ -42,29 +110,3 @@ html {
   width: 200px;
 }
 
-#SnailModeButton {
-    position:absolute;
-    left: 300px;
-    top: 30px;
-}
-#SlowModeButton {
-    position:absolute;
-    left: 350px;
-    top: 30px;
-    border-width: 3px;
-}
-#StandardModeButton {
-    position:absolute;
-    left: 400px;
-    top: 30px;
-}
-#SpeedyModeButton {
-    position:absolute;
-    left: 475px;
-    top: 30px;
-}
-#SwiftModeButton {
-    position:absolute;
-    left: 540px;
-    top: 30px;
-}

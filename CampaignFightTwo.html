@@ -6,8 +6,8 @@
   <script src="file:///mnt/us/mesquito/sdk.js">
 
   </script>
-  <link href="./CampaignFightOne.css" rel="stylesheet">
-  <script src="./CampaignFightOne.js"></script>
+  <link href="./CampaignFightTwo.css" rel="stylesheet">
+  <script src="./CampaignFightTwo.js"></script>
   <title>Fight!</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     <Button id="SpeedyModeButton" onclick="SpeedyModeToggle()">Speedy</Button>
     <Button id="SwiftModeButton" onclick="SwiftModeToggle()">Swift</Button>
   <div id="EnemyOneHealthDiv">
-    <progress id="EnemyOneHealth" value="500" max="500">Enemy</progress>
+    <progress id="EnemyOneHealth" value="100" max="100">Enemy</progress>
     <p></p>
   </div>
 <br>
@@ -35,21 +35,18 @@
   <div id="EnemyOneAttackMeterDiv">
     <progress id="EnemyOneAttackMeterHTML" value="100" max="100"></progress>
   </div>
-  <p id="EnemyExplanation">NOW FIGHTING: DEVIL CAT!</p>
-  <p id="EnemyAttackOneExplanation">DevilCat Attack One: <b>Demonic Strike</b>; Deals 100-70 damage to an enemy</p>
-  <p id="EnemyAttackTwoExplanation">DevilCat Attack Two: <b>Damning</b>; Deals damage that increases by how much this move has been successfully used in the past, has a chance to backfire</p>
-  <p id="EnemyAttackThreeExplanation">DevilCat Attack Three: <b>Fire Blast</b>; Hits allies for ~50 damage once, and ~30 damage over a period of time</p>
-  
+  <p id="EnemyExplanation">NOW FIGHTING: COUGHING BABY!</p>
+  <p id="EnemyAttackOneExplanation">Coughing Baby Attack One: <b>Cough</b>; Takes 30 damage</p>
+  <p id="EnemyAttackTwoExplanation">Coughing Baby Attribute: <b>Resilient</b>; Shockingly resilient for a coughing baby with 100 hp</p>
   <div id="ColorDivHTML"><p id="TutorialBlurb"></p></div>
   <p id="GameOver"></p>
   <div id="CoreMenu">
-    <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">Heavenly Strike</button>
-    <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">Judgement</button>
-    <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()">Healing Prayer</button>
-    <p id="AttackOneExplanation">Heavenly Strike: Deals 150-40 damage to DevilCat</p>
-    <p id="AttackTwoExplanation">Judgement: Damages Devilcat for a quarter of the health AngelCat is missing</p>
-    <p id="AttackThreeExplanation">Healing prayer: Heals AngelCat for 150-1 Hp. Fairly simple, good in a pinch. It has better odds when AngelCat is at lower health</p>
-    <p id="AllyOneLabel">AngelCat</p>
+    <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">Explode</button>
+    <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">Wait</button>
+    <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()"></button>
+    <p id="AttackOneExplanation">Explode: Deal a ton of damage to yourself and anyone within 5 miles of you</p>
+    <p id="AttackTwoExplanation">Wait: Do nothing, just wait, see what the coughing baby does.</p>
+    <p id="AllyOneLabel">Hydrogen Bomb</p>
   </div>
   <img id="AllyOneImage" src="">
   <img id="AllyTwoImage" src="">
@@ -60,6 +57,7 @@
   <img id="AllyOneVirusMarker" src="">
   <img id="AllyOneFireMarker" src="">
   <img id="SnowgraveEnemyOne" src="">
+  <img id="BabyvsBomb" src="">
 </div>
   
 </body>

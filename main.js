@@ -3262,30 +3262,35 @@ function SnailModeToggle() {
     ButtonVisualReset()
     SpeedMode = "Snail"
     document.getElementById("SnailModeButton").style.borderWidth = "3px"
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
 }
 
 function SlowModeToggle() {
     ButtonVisualReset()
     SpeedMode = "Slow"
     document.getElementById("SlowModeButton").style.borderWidth = "3px"
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
 }
 
 function StandardModeToggle() {
     ButtonVisualReset()
     SpeedMode = "Standard"
     document.getElementById("StandardModeButton").style.borderWidth = "3px"
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
 }
 
 function SpeedyModeToggle() {
     ButtonVisualReset()
     SpeedMode = "Speedy"
     document.getElementById("SpeedyModeButton").style.borderWidth = "3px"
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
 }
 
 function SwiftModeToggle() {
     ButtonVisualReset()
     SpeedMode = "Swift"
     document.getElementById("SwiftModeButton").style.borderWidth = "3px"
+    localStorage.setItem("SpeedModeStorage",SpeedMode);
 }
 
 // now is time to connect to the start button & make variabrles for the timed things that change to make them scale with da new stuff. (including any sustained damage needs to be lowered/boosted)
