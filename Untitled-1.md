@@ -1,10 +1,10 @@
 
-UP NEXT:Add a tutorial 1 on 1 fight between angel and devil cat
+UP NEXT:Add a tutorial 1 on 1 fight between angel and devil cat.
+UP NEXT PRECISE: Add the text to js instead of css so that it doesnt block the start. I want a dialog zone above the enemies that flashes when it updates
 
 
 What to do: 
-
-Ensure No heal if dead works (I think it does???)
+Selection screen where you can choose between the tutorial, campaign mode, and chaos/standard mode
 Tutorial Page more more more!!!
 Balanceeee
 

@@ -235,7 +235,7 @@ function StartButton() { // Starts the enemies attack when clicked
     console.log("AllyOneHealth = " + AllyOneHealth.value)
     setTimeout(CheckHealth, 10); // is this ethical to 1ms timeout?
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
-    AllyOne = "Slugcat"
+    AllyOne = "AngelCat"
     EnemyOne = "DevilCat"
     SpeedMode = localStorage.getItem("SpeedModeStorage")
     SpeedSettings()
@@ -244,7 +244,9 @@ function StartButton() { // Starts the enemies attack when clicked
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
     TurnCaller()
     AllyOneMoveList()
-    
+    document.getElementById("StartButton").innerHTML = ""
+    document.getElementById("StartButton").style.width = "1px"
+    document.getElementById("StartButton").style.height = "1px"
 }
 
 function InformationButton() { /// Can I just call ally move list if InfoShown is true?
@@ -342,6 +344,7 @@ function HeavenlyStrikeOne() {
     AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40) // Slightly higher max than demonic strike w/ a larger range?
     AllyOneAttackType = "AttackEnemyOne"
     EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
+    console.log((AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense)
 }
 
 function JudgementOne() {
