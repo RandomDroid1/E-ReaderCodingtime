@@ -1,0 +1,93 @@
+html {
+  background-color: black;
+}
+
+#ScreenSize {
+  position: absolute;
+  width: 600px;
+  height: 800px;
+  background-color: rgb(255, 251, 201);
+
+}
+
+#TutorialTitle {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 20px;
+  padding-right: 20px;
+  top: 40px;
+}
+
+#TutorialTextBlurb {
+  position: absolute;
+  font-size: large;
+  padding-right: 20px;
+  left: 30px;
+  top: 120px;
+}
+
+#TutorialFightButton {
+  border-width: 5px;
+  border-radius: 1px;
+  position:absolute;
+  left: 35px;
+  top: 205px;
+  font-size: large;
+}
+#BackButton {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  height: 30px;
+  width: 150px;
+}
+
+
+
+#CampaignTitle {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 20px;
+  padding-right: 20px;
+  top: 250px;
+}
+#CampaignTextBlurb {
+  position: absolute;
+  font-size: large;
+  padding-right: 20px;
+  left: 30px;
+  top: 290px;
+}
+#CampaignFightButton {
+  border-width: 5px;
+  border-radius: 1px;
+  position:absolute;
+  left: 35px;
+  top: 375px;
+  font-size: large;
+}
+
+
+
+#MultiTitle {
+  position: absolute;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  left: 20px;
+  padding-right: 20px;
+  top: 420px;
+}
+#MultiTextBlurb {
+  position: absolute;
+  font-size: large;
+  padding-right: 20px;
+  left: 30px;
+  top: 460px;
+}
+#MultiFightButton {
+  border-width: 5px;
+  border-radius: 1px;
+  position:absolute;
+  left: 35px;
+  top: 545px;
+  font-size: large;
+}

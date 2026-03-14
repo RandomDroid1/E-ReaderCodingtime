@@ -365,23 +365,24 @@ function TurnCallerDelay() {
     TurnCaller()
 }
 function TutorialTextOne() {
-    document.getElementById("TutorialBlurb").innerText = "Hello!! The game will fully start in 10 seconds, while you are here, make sure to take a look at the buttons down there, and what attacks they do."
-    setTimeout(TurnCallerDelay, 10000)
-    setTimeout(TutorialTextTwo, 5000)
+    ColorFlash()
+    document.getElementById("TutorialBlurb").innerText = "Hello!! The game will fully start in 30 seconds, while you are here, make sure to take a look at the buttons down there, and what attacks they do."
+    setTimeout(TurnCallerDelay, 30000)
+    setTimeout(TutorialTextTwo, 15000)
 }
 function TutorialTextTwo() {
     ColorFlash()
-    document.getElementById("TutorialBlurb").innerText = "That flash happens when the text here updates, because no sound cues on an e-reader ): Also you can select an attack while you are waiting if you want."
-    setTimeout(TutorialTextThree, 5100)
+    document.getElementById("TutorialBlurb").innerText = "That flash happens when the text here updates, because no sound cues on an e-reader ): Also you can select an attack while you are waiting if you want. You still have 15 seconds"
+    setTimeout(TutorialTextThree, 15100)
     }
 
 function TutorialTextThree() {
     ColorFlash()
-    if(AllyOneAttackNumber != 0) {
+    if(AllyAttackNumber != 0) {
         document.getElementById("TutorialBlurb").innerText = "Nice hit! He hit you back, but like you don't feel it so who cares." // is this game even fun it's just click buttons simulator
         setTimeout(TutorialTextFinalMain, 3000)
     }
-    if(AllyOneAttackNumber == 0) {
+    if(AllyAttackNumber == 0) {
         document.getElementById("TutorialBlurb").innerText = "):"
     }
 }    

@@ -303,11 +303,14 @@ function StartButton() { // Starts the enemies attack when clicked
     document.getElementById("AllyTwoImage").src = AllyTwo+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
     document.getElementById("EnemyTwoImage").src = EnemyTwo+".png"
-    
     TurnCaller()
     AllyOneMoveList()
     AllyTwoMoveList()
-    
+    EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max
+    AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
+    AllyTwoAttackMeterHTML.value = AllyTwoAttackMeterHTML.max
+    EnemyTwoAttackMeterHTML.value = EnemyTwoAttackMeterHTML.max
+
 }
 
 function InformationButton() { /// Can I just call ally move list if InfoShown is true?
@@ -2201,7 +2204,7 @@ function EnemyOneFireDamager() {
         AllyOneHealth.value -= EnemyOneFireAttackValue
         AllyTwoHealth.value -= EnemyOneFireAttackValue
     }
-    if(EnemyOneFireCounter == FireThreshold) {
+    if(EnemyOneFireCounter == FireIntervalThreshold) {
         EnemyOneFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         document.getElementById("AllyTwoFireMarker").src = ""
@@ -2216,7 +2219,7 @@ function EnemyTwoFireDamager() {
         AllyOneHealth.value -= EnemyTwoFireAttackValue
         AllyTwoHealth.value -= EnemyTwoFireAttackValue
     }
-    if(EnemyTwoFireCounter == FireThreshold) {
+    if(EnemyTwoFireCounter == FireIntervalThreshold) {
         EnemyTwoFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         document.getElementById("AllyTwoFireMarker").src = ""

@@ -7,7 +7,7 @@
 
   </script>
   <link href="./TutorialBattle.css" rel="stylesheet">
-  <script src="./OnePlayerGame.js"></script>
+  <script src="./TutorialBattle.js"></script>
   <title>Fight!</title>
 </head>
 <body>
@@ -31,28 +31,28 @@
   <div id="EnemyOneAttackMeterDiv">
     <progress id="EnemyOneAttackMeterHTML" value="100" max="100"></progress>
   </div>
-  <p id="EnemyExplanation"></p>
-  <p id="EnemyAttackOneExplanation"></p>
-  <p id="EnemyAttackTwoExplanation"></p>
-  <p id="EnemyAttackThreeExplanation"></p>
+  <p id="EnemyExplanation">YOU ARE FIGHTING: Producer of chaos, deity of doom, DEVIL CAT!</p>
+  <p id="EnemyAttackOneExplanation">DevilCat Attack One: Demonic Strike; Deals 100-50 damage to an enemy</p>
+  <p id="EnemyAttackTwoExplanation">DevilCat Attack Two: Damning; Deal 50-25 damage to all Ally(ies)</p>
+  <p id="EnemyAttackThreeExplanation">DevilCat Attack Three: Fire Blast; Hits allies for ~30 damage once, and ~20 damage over a period of time</p>
   
-  <div id="ColorDivHTML"><p id="TutorialBlurb">TutorialBlurb</p></div>
+  <div id="ColorDivHTML"><p id="TutorialBlurb"></p></div>
   <p id="GameOver"></p>
   <div id="CoreMenu">
-    <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">(1)Attack One</button>
-    <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">(1)Attack Two</button>
-    <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()">(1)Attack Three</button>
-    <p id="AttackOneExplanation"></p>
-    <p id="AttackTwoExplanation"></p>
-    <p id="AttackThreeExplanation"></p>
-    <p id="AllyOneLabel">Ally1Label</p>
+    <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">Heavenly Strike</button>
+    <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">Judgement</button>
+    <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()">Healing Prayer</button>
+    <p id="AttackOneExplanation">Heavenly Strike: Deals 150-40 damage. It hits one enemy, which you would select here if there were two</p>
+    <p id="AttackTwoExplanation">Judgement: Damages Enemy(ies) for 75-30 damage. Not super good with only one enemy...</p>
+    <p id="AttackThreeExplanation">Healing prayer: Heals ally(ies) for 75-25 Hp. Fairly simple, good in a pinch.</p>
+    <p id="AllyOneLabel">AngelCat</p>
   </div>
   <img id="AllyOneImage" src="">
   <img id="AllyTwoImage" src="">
   <img id="EnemyOneImage" src="">
   <img id="EnemyTwoImage" src="">
-  <p id="EnemyOneAttackLog">T</p>
-  <p id="AllyOneAttackLog">T</p>
+  <p id="EnemyOneAttackLog"></p>
+  <p id="AllyOneAttackLog"></p>
   <img id="AllyOneVirusMarker" src="">
   <img id="AllyOneFireMarker" src="">
   <img id="SnowgraveEnemyOne" src="">

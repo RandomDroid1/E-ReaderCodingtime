@@ -1,17 +1,16 @@
 
-UP NEXT:Add a tutorial 1 on 1 fight between angel and devil cat.
-UP NEXT PRECISE: Add the text to js instead of css so that it doesnt block the start. I want a dialog zone above the enemies that flashes when it updates
+UP NEXT: Finish the tutorial & work on the mode selection screen
+UP NEXT PRECISE: Mode selection screen
 
 
 What to do: 
-Selection screen where you can choose between the tutorial, campaign mode, and chaos/standard mode
-Tutorial Page more more more!!!
 Balanceeee
 
  Polish Game Over
 
 Stretch Goals: 
 Add a small campaign/challenge mode.
+add a little graphic of two characters that changes each load in on mode selection
 
 
 TEMP REMOVED FROM TURNCALLER:
