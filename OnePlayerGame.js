@@ -407,11 +407,13 @@ function SpearOne() {
     AllyOneAttackValue = (Math.floor(Math.random()*(5-1)+1))* AllyOneAttackMultiplier
     if (AllyOneAttackValue == 4) {
         AllyOneAttackType = "AttackEnemyOne"
-        AllyOneAttackValue = 99999999999999
+        AllyOneAttackValue = 9999999
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", dealing " + AllyOneAttackValue + " damage to " + EnemyOne
     }
     else {
-         AllyOneAttackType = "Missed"
+        AllyOneAttackType = "Missed"
         AllyOneAttackValue = 0
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " missed!"
     }
 }
 
@@ -748,6 +750,9 @@ function AllyOneTextUpdater() {
     }
     if(AllyOneAttackType == "HealAllies") {
         document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + AllyOne
+    }
+    if(AllyOneAttackType == "Missed") {
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " missed!"
     }
 }
 

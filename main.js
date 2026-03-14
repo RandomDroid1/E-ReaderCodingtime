@@ -970,6 +970,12 @@ function AllyOneTextUpdater() {
     if(AllyOneAttackType == "HealAllies") {
         document.getElementById("AllyOneAttackLog").innerText = AllyOne + " Used " + AllyOneAttackUsed + ", healing " + AllyOneAttackValue + " health for " + AllyOne + " and " + AllyTwo
     }
+    if(AllyOneAttackType == "Snowgrave") {
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " proceeded."
+    }
+    if(AllyOneAttackType == "Missed") {
+        document.getElementById("AllyOneAttackLog").innerText = AllyOne + " missed!"
+    }
 }
 
 
@@ -1501,6 +1507,9 @@ function AllyTwoTextUpdater() {
     }
     if(AllyTwoAttackType == "Snowgrave") {
         document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " proceeded."
+    }
+    if(AllyTwoAttackType == "Missed") {
+        document.getElementById("AllyTwoAttackLog").innerText = AllyTwo + " missed!"
     }
 }
 
