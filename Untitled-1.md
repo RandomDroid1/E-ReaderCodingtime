@@ -1,6 +1,6 @@
 
-UP NEXT: Finish the tutorial & work on the mode selection screen
-UP NEXT PRECISE: Mode selection screen
+UP NEXT: Campaign Fight 3
+UP NEXT PRECISE: 
 
 
 What to do: 
@@ -9,7 +9,7 @@ Balanceeee
  Polish Game Over
 
 Stretch Goals: 
-Add a small campaign/challenge mode.
+If you succesfully tame the lizard, you move onto a mode where both you and lizard fight a larger lizard
 add a little graphic of two characters that changes each load in on mode selection
 
 

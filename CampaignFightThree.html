@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no"/>
+  <script src="file:///mnt/us/mesquito/polyfill.min.js"></script>
+  <script src="file:///mnt/us/mesquito/sdk.js">
+
+  </script>
+  <link href="./CampaignFightThree.css" rel="stylesheet">
+  <script src="./CampaignFightThree.js"></script>
+  <title>Fight!</title>
+</head>
+<body>
+<div id="ScreenSize">
+  <button id="StartButton" onclick="StartButton()">Start</button>
+    <Button id="SnailModeButton" onclick="SnailModeToggle()">Snail</Button>
+    <Button id="SlowModeButton" onclick="SlowModeToggle()">Slow</Button>
+    <Button id="StandardModeButton" onclick="StandardModeToggle()">Standard</Button>
+    <Button id="SpeedyModeButton" onclick="SpeedyModeToggle()">Speedy</Button>
+    <Button id="SwiftModeButton" onclick="SwiftModeToggle()">Swift</Button>
+  <div id="EnemyOneHealthDiv">
+    <progress id="EnemyOneHealth" value="500" max="500">Enemy</progress>
+    <p></p>
+  </div>
+<br>
+  <div id="AllyOneHealthDiv">
+    <progress id="AllyOneHealth" value="500" max="500">Player</progress> 
+    <p></p>
+  </div>
+
+  <div id="AllyOneAttackMeterDiv">
+    <progress id="AllyOneAttackMeterHTML" value="100" max="100"></progress>
+  </div>
+
+  <div id="EnemyOneAttackMeterDiv">
+    <progress id="EnemyOneAttackMeterHTML" value="100" max="100"></progress>
+  </div>
+  <p id="EnemyExplanation">NOW FIGHTING: LIZARD!</p>
+  <p id="EnemyAttackOneExplanation">LIZARD Attack One: <b>BITE</b>; A flat 100 damage, consistent.</p>
+  <p id="EnemyAttackTwoExplanation">LIZARD Attack Two: <b>Camouflage</b>; Turns invisible for two turns, giving ally attacks a 50% chance to miss!</p>
+  <p id="EnemyAttackThreeExplanation">LIZARD Attack Three: <b>Lunge</b>; Deals 10-100 damage, and increases it's speed for 3 turns</p>
+  
+  <div id="ColorDivHTML"><p id="TutorialBlurb"></p></div>
+  <p id="GameOver"></p>
+  <div id="CoreMenu">
+    <button id="AllyOneAttackOne" onclick="AllyOneAttackButtonOne()">Spear</button>
+    <button id="AllyOneAttackTwo" onclick="AllyOneAttackButtonTwo()">Tame</button>
+    <button id="AllyOneAttackThree" onclick="AllyOneAttackButtonThree()">The Rot</button>
+    <p id="AttackOneExplanation">Spear: Deals 1-200 damage, biased toward lower amounts. Has a 25% chance to miss.</p>
+    <p id="AttackTwoExplanation">Tame: Attempt to tame the lizard by feeding it.</p>
+    <p id="AttackThreeExplanation">The Rot: Heals for 300 health, in exchange for permanent poison, which stacks.</p>
+    <p id="AllyOneLabel">AngelCat</p>
+  </div>
+  <img id="AllyOneImage" src="">
+  <img id="AllyTwoImage" src="">
+  <img id="EnemyOneImage" src="">
+  <img id="EnemyTwoImage" src="">
+  <p id="EnemyOneAttackLog"></p>
+  <p id="AllyOneAttackLog"></p>
+  <img id="AllyOneVirusMarker" src="">
+  <img id="AllyOneFireMarker" src="">
+  <img id="SnowgraveEnemyOne" src="">
+</div>
+  
+</body>
+</html>
