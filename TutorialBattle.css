@@ -225,3 +225,39 @@ button {
     left: 200px;
     top: 125px;
 }
+
+#EnemyExplanation {
+  position: absolute;
+  font-size: larger;
+  font-weight: bold;
+  left: 5px;
+  top: 60px;
+}
+#EnemyAttackOneExplanation {
+  position: absolute;
+  left: 5px;
+  top: 90px;
+}
+#EnemyAttackTwoExplanation {
+  position: absolute;
+  left: 5px;
+  top: 120px;
+}
+#EnemyAttackThreeExplanation {
+  position: absolute;
+  left: 5px;
+  top: 150px;
+}
+#TutorialBlurb {
+  position: absolute;
+  left: 10px;
+  padding-right: 10px;
+  font-size: large;
+}
+#ColorDivHTML {
+  position: absolute;
+  background-color: rgb(156, 156, 156);
+  bottom: 475px;
+  width: 600px;
+  height: 100px;
+}

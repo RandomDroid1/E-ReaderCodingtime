@@ -2420,7 +2420,7 @@ function DemonicStrikeOne() {
 
     } else {
         EnemyOneAttackNumber += 1;
-        EnemyOneAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
+        EnemyOneAttackValue = Math.floor(Math.random() * (101 - 50) + 50);
         EnemyOneAttackTarget = Math.floor(Math.random() * (7-1)+1) // Generates a random number 1-6
         if (AllyOneHealth.value > AllyTwoHealth.value) { // If ally one has more health than ally two, 2/3rds chance to attack ally one
             if (EnemyOneAttackTarget  <= 4) { 

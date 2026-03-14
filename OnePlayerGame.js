@@ -242,11 +242,13 @@ function StartButton() { // Starts the enemies attack when clicked
     console.log("GAME SPEED = " + SpeedMode)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
-    TurnCaller()
+    
     AllyOneMoveList()
     document.getElementById("StartButton").innerHTML = ""
     document.getElementById("StartButton").style.width = "1px"
     document.getElementById("StartButton").style.height = "1px"
+    ExtraTextFufiller()
+    TutorialTextOne()
 }
 
 function InformationButton() { /// Can I just call ally move list if InfoShown is true?
@@ -332,6 +334,74 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
 
 }
 
+
+
+// ############################# // 
+// ############################# // 
+// ####### TUTORIAL TEXT ####### // 
+// ############################# // 
+// ############################# // 
+function ColorFlash() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(252, 246, 171);")
+    setTimeout(ColorFlash1, 100)
+}
+function ColorFlash1() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(255, 223, 120)171);")
+    setTimeout(ColorFlash2, 100)
+}
+function ColorFlash2() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(219, 166, 123);")
+    setTimeout(ColorFlash3, 100)
+}
+function ColorFlash3() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(252, 224, 146);")
+    setTimeout(ColorFlash4, 100)
+}
+function ColorFlash4() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(236, 233, 184);")
+}
+
+function TurnCallerDelay() {
+    TurnCaller()
+}
+function TutorialTextOne() {
+    document.getElementById("TutorialBlurb").innerText = "Hello!! The game will fully start in 10 seconds, while you are here, make sure to take a look at the buttons down there, and what attacks they do."
+    setTimeout(TurnCallerDelay, 10000)
+    setTimeout(TutorialTextTwo, 5000)
+}
+function TutorialTextTwo() {
+    ColorFlash()
+    document.getElementById("TutorialBlurb").innerText = "That flash happens when the text here updates, because no sound cues on an e-reader ): Also you can select an attack while you are waiting if you want."
+    setTimeout(TutorialTextThree, 5100)
+    }
+
+function TutorialTextThree() {
+    ColorFlash()
+    if(AllyOneAttackNumber != 0) {
+        document.getElementById("TutorialBlurb").innerText = "Nice hit! He hit you back, but like you don't feel it so who cares." // is this game even fun it's just click buttons simulator
+        setTimeout(TutorialTextFinalMain, 3000)
+    }
+    if(AllyOneAttackNumber == 0) {
+        document.getElementById("TutorialBlurb").innerText = "):"
+    }
+}    
+
+function TutorialTextFinalMain() {
+    ColorFlash()
+    document.getElementById("TutorialBlurb").innerText = "Looks like you got this fiend handled! I'm going to kick up the speed, good luck?"
+}
+function ExtraTextFufiller() {
+    document.getElementById("AttackOneExplanation").innerText = "Heavenly Strike: Deals 150-40 damage. It hits one enemy, which you would select here if there were two"
+    document.getElementById("AttackTwoExplanation").innerText = "Judgement: Damages Enemy(ies) for 75-30 damage. Not super good with only one enemy..."
+    document.getElementById("AttackThreeExplanation").innerText = "Healing prayer: Heals ally(ies) for 75-25 Hp. Fairly simple, good in a pinch."
+    document.getElementById("EnemyExplanation").innerText = "YOU ARE FIGHTING: Producer of chaos, deity of doom, DEVIL CAT!"
+    document.getElementById("EnemyAttackOneExplanation").innerText = "DevilCat Attack One: Demonic Strike; Deals 100-50 damage to an enemy"
+    document.getElementById("EnemyAttackTwoExplanation").innerText = "DevilCat Attack Two: Damning; Deal 50-25 damage to all Ally(ies)"
+    document.getElementById("EnemyAttackThreeExplanation").innerText = "DevilCat Attack Three: Fire Blast; Hits allies for ~30 damage once, and ~20 damage over a period of time"
+}
+
+
+
 // ################################ // 
 // ################################ // 
 // ####### Ally ONE ATTACKS ####### // 
@@ -345,6 +415,7 @@ function HeavenlyStrikeOne() {
     AllyOneAttackType = "AttackEnemyOne"
     EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
     console.log((AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense)
+    ColorFlash()
 }
 
 function JudgementOne() {
@@ -1255,8 +1326,7 @@ function DemonicStrikeOne() {
 
     } else {
         EnemyOneAttackNumber += 1;
-        EnemyOneAttackValue = Math.floor(Math.random() * (76 - 50) + 50);
-        EnemyOneAttackTarget = Math.floor(Math.random() * (7-1)+1) // Generates a random number 1-6
+        EnemyOneAttackValue = Math.floor(Math.random() * (101 - 50) + 50);
         EnemyOneAttackTarget = "AllyOne"}
 }
 
