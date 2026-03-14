@@ -6,7 +6,7 @@ var EnemyOneDefense = 0;
 
 var EnemyOneAttack = "none";
 
-var GameIsOver = false;
+var GameIsOver = "false";
 
 var CharacterSelected = "none";
 var FactionSelected = "none";
@@ -119,7 +119,6 @@ console.log("NoneRan")
 // ############################## // 
 
 function SpeedSettings() {// I could probably do this with math but i dont wanna
-    SpeedMode = "Snail"
     console.log(SpeedMode + AllyOneAttackMeterHTML.max)
     if(SpeedMode == "Snail") {
         console.log("Snail Speed Activated")
@@ -174,13 +173,10 @@ function GameIsOverCheck() {
     console.log(AllyOneAttackType)
 }
 // ####### START & consistent Checks ####### //
-function StartGame() {
-    if (AllyOneSelected == true && EnemyOneSelected == true){
-    localStorage.setItem("SpeedModeStorage",SpeedMode);
-    location.assign("FightScreen.html")}
-}
+
 
 function StartButton() { // Starts the enemies attack when clicked
+    SpeedMode = "Snail"
     VariableUpdater()
     console.log(AllyOne, EnemyOne)
     console.log("Started");
@@ -190,7 +186,6 @@ function StartButton() { // Starts the enemies attack when clicked
     document.getElementById("StartButton").setAttribute('disabled','disabled'); // IT WORKS IT WORKS
     AllyOne = "AngelCat"
     EnemyOne = "DevilCat"
-    SpeedMode = localStorage.getItem("SpeedModeStorage")
     SpeedSettings()
     console.log("GAME SPEED = " + SpeedMode)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
@@ -210,14 +205,20 @@ function GameOver() {
     if (EnemyOneHealth.value <= 0) {
         document.getElementById("GameOver").innerHTML = "Game over! You Won";
         GameIsOver = "true"
+        BaseGameOver()
+        GameOverWin()
     } 
     if (AllyOneHealth.value <= 0) {
         document.getElementById("GameOver").innerHTML = "Game over! You Lost ):<";
         GameIsOver = "true"
+        BaseGameOver()
+        GameOverLoss()
     } 
     if (EnemyOneHealth.value <= 0 && AllyOneHealth.value <= 0) {
         document.getElementById("GameOver").innerHTML = "Game over! You ALL LOSE";
         GameIsOver = "true"
+        BaseGameOver()
+        GameOverTie()
     };
     
 
@@ -238,8 +239,51 @@ function CheckHealth() { // Checks health of Ally and enemy, does needed updates
 
 }
 
+// ############################### // 
+// ############################### // 
+// ####### Game Over Stuff ####### // 
+// ############################### // 
+// ############################### // 
 
+function BaseGameOver() {
+    document.getElementById("EnemyExplanation").innerText = ""
+    document.getElementById("EnemyAttackOneExplanation").innerText = ""
+    document.getElementById("EnemyAttackTwoExplanation").innerText = ""
+    document.getElementById("EnemyAttackThreeExplanation").innerText = ""
+    document.getElementById("AttackOneExplanation").innerText = ""
+    document.getElementById("AttackTwoExplanation").innerText = ""
+    document.getElementById("AttackThreeExplanation").innerText = ""
+    document.getElementById("AllyOneLabel").innerText = "OPTIONS"
+    document.getElementById("AllyOneAttackOne").style.width = "580px"
+    document.getElementById("AllyOneAttackTwo").style.width = "580px"
+    document.getElementById("AllyOneAttackThree").style.width = "580px"
+    document.getElementById("AllyOneAttackOne").innerText = "REPLAY"
+    document.getElementById("AllyOneAttackTwo").innerText = "RETURN TO MODE SELECTION SCREEN"
+    document.getElementById("AllyOneAttackThree").innerText = "JUMP TO CAMPAIGN MODE"
+}
 
+function GameOverLoss() {
+    ColorFlash()
+    document.getElementById("TutorialBlurb").innerText = "You lost... If you want to retry, or do anything else, those buttons down there where the attacks were will help you do that."
+}
+function GameOverWin() {
+    document.getElementById("TutorialBlurb").innerText = "You WON!!!!! If you want to retry, or do anything else, those buttons down there where the attacks were will help you do that. Good job!"
+}
+function GameOverTie() {
+    document.getElementById("TutorialBlurb").innerText = "You tied???? Was it because of fire damage? It was probably because of fire damage. If you want to retry, or do anything else, those buttons down there where the attacks were will help you do that."
+}
+
+function ReplayButton() {
+    window.location.reload();
+}
+
+function ReturnModeSelectionButton() {
+    window.location.href = "ModeSelection.html"
+}
+
+function CampaignModeButton() {
+    window.location.href = "CampaignBattleSelection.html"
+}
 // ############################# // 
 // ############################# // 
 // ####### TUTORIAL TEXT ####### // 
@@ -271,29 +315,39 @@ function TurnCallerDelay() {
 function TutorialTextOne() {
     ColorFlash()
     document.getElementById("TutorialBlurb").innerText = "Hello!! The game will fully start in 30 seconds, while you are here, make sure to take a look at the buttons down there, and what attacks they do. If you have time, the text above explains the moves your enemy has! "
-    setTimeout(TurnCallerDelay, 30000)
     setTimeout(TutorialTextTwo, 15000)
 }
 function TutorialTextTwo() {
     ColorFlash()
     document.getElementById("TutorialBlurb").innerText = "That flash happens when the text here updates, because no sound cues on an e-reader ): Also you can select an attack while you are waiting if you want. You still have 15 seconds"
-    setTimeout(TutorialTextThree, 15100)
+    setTimeout(TutorialTextThree, 15000)
+    setTimeout(TurnCallerDelay, 10000)
     }
 
 function TutorialTextThree() {
     ColorFlash()
-    if(AllyAttackNumber != 0) {
+    if(AllyAttackNumber == 1) {
         document.getElementById("TutorialBlurb").innerText = "Nice hit! He hit you back, but like you don't feel it so who cares." // is this game even fun it's just click buttons simulator
-        setTimeout(TutorialTextFinalMain, 3000)
+        setTimeout(TutorialTextFinalMain, 10000)
     }
     if(AllyAttackNumber == 0) {
-        document.getElementById("TutorialBlurb").innerText = "):"
+        document.getElementById("TutorialBlurb").innerText = "): Click the button ):"
+        setTimeout(TutorialTextFinalMain, 10000)
     }
 }    
 
 function TutorialTextFinalMain() {
     ColorFlash()
     document.getElementById("TutorialBlurb").innerText = "Looks like you got this fiend handled! I'm going to kick up the speed in 10 seconds, good luck?"
+    setTimeout(SpeedIncrease, 10000)
+}
+
+function SpeedIncrease() {
+    ColorFlash()
+    document.getElementById("TutorialBlurb").innerText = ""
+    SpeedMode = "Slow"
+    console.log("SpeedChanged")
+    SpeedSettings()
 }
 function ExtraTextFufiller() {
     document.getElementById("AttackOneExplanation").innerText = "Heavenly Strike: Deals 150-40 damage. It hits one enemy, which you would select here if there were two"
@@ -316,11 +370,10 @@ function ExtraTextFufiller() {
 function HeavenlyStrikeOne() {
     console.log("HeavenlyUsed")
     AllyAttackNumber += 1;
-    AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40) // Slightly higher max than demonic strike w/ a larger range?
+    AllyOneAttackValue = AllyOneAttackValue = Math.floor(Math.random() * (151-40)+40) // Slightly higher max than demonic strike w/ a larger range?
     AllyOneAttackType = "AttackEnemyOne"
     EnemyOneHealth.value -= (AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense
     console.log((AllyOneAttackValue * AllyOneAttackMultiplier) - EnemyOneDefense)
-    ColorFlash()
 }
 
 function JudgementOne() {
@@ -403,22 +456,38 @@ function AllyOneAttackButtonReset() {
     document.getElementById("AllyOneAttackThree").style.borderWidth = "2px"
 }
 function AllyOneAttackButtonOne() {
-    AllyOneAttackButtonReset()
-    console.log("AttackOneSelected")
-    AllyOneAttackSelected = "One"
-    document.getElementById("AllyOneAttackOne").style.borderWidth = "5px"
+    if(GameIsOver == "false") {
+        AllyOneAttackButtonReset()
+        console.log("AttackOneSelected")
+        AllyOneAttackSelected = "One"
+        document.getElementById("AllyOneAttackOne").style.borderWidth = "5px"
+    }
+    if(GameIsOver == "true") {
+        ReplayButton()
+    }
 }
 function AllyOneAttackButtonTwo() {
+    if(GameIsOver == "false") {
     AllyOneAttackButtonReset()
     AllyOneAttackSelected = "Two"
     console.log("AttackTwoSelected")
-    document.getElementById("AllyOneAttackTwo").style.borderWidth = "5px"
+    document.getElementById("AllyOneAttackTwo").style.borderWidth = "5px"}
+    // Return to mode selection
+    if(GameIsOver == "true") {
+        ReturnModeSelectionButton()
+    }
 }
 function AllyOneAttackButtonThree() {
+    if(GameIsOver == "false") {
     AllyOneAttackButtonReset()
     AllyOneAttackSelected = "Three"
     console.log("AttackThreeSelected")
-    document.getElementById("AllyOneAttackThree").style.borderWidth = "5px"
+    document.getElementById("AllyOneAttackThree").style.borderWidth = "5px"}
+    // Portal to campaign mode
+    if(GameIsOver == "true") {
+        CampaignModeButton()
+    }
+
 }
 // ###################################### // 
 // ###################################### //
