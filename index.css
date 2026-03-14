@@ -41,3 +41,17 @@ h1 {
     margin-top: -10px;
     padding-left: 5px;
 }
+
+#ContinueButton {
+    font-size: larger;
+    border-radius: 3px;
+    position: absolute;
+    left: 20px;
+}
+
+#TutorialFightButton {
+    font-size: larger;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+}

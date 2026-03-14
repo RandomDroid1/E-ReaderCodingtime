@@ -1750,10 +1750,10 @@ function EnemyOneAttacker() {
             document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Domain, sacrificing 50 health to permanently increase the enemies defense by 15"
         }
         if (EnemyOneAttackTarget == "GrabOne") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyOne + "'s max health"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyOneAttackValue - 30) + " of " + AllyOne + "'s max health"
         }
         if (EnemyOneAttackTarget == "GrabTwo") {
-            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyTwoAttackValue - 30) + " of " + AllyTwo + "'s max health"
+            document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Grab, dealing " + EnemyOneAttackValue + " damage, and erasing " + Math.floor(EnemyOneAttackValue - 30) + " of " + AllyTwo + "'s max health"
         }
         if (EnemyOneAttackTarget == "PaperAirplane") {
              document.getElementById("EnemyOneAttackLog").innerText = EnemyOne + " used Paper Airplane, increasing Fold's damage!"
@@ -2595,13 +2595,13 @@ function GrabOne() {
     }
     if (EnemyOneAttackTarget == 1) {
         EnemyOneAttackTarget = "GrabOne"
-        AllyOneHealth.value -= EnemyTwoAttackValue
-        AllyOneHealth.max -= Math.floor(EnemyTwoAttackValue - 30)
+        AllyOneHealth.value -= EnemyOneAttackValue
+        AllyOneHealth.max -= Math.floor(EnemyOneAttackValue - 30)
     }
     if (EnemyOneAttackTarget == 2) {
         EnemyOneAttackTarget = "GrabTwo"
-        AllyTwoHealth.value -= EnemyTwoAttackValue
-        AllyTwoHealth.max -= Math.floor(EnemyTwoAttackValue - 30)
+        AllyTwoHealth.value -= EnemyOneAttackValue
+        AllyTwoHealth.max -= Math.floor(EnemyOneAttackValue - 30)
     }
 }
 

@@ -4,12 +4,10 @@ UP NEXT: Polish Game Over
 
 What to do: 
 
-Ensure No heal if dead works
-Add a way to choose a fast & slow mode, maybe defaulting to slow mode? this game feels fast and hard to process, maybe am jyust tired
-Tutorial Page
+Ensure No heal if dead works (I think it does???)
+Tutorial Page more more more!!!
 Balanceeee
 Add a tutorial 1 on 1 fight between angel and devil cat
-Add a info button where it shows a description of the move instead of the move name?
 
 Stretch Goals: 
 Add a small campaign/challenge mode.
