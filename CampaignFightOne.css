@@ -258,3 +258,41 @@ button {
     left: 340px;
     top: 10px;
 }
+
+#DemonicStrikeAnimationID {
+  width: 200px;
+  position: absolute;
+  right: 75px;
+  bottom: 345px;
+}
+#DamningAnimationID {
+  width: 150px;
+  position: absolute;
+  right: 20px;
+  bottom: 230px;
+}
+#FireBlastAnimationID {
+  width: 220px;
+  position: absolute;
+  right: 150px;
+  bottom: 250px;
+}
+#HeavenlyStrikeAnimationID {
+  width: 200px;
+  position: absolute;
+  left: 75px;
+  bottom: 345px;
+}
+#JudgementAnimationID {
+  width: 400px;
+  position: absolute;
+  right: 100px;
+  bottom: 150px;
+  opacity: .5;
+}
+#HealingPrayerAnimationID {
+  width: 70px;
+  position: absolute;
+  right: 60px;
+  bottom: 380px;
+}

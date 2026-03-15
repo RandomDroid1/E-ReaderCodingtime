@@ -84,7 +84,7 @@ var VirusThreshold = 0 // how many seconds it takes for the virus to wear off
 var EnemyOneFireAttackValue = 0
 var FireIntervalVariable = 0
 var FireThreshold = 0
-
+var RotDamage = 0
 var CamoTimer = 0
 var Camouflaged = false
 var LizardTamed = "false"
@@ -108,81 +108,38 @@ function SpeedSettings() {// I could probably do this with math but i dont wanna
         console.log("Snail Speed Activated")
         AllyOneAttackMeterHTML.max = 200 // 8 seconds
         EnemyOneAttackMeterHTML.max = 200 
-        EnemySlowAmount = 100
-        TheMarkInitial = 35
-        TheMarkIncrease = 20
-        HookCounterInitial = 15
-        HookCounterIncrease = 10
-        VirusDamage = 10
-        VirusThreshold = 16
-        EnemyOneFireAttackValue = 5
-        FireIntervalThreshold = 8
-        ReduceInitialAmount = 25
-        ReduceIncreaseAmount = 10
+        EnemySlowAmount = 75
+        RotDamage = .5
     }
     if(SpeedMode == "Slow") {
         console.log("Slow Speed Activated")
         AllyOneAttackMeterHTML.max = 150 // 6 seconds
         EnemyOneAttackMeterHTML.max = 150 
-        EnemySlowAmount = 50
-        TheMarkInitial = 30
-        TheMarkIncrease = 20
-        HookCounterInitial = 10
-        HookCounterIncrease = 5
-        VirusDamage = 10
-        VirusThreshold = 12
-        EnemyOneFireAttackValue = 5
-        FireIntervalThreshold = 6
-        ReduceInitialAmount = 20
-        ReduceIncreaseAmount = 10
+        EnemySlowAmount = 25
+        RotDamage = 1
+
     }
     if(SpeedMode == "Standard") { // complete
         console.log("Standard Speed Activated")
         AllyOneAttackMeterHTML.max = 100 // 4 seconds
         EnemyOneAttackMeterHTML.max = 100 
-        EnemySlowAmount = 75
-        TheMarkInitial = 20 
-        TheMarkIncrease = 15
-        HookCounterInitial = 15
-        HookCounterIncrease = 10
-        VirusDamage = 15
-        VirusThreshold = 8
-        EnemyOneFireAttackValue = 10
-        FireIntervalThreshold = 4
-        ReduceInitialAmount = 15
-        ReduceIncreaseAmount = 10
+        EnemySlowAmount = 25
+        RotDamage = 1.5
+
     }
     if(SpeedMode == "Speedy") { // complete
         console.log("Standard Speed Activated")
         AllyOneAttackMeterHTML.max = 50 // 2 seconds
         EnemyOneAttackMeterHTML.max = 50 
         EnemySlowAmount = 25
-        TheMarkInitial = 10
-        TheMarkIncrease = 4
-        HookCounterInitial = 10
-        HookCounterIncrease = 4
-        VirusDamage = 25
-        VirusThreshold = 4
-        EnemyOneFireAttackValue = 15
-        FireIntervalThreshold = 2
-        ReduceInitialAmount = 10
-        ReduceIncreaseAmount = 5
+        RotDamage = 2
     }
         if(SpeedMode == "Swift") { // complete
         console.log("Standard Speed Activated")
         AllyOneAttackMeterHTML.max = 25 // 1 seconds
         EnemyOneAttackMeterHTML.max = 25
-        EnemySlowAmount = 25
-        TheMarkInitial = 5 
-        TheMarkIncrease = 2
-        HookCounterInitial = 5
-        HookCounterIncrease = 2
-        VirusDamage = 20 
-        VirusThreshold = 4
-        EnemyOneFireAttackValue = 20
-        FireIntervalThreshold = 2
-        ReduceInitialAmount = 10
-        ReduceIncreaseAmount = 5
+        EnemySlowAmount = 0
+        RotDamage = 2.5
     }
 }
 
@@ -399,7 +356,7 @@ function TheRotOne() {
 }
 function TheRotDamager() {
     if(AllyOneHealth.value != 0) {
-    AllyOneHealth.value -= 1}
+    AllyOneHealth.value -= RotDamage}
 }
 function AllyOneMoveEnacter() {
         if(AllyOne == "SlugCat") {

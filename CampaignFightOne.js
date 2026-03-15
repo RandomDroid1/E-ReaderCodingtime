@@ -283,6 +283,14 @@ function CampaignModeButton() {
     window.location.href = "CampaignBattleSelection.html"
 }
 
+function AnimationReset() {
+    document.getElementById("HeavenlyStrikeAnimationID").src = ""
+    document.getElementById("JudgementAnimationID").src = ""
+    document.getElementById("HealingPrayerAnimationID").src = ""
+    document.getElementById("DemonicStrikeAnimationID").src = ""
+    document.getElementById("DamningAnimationID").src = ""
+    document.getElementById("FireBlastAnimationID").src = ""
+}
 // ################################ // 
 // ################################ // 
 // ####### Ally ONE ATTACKS ####### // 
@@ -296,7 +304,11 @@ function HeavenlyStrikeOne() {
     AllyOneAttackType = "AttackEnemyOne"
     EnemyOneHealth.value -= AllyOneAttackValue
     document.getElementById("AllyOneAttackLog").innerText = "AngelCat used Heavenly Strike, drawing power from the Heavens to deal " + AllyOneAttackValue + " damage to DevilCat"
+    document.getElementById("HeavenlyStrikeAnimationID").src = "HeavenlyStrikeAnimation.png"
+
 }
+
+
 
 function JudgementOne() {
     AllyOneAttackType = "AttackEnemyOne"
@@ -304,6 +316,7 @@ function JudgementOne() {
     AllyOneAttackValue = Math.floor((AllyOneHealth.max-AllyOneHealth.value)*.25)
     EnemyOneHealth.value -= AllyOneAttackValue
     document.getElementById("AllyOneAttackLog").innerText = "AngelCat used Judgement, dealing " + AllyOneAttackValue + " damage to DevilCat"
+    document.getElementById("JudgementAnimationID").src = "JudgementAnimation.png"
 }
 
 function HealingPrayerOne() {
@@ -321,6 +334,7 @@ function HealingPrayerOne() {
     }
     AllyOneHealth.value += AllyOneAttackValue
     document.getElementById("AllyOneAttackLog").innerText = "AngelCat prayed for healing, and healed " + AllyOneAttackValue + " health!"
+    document.getElementById("HealingPrayerAnimationID").src = "HealingPrayerAnimation.png"
 }
 
 
@@ -414,6 +428,7 @@ function AllyOneAttackMeterUpdate() {
         setTimeout(AllyOneAttackMeterUpdate, 1000)
         if (AllyOneAttackMeterHTML.value <= 0) {
             AllyOneAttackMeterReset()
+
         }
     }
 }
@@ -452,6 +467,7 @@ function EnemyOneAttackMeterReset() {
     } else {
         EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max;
         EnemyOneAttackSelector()
+        
     }
     
 }
@@ -492,6 +508,7 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
 
 function EnemyOneAttackSelector() { // I would like to mention that I think breaking up the move system into different code chunks (the attack area and the attack selector which will both be called later) is a sign I've progressed as a coder since I would've put it all in one section earlier man
     if (EnemyOne == "DevilCat") { // 10 points, biased toward demonic strike, simple system. 1-5 = demonic strike, 6-8 = damning, 9-10 = Fire Blast
+        AnimationReset()
             EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
             if (EnemyOneAttackSelection <= 5) {
                 EnemyOneAttack = "DemonicStrike"
@@ -527,6 +544,8 @@ function DemonicStrikeOne() {
         EnemyOneAttackValue = Math.floor(Math.random() * (101 - 70) + 70);
         AllyOneHealth.value -= EnemyOneAttackValue
         document.getElementById("EnemyOneAttackLog").innerText = "Devilcat strikes AngelCat with the power of Hell itself, dealing " + EnemyOneAttackValue + " damage!"
+        document.getElementById("DemonicStrikeAnimationID").src = "DemonicStrikeAnimation.png"
+
     } 
 }
 
@@ -542,6 +561,8 @@ function DamningOne() {
         EnemyOneAttackValue = Math.floor((Math.random() * (75-25)+25) * (DamningCounter))
         AllyOneHealth.value -= EnemyOneAttackValue
         document.getElementById("EnemyOneAttackLog").innerText = "Devilcat uses Damning, and deals " + EnemyOneAttackValue + " damage to Angel Cat!"
+        document.getElementById("DamningAnimationID").src = "DamningAnimation.png"
+
     }
 }
 
@@ -554,6 +575,7 @@ function FireBlastOne() {
     document.getElementById("EnemyOneAttackLog").innerText = "Devilcat uses Fire Blast, and deals an initial " + EnemyOneAttackValue + "damage, plus fire damage!"
     FireIntervalVariable = setInterval(EnemyOneFireDamager, 1000)
     FireIntervalVariable
+    document.getElementById("FireBlastAnimationID").src = "FireBlastAnimation.png"
 }
 
 // ############################ //

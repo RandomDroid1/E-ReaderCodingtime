@@ -2208,6 +2208,7 @@ function EnemyOneFireDamager() {
         EnemyOneFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         document.getElementById("AllyTwoFireMarker").src = ""
+        clearInterval(FireIntervalVariable)
     }
 }
 
@@ -2223,6 +2224,7 @@ function EnemyTwoFireDamager() {
         EnemyTwoFireCounter = 0
         document.getElementById("AllyOneFireMarker").src = ""
         document.getElementById("AllyTwoFireMarker").src = ""
+        clearInterval(FireIntervalVariable)
     }
 }
 
