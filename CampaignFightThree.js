@@ -85,6 +85,9 @@ var EnemyOneFireAttackValue = 0
 var FireIntervalVariable = 0
 var FireThreshold = 0
 
+var CamoTimer = 0
+var Camouflaged = false
+var LizardTamed = "false"
 var EnemySlowAmount = 0 // How much to slow enemies by, such as in moves like hook. Adds directly to attack meter max
 var SpeedMode = "Slow";
 if (AllyOne == undefined) {
@@ -105,7 +108,7 @@ function SpeedSettings() {// I could probably do this with math but i dont wanna
         console.log("Snail Speed Activated")
         AllyOneAttackMeterHTML.max = 200 // 8 seconds
         EnemyOneAttackMeterHTML.max = 200 
-        EnemySlowAmount = 125
+        EnemySlowAmount = 100
         TheMarkInitial = 35
         TheMarkIncrease = 20
         HookCounterInitial = 15
@@ -121,7 +124,7 @@ function SpeedSettings() {// I could probably do this with math but i dont wanna
         console.log("Slow Speed Activated")
         AllyOneAttackMeterHTML.max = 150 // 6 seconds
         EnemyOneAttackMeterHTML.max = 150 
-        EnemySlowAmount = 100
+        EnemySlowAmount = 50
         TheMarkInitial = 30
         TheMarkIncrease = 20
         HookCounterInitial = 10
@@ -223,7 +226,6 @@ function StartButton() { // Starts the enemies attack when clicked
     console.log("GAME SPEED = " + SpeedMode)
     document.getElementById("AllyOneImage").src = AllyOne+".png"
     document.getElementById("EnemyOneImage").src = EnemyOne+".png"
-    AllyOneMoveList()
     TurnCaller()
     EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max
     AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
@@ -332,33 +334,73 @@ function CampaignModeButton() {
 // ################################ // 
 
 function SpearOne() {
-    AllyOneAttackValue = Math.floor(Math.random() * (5-1)+1)
+    if(Camouflaged == false) {
+        AllyOneAttackValue = 1
+    }
+    if(Camouflaged == true) {
+        AllyOneAttackValue = AllyOneAttackValue = Math.floor(Math.random() * (3-1)+1)
+    }
     if(AllyOneAttackValue == 1) {
-        document.getElementById("AllyOneAttackLog").innerText = "SlugCat used Spear, and missed!"
-    }
-    if(AllyOneAttackValue != 1) {
-        AllyOneAttackValue = Math.floor(Math.random()*(3-1)+1)
+        AllyOneAttackValue = AllyOneAttackValue = Math.floor(Math.random() * (3-1)+1)
+    
+        AllyOneAttackValue = Math.floor(Math.random() * (5-1)+1)
         if(AllyOneAttackValue == 1) {
-         AllyOneAttackValue = Math.floor(Math.random()*(101-1)+1)
+            document.getElementById("AllyOneAttackLog").innerText = "SlugCat used Spear, and missed!"
         }
-        else if(AllyOneAttackValue == 2) {
-            AllyOneAttackValue = Math.floor(Math.random()*(201-1)+1)
-        }
-        EnemyOneHealth.value -= AllyOneAttackValue
-        document.getElementById("AllyOneAttackLog").innerText = "SlugCat used Spear, and dealt " + AllyOneAttackValue + " damage to Lizard"
+        if(AllyOneAttackValue != 1) {
+            AllyOneAttackValue = Math.floor(Math.random()*(3-1)+1)
+            if(AllyOneAttackValue == 1) {
+            AllyOneAttackValue = Math.floor(Math.random()*(101-1)+1)
+            }
+            else if(AllyOneAttackValue == 2) {
+                AllyOneAttackValue = Math.floor(Math.random()*(201-1)+1)
+            }
+            EnemyOneHealth.value -= AllyOneAttackValue
+            document.getElementById("AllyOneAttackLog").innerText = "SlugCat used Spear, and dealt " + AllyOneAttackValue + " damage to Lizard"
+        }}
+    else if(AllyOneAttackValue == 2) {
+        document.getElementById("AllyOneAttackLog").innerText = "SlugCat missed due to Camouflauge!"
     }
 }
 
-function TameOne() { 
-    AllyOneAttackValue = Math.floor(Math.random()*(11-1)+1) 
-    if(AllyOneAttackValue == 1) { 
-
+function TameOne() {
+    if(Camouflaged == false) {
+        AllyOneAttackValue = 1
     }
+    if(Camouflaged == true) {
+        AllyOneAttackValue = AllyOneAttackValue = Math.floor(Math.random() * (3-1)+1)
+    }
+    if(AllyOneAttackValue == 1) {
+    AllyOneAttackValue = Math.floor(Math.random() * (11-1)+1)
     if(AllyOneAttackValue == 1) { 
-        document.getElementById("AllyOneAttackLog").innerText = "SlugCat tried to tame the Lizard. It did not work, and the Lizard healed 100 health"
+        document.getElementById("AllyOneAttackLog").innerText = "SlugCat tried to tame the Lizard. It worked??"
+        EnemyOneHealth.value = 0
+        LizardTamed = "true"
+        EnemyOneHealth.value = 500
+        AllyOneHealth.value = 500
+        AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max
+        EnemyOneAttackMeterHTML.value = EnemyOneAttackMeterHTML.max
+        AltEndingTextUpdate()
+    }
+    if(AllyOneAttackValue != 1) { 
+        document.getElementById("AllyOneAttackLog").innerText = "SlugCat tried to tame the Lizard. It did not work, and the Lizard healed 100 health!"
+        EnemyOneHealth.value += 100
+        document.getElementById("AttackTwoExplanation").innerText = "Tame: Attempt to tame the lizard by feeding it.\n I forgot to mention it healed the Lizard."
+    }}
+    else if(AllyOneAttackValue == 2) {
+        document.getElementById("AllyOneAttackLog").innerText = "SlugCat missed due to Camouflauge!"
     }
 }
 
+function TheRotOne() {
+    document.getElementById("AllyOneAttackLog").innerText = "SlugCat used The Rot, inflicting itself with permanent poison in order to heal itself for 300hp"
+    AllyOneHealth.value += 300
+    setInterval(TheRotDamager, 100)
+}
+function TheRotDamager() {
+    if(AllyOneHealth.value != 0) {
+    AllyOneHealth.value -= 1}
+}
 function AllyOneMoveEnacter() {
         if(AllyOne == "SlugCat") {
             if(AllyOneAttackSelected == "One") {
@@ -442,7 +484,7 @@ function TurnCaller() {
 
 function AllyOneAttackMeterUpdate() {
     VariableUpdater();
-    if (AllyOneHealth.value <= 0 || GameIsOver == "true") {
+    if (AllyOneHealth.value <= 0 || GameIsOver == "true" || LizardTamed == "true") {
        console.log("AllyOneMeterUpdateCancelled")
     } else {
         AllyOneAttackMeterHTML.value -= 25;
@@ -455,7 +497,7 @@ function AllyOneAttackMeterUpdate() {
 
 function AllyOneAttackMeterReset() {
     VariableUpdater();
-    if (AllyOneHealth.value <= 0 || GameIsOver == "true") {
+    if (AllyOneHealth.value <= 0 || GameIsOver == "true" || LizardTamed == "true") {
        console.log("AllyOneMeterResetCancelled")
     } else {
         AllyOneAttackMeterHTML.value = AllyOneAttackMeterHTML.max;
@@ -467,7 +509,7 @@ function AllyOneAttackMeterReset() {
 
 function EnemyOneAttackMeterUpdate() {
     VariableUpdater();
-    if (EnemyOneHealth.value <= 0 || GameIsOver == "true") {
+    if (EnemyOneHealth.value <= 0 || GameIsOver == "true" || LizardTamed == "true") {
        console.log(AllyOneHealth.value)
        console.log(EnemyOneHealth.value)
     } else {
@@ -481,7 +523,7 @@ function EnemyOneAttackMeterUpdate() {
 
 function EnemyOneAttackMeterReset() {
     VariableUpdater();
-    if (EnemyOneHealth.value <= 0 || GameIsOver == "true") {
+    if (EnemyOneHealth.value <= 0 || GameIsOver == "true" || LizardTamed == "true") {
        console.log(AllyOneHealth.value)
        console.log(EnemyOneHealth.value)
     } else {
@@ -492,32 +534,6 @@ function EnemyOneAttackMeterReset() {
 }
 
 
-
-// ################################ // 
-// ################################ // 
-// ####### ALLY MOVE LABELS ####### // 
-// ################################ // 
-// ################################ // 
-
-function AllyOneMoveList() { // This is going to take so long oh my god what is a better way?
-    
-    if(AllyOne == "AngelCat") {
-        AllyOneAttackOneText = "Spear"
-        AllyOneAttackTwoText = "Tame"
-        AllyOneAttackThreeText = "The Rot"
-        document.getElementById("AllyOneLabel").innerHTML = "SlugCat"
-        document.getElementById("AllyOneAttackOne").innerHTML = "Spear"
-        document.getElementById("AllyOneAttackTwo").innerHTML = "Tame"
-        document.getElementById("AllyOneAttackThree").innerHTML = "The Rot"
-        
-    }
-}
-
-
-
-
-
-
 // ###################################### //
 // ###################################### //
 // ####### ENEMY ONE MOVE HANDLER ####### //
@@ -526,21 +542,18 @@ function AllyOneMoveList() { // This is going to take so long oh my god what is 
 
 
 function EnemyOneAttackSelector() { // I would like to mention that I think breaking up the move system into different code chunks (the attack area and the attack selector which will both be called later) is a sign I've progressed as a coder since I would've put it all in one section earlier man
-    if (EnemyOne == "DevilCat") { // 10 points, biased toward demonic strike, simple system. 1-5 = demonic strike, 6-8 = damning, 9-10 = Fire Blast
-            EnemyOneAttackSelection = Math.floor(Math.random() * (11-1) + 1)
+    if (EnemyOne == "Lizard") { 
+            EnemyOneAttackSelection = Math.floor(Math.random()* (11-1)+1)
             if (EnemyOneAttackSelection <= 5) {
-                EnemyOneAttack = "DemonicStrike"
-                DemonicStrikeOne()
-                EnemyOneAttackType = "Damage"
+                BiteOne()
             }
-            if (EnemyOneAttackSelection <= 8 && EnemyOneAttackSelection >= 6) {
-                EnemyOneAttack = "Damning"
-                DamningOne()
+            if (EnemyOneAttackSelection <= 7 && EnemyOneAttackSelection >= 6) {
+                
+                LungeOne()
             }
-            if (EnemyOneAttackSelection >= 9) {
-                console.log("FirBlastSelected")
-                EnemyOneAttack = "FireBlast"
-                FireBlastOne()
+            if (EnemyOneAttackSelection >= 8) {
+
+                CamouflageOne()
             }
         }
     }
@@ -553,18 +566,38 @@ function EnemyOneAttackSelector() { // I would like to mention that I think brea
 // ################################# //
 
 
-function DemonicStrikeOne() {
+function BiteOne() {
     VariableUpdater()
-    if (EnemyOneHealth.value <= 0 || AllyOneHealth.value <= 0) {
-
-    } else {
-        EnemyOneAttackNumber += 1;
-        EnemyOneAttackValue = Math.floor(Math.random() * (101 - 70) + 70);
-        AllyOneHealth.value -= EnemyOneAttackValue
-        document.getElementById("EnemyOneAttackLog").innerText = "Devilcat strikes AngelCat with the power of Hell itself, dealing " + EnemyOneAttackValue + " damage!"
-    } 
+        document.getElementById("EnemyOneAttackLog").innerText = "Lizard bites SlugCat, dealing 100 damage!"
+        AllyOneHealth.value -= 100
 }
 
+function CamouflageOne() {
+    Camouflaged = true
+    CamoTimer = AllyOneAttackMeterHTML.max*2*20
+    console.log(CamoTimer)
+    setTimeout(Decamo, CamoTimer)
+    document.getElementById("EnemyOneAttackLog").innerText = "Lizard camouflaged"
+    document.getElementById("EnemyOneImage").style.opacity = ".5"
+}
+
+function Decamo() {
+    console.log("Decamo ran")
+    document.getElementById("EnemyOneImage").style.opacity = "1"
+    Camouflaged = false
+}
+function LungeOne() {
+    CamoTimer = AllyOneAttackMeterHTML.max*3*20*2
+    EnemyOneAttackValue = Math.floor(Math.random() * (51-10)+10)
+    AllyOneHealth.value -= EnemyOneAttackValue
+    EnemyOneAttackMeterHTML.max -= EnemySlowAmount
+    document.getElementById("EnemyOneAttackLog").innerText = "Lizard used Lunge, dealing " + EnemyOneAttackValue + " and speeding itself up!"
+    setTimeout(LungeCancel, CamoTimer)
+}
+function LungeCancel() {
+    console.log("LungeCanceled")
+    EnemyOneAttackMeterHTML.max = AllyOneAttackMeterHTML.max
+}
 
 // ############################ //
 // ############################ //
@@ -608,4 +641,36 @@ function SwiftModeToggle() {
     ButtonVisualReset()
     SpeedMode = "Swift"
     document.getElementById("SwiftModeButton").style.borderWidth = "3px"
+}
+
+// ########################## // 
+// ########################## //
+// ####### ALT ENDING ####### //
+// ########################## //
+// ########################## //
+
+function AltEndingTextUpdate() {
+    ColorFlash()
+    document.getElementById("ColorDivHTML").innerText = "If I had enough time, this would've gone to an extra boss fight where you and Lizard fight a Slightly Larger Lizard, but If you are seeing this there was not enough time, sorry lol"
+    BaseGameOver()
+}
+
+function ColorFlash() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(252, 246, 171);")
+    setTimeout(ColorFlash1, 100)
+}
+function ColorFlash1() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(255, 223, 120)171);")
+    setTimeout(ColorFlash2, 100)
+}
+function ColorFlash2() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(219, 166, 123);")
+    setTimeout(ColorFlash3, 100)
+}
+function ColorFlash3() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(252, 224, 146);")
+    setTimeout(ColorFlash4, 100)
+}
+function ColorFlash4() {
+    document.getElementById("ColorDivHTML").setAttribute("style", "background-color: rgb(236, 233, 184);")
 }
